@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
+import { toast } from "react-toastify"
 
 export const SeatView = ({ seat }) => {
   const [teacher, setTeacher] = useState({
@@ -33,6 +34,7 @@ export const SeatView = ({ seat }) => {
   const submitOrder = () => {
     console.log(items)
     setItems([allItems[0]])
+    toast.success("Order submitted!")
   }
 
   return <Modal.Body>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Accordion, Button, ButtonGroup, Modal } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { SeatView } from "../components/SeatView";
 
 function Waiter() {
   const tables = [
@@ -41,7 +42,7 @@ function Waiter() {
         <Modal.Header closeButton>
           <Modal.Title>Table {tables.filter(t => t.id === currentSeat.attributes.table)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <SeatView seat={currentSeat} />
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

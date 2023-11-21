@@ -6,10 +6,12 @@ import { useState } from 'react';
 import { RouterProvider } from 'react-router';
 import { createBrowserRouter } from 'react-router-dom';
 import Waiter from './pages/Waiter';
+import Kitchen from './pages/Kitchen';
 
 function App() {
   const router = createBrowserRouter([
     { path: "/waiters", element: <Waiter /> },
+    {path: "/Kitchen", element: <Kitchen />}
   ]);
 
   return (

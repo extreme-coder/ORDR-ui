@@ -14,53 +14,45 @@ function Waiter() {
     { id: 4, attributes: { number: 4, table: 2 } },
   ]
 
-  //set state variable show to false for all seats
-  let tempshow = []
-  seats.forEach(seat => tempshow[seat.id] = false)
-  const [show, setShow] = useState(tempshow);
-  console.log(show)
+  const [show, setShow] = useState(false);
+  const [currentSeat, setCurrentSeat] = useState(seats[0]);
 
-  const handleClose = (id) => {
-    show[id] = false
-    setShow(show)
-  };
-  const handleShow = (id) => {
-    show[id] = true
-    setShow(show)
-  };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div>
+      {/*Table views*/}
       <Accordion>
         {tables.map(table => <Accordion.Item eventKey={table.id}>
           <Accordion.Header>Table {table.attributes.number}</Accordion.Header>
           <Accordion.Body>
             <ButtonGroup>
-              {seats.filter(seat => seat.attributes.table === table.attributes.number).map(seat => <button type="button" class="btn btn-outline-primary" dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(seat.id); console.log(show) }}>
+              {seats.filter(seat => seat.attributes.table === table.attributes.number).map(seat => <button type="button" class="btn btn-outline-primary" dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow();  setCurrentSeat(seat)}}>
                 Seat {seat.attributes.number}
               </button>)}
             </ButtonGroup>
           </Accordion.Body>
         </Accordion.Item>)}
       </Accordion>
-      {seats.map(seat => <SeatPopup show={show[seat.id]} handleClose={() => { handleClose(seat.id) }} />)}
+
+      {/*Modal*/}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Table {tables.filter(t => t.id === currentSeat.attributes.table)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
-
-const SeatPopup = (show, handleClose) => <Modal show={show} onHide={handleClose}>
-  <Modal.Header closeButton>
-    <Modal.Title>Modal heading</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-  <Modal.Footer>
-    <Button variant="secondary" onClick={handleClose}>
-      Close
-    </Button>
-    <Button variant="primary" onClick={handleClose}>
-      Save Changes
-    </Button>
-  </Modal.Footer>
-</Modal>
 
 export default Waiter;

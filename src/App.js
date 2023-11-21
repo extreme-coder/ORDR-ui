@@ -10,6 +10,11 @@ import Kitchen from './pages/Kitchen';
 
 function App() {
   const router = createBrowserRouter([
+    {
+      path: "/", element:
+        <div>
+          <a href="/waiters">Waiter Page</a>>
+        </div> },
     { path: "/waiters", element: <Waiter /> },
     {path: "/Kitchen", element: <Kitchen />}
   ]);

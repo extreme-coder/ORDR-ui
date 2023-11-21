@@ -11,8 +11,8 @@ function Waiter() {
   const seats = [
     { id: 1, attributes: { number: 1, table: 1 } },
     { id: 2, attributes: { number: 2, table: 1 } },
-    { id: 3, attributes: { number: 3, table: 2 } },
-    { id: 4, attributes: { number: 4, table: 2 } },
+    { id: 3, attributes: { number: 1, table: 2 } },
+    { id: 4, attributes: { number: 2, table: 2 } },
   ]
 
   const [show, setShow] = useState(false);

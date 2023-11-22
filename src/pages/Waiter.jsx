@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { Accordion, Button, ButtonGroup, Modal } from "react-bootstrap";
+import { Accordion, Button, ButtonGroup, Modal, Table } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SeatView } from "../components/SeatView";
 
 function Waiter() {
+  const Regtangle = {
+    display: "inlineBlock",
+    width: "600px",
+    height: "200px",
+    background: "grey"
+  }
   const tables = [
     { id: 1, attributes: { number: 1, seats: [1, 2] } },
     { id: 2, attributes: { number: 2, seats: [3, 4] } },
@@ -28,15 +34,18 @@ function Waiter() {
         {tables.map(table => <Accordion.Item eventKey={table.id}>
           <Accordion.Header>Table {table.attributes.number}</Accordion.Header>
           <Accordion.Body>
-            <ButtonGroup>
+          <div className="vstack">
+            <div className="hstack gap-5">
               {seats.filter(seat => seat.attributes.table === table.attributes.number).map(seat => <button type="button" class="btn btn-outline-primary" dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow();  setCurrentSeat(seat)}}>
                 Seat {seat.attributes.number}
               </button>)}
-            </ButtonGroup>
+            </div>
+            <div style={Regtangle}></div>
+            </div>
           </Accordion.Body>
         </Accordion.Item>)}
       </Accordion>
-
+          
       {/*Modal*/}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

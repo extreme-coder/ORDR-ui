@@ -32,35 +32,35 @@ const Kitchen = () => {
           <Accordion.Header>
             <div>
               <h5 style={{ display: 'inline-block', marginRight: '5px' }}>#</h5>
-              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '15vw' }}>
+              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
                 {order.id}
               </p>
             </div>
             <div>
               <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Table: </h5>
-              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '15vw' }}>
+              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
                 {order.attributes.table}
               </p>
             </div>
             <div>
               <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Seat: </h5>
-              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '15vw' }}>
+              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
                 {order.attributes.seat}
               </p>
             </div>
             <div>
               <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Teacher:</h5>
-              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '15vw' }}>
+              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
                 {order.attributes.teacher.name}
               </p>
             </div>
             <ButtonGroup styles={buttonLeft}>
               {order.attributes.status === "UNFINISHED" && <>
-                <Button onClick={() => handleStatus(order.id, "PREPARED")}>Cooked</Button>
+                <button type="button" class="btn btn-outline-primary" onClick={() => handleStatus(order.id, "PREPARED")}>Cooked</button>
               </>}
               {order.attributes.status === "PREPARED" && <>
-                <Button onClick={() => handleStatus(order.id, "UNFINISHED")}>Uncooked</Button>
-                <Button onClick={() => handleStatus(order.id, "SERVED")}>Served</Button>
+                <button type="button" class="btn btn-secondary "nClick={() => handleStatus(order.id, "UNFINISHED")}>Undo Cook</button>
+                <button type="button" class="btn btn-outline-success" onClick={() => handleStatus(order.id, "SERVED")}>Served</button>
               </>}
             </ButtonGroup>
           </Accordion.Header>
@@ -70,7 +70,16 @@ const Kitchen = () => {
                 {order.attributes.items.map(item =>
                   <tr>
                     <td>{item.attributes.name}</td>
+                    <td>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Mark
+                      </label>
+                    </div>
+                    </td>
                   </tr>
+                  
                 )}
               </tbody>
             </table>

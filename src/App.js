@@ -8,15 +8,16 @@ import { createBrowserRouter } from 'react-router-dom';
 import Waiter from './pages/Waiter';
 import Kitchen from './pages/Kitchen';
 
+
 function App() {
   const router = createBrowserRouter([
     {
       path: "/", element:
         <div>
-          <a href="/waiters">Waiter Page</a>>
+          <a href="/waiters">Waiter Page</a>
         </div> },
     { path: "/waiters", element: <Waiter /> },
-    {path: "/Kitchen", element: <Kitchen />}
+    {path: "/Kitchen", element: <Kitchen />},
   ]);
 
   return (

@@ -16,11 +16,6 @@ function App() {
       path: "/", element:
         <div>
           <a href="/waiters">Waiter Page</a>
-<<<<<<< Updated upstream
-        </div> },
-    { path: "/waiters", element: <Waiter /> },
-    {path: "/Kitchen", element: <Kitchen />},
-=======
           <br />
           <a href="/preorder">Preorder Page</a>
           <br />
@@ -29,7 +24,6 @@ function App() {
     { path: "/waiters", element: <Waiter /> },
     { path: "/preorder", element: <Preorder /> },
     {path: "/Kitchen", element: <Kitchen />}
->>>>>>> Stashed changes
   ]);
 
   return (

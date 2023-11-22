@@ -7,6 +7,7 @@ import { RouterProvider } from 'react-router';
 import { createBrowserRouter } from 'react-router-dom';
 import Waiter from './pages/Waiter';
 import Kitchen from './pages/Kitchen';
+import { Preorder } from './pages/Preorder';
 
 
 function App() {
@@ -15,9 +16,20 @@ function App() {
       path: "/", element:
         <div>
           <a href="/waiters">Waiter Page</a>
+<<<<<<< Updated upstream
         </div> },
     { path: "/waiters", element: <Waiter /> },
     {path: "/Kitchen", element: <Kitchen />},
+=======
+          <br />
+          <a href="/preorder">Preorder Page</a>
+          <br />
+          <a href="/Kitchen">Kitchen Page</a>
+        </div> },
+    { path: "/waiters", element: <Waiter /> },
+    { path: "/preorder", element: <Preorder /> },
+    {path: "/Kitchen", element: <Kitchen />}
+>>>>>>> Stashed changes
   ]);
 
   return (

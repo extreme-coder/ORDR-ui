@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { appwizApi } from './services/lastmeal'
+import { lastmealApi } from './services/lastmeal'
 import { rtkQueryErrorLogger } from './middlewares/error'
 import reducers from './redux/reducers';
 import rootSaga from './redux/sagas';
@@ -31,13 +31,13 @@ const reHydrateStore = () => { // <-- FOCUS HERE
 export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
-    [appwizApi.reducerPath]: appwizApi.reducer,
+    [lastmealApi.reducerPath]: lastmealApi.reducer,
     theme: reducers
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([appwizApi.middleware, rtkQueryErrorLogger, sagaMiddleware, localStorageMiddleware]),
+    getDefaultMiddleware().concat([lastmealApi.middleware, rtkQueryErrorLogger, sagaMiddleware, localStorageMiddleware]),
 
   preloadedState: reHydrateStore()
 })

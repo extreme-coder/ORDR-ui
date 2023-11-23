@@ -1,0 +1,6 @@
+<div style={Regtangle}></div>
+            <ButtonGroup>
+              {seats.filter(seat => seat.attributes.table === table.attributes.number).map(seat => <button type="button" class="btn btn-outline-primary" dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow();  setCurrentSeat(seat)}}>
+                Seat {seat.attributes.number}
+              </button>)}
+            </ButtonGroup>

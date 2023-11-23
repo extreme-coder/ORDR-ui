@@ -1,26 +1,25 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import { useAddEntityMutation, useGetEntitiesQuery } from "../services/lastmeal"
 
 export const Preorder = () => {
   const [order, setOrder] = useState({ name: "", mods: "", status: "UNFINISHED", items: [] })
-  const allItems = [
-    { id: 1, attributes: { name: "Pancakes", type: "FOOD" } },
-    { id: 2, attributes: { name: "Burger", type: "FOOD" } },
-    { id: 3, attributes: { name: "Coke", type: "DRINK" } },
-    { id: 4, attributes: { name: "Sprite", type: "DRINK" } },
-    { id: 5, attributes: { name: "Water", type: "DRINK" } },
-    { id: 6, attributes: { name: "Coffee", type: "DRINK" } },
-  ]
+  const { data: allItems } = useGetEntitiesQuery({ name: "item", populate: true });
 
+  useEffect(()=> {
+    console.log(allItems);
+  },[allItems])
   const addItem = () => {
-    setOrder({ ...order, items: [...order.items, allItems[0]] })
+    setOrder({ ...order, items: [...order.items, allItems.data[0]] })
   }
+
+  const [addEntity] = useAddEntityMutation();
 
   const submitOrder = () => {
     console.log(order)
-    toast.success("Order submitted!")
+    addEntity({name: "order", body: {data: order}})
     navigate("/confirmation")
   }
 
@@ -29,6 +28,7 @@ export const Preorder = () => {
   }
 
   const navigate = useNavigate()
+
 
   return <div>
     <h1>Preorder</h1>
@@ -41,8 +41,8 @@ export const Preorder = () => {
     <Form.Label>Items:</Form.Label>
     <ul>
       {order.items.map(item => <p>
-        <Form.Select value={item.id} onChange={(e) => { setOrder({ ...order, items: order.items.map((i, index) => (index === order.items.indexOf(item) ? allItems[e.target.value - 1] : i)) }) }}>
-          {allItems.map((allItem, i) => <option value={allItem.id}>{allItem.attributes.name}</option>)}
+        <Form.Select value={item.id} onChange={(e) => { setOrder({ ...order, items: order.items.map((i, index) => (index === order.items.indexOf(item) ? allItems.data[e.target.value - 1] : i)) }) }}>
+          {allItems.data.map((allItem, i) => <option value={allItem.id}>{allItem.attributes.name}</option>)}
         </Form.Select>
         <Button variant="danger" onClick={() => removeItem(order.items.indexOf(item))}>Remove Item</Button>
       </p>)}

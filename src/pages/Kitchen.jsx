@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Accordion } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { ButtonGroup } from "react-bootstrap";
+import { useGetEntitiesQuery } from "../services/lastmeal";
 
 const Kitchen = () => {
   const buttonLeft = {
@@ -10,25 +11,38 @@ const Kitchen = () => {
     display: 'flex',
     justifyContent: 'flex-end'
   }
-  const [orders, setOrders] = useState([
+
+  const { data: orders } = useGetEntitiesQuery({ name: "order", populate: true });
+
+  /*const [orders, setOrders] = useState([
     { id: 1, attributes: { table: 1, seat: 1, teacher: { id: 1, name: 'Ms Smith' }, items: [{ id: 1, attributes: { name: 'Pancakes' } }, { id: 3, attributes: { name: 'Ommlettes' } }], status: "UNFINISHED", mods: '-' } },
     { id: 2, attributes: { table: 1, seat: 2, teacher: { id: 2, name: 'Mr Sok' }, items: [{ id: 1, attributes: { name: 'Pancakes' } }], status: "PREPARED", mods: '-' }, },
-  ])
+  ])*/
+
+  useEffect(()=> {
+    if(orders){
+      console.log(orders);
+    }
+  },[orders])
 
   const handleStatus = (id, status) => {
+    console.log(orders)
+  }
+  /*const handleStatus = (id, status) => {
     setOrders(orders.map(order => {
       if (order.id === id) {
         return { ...order, attributes: { ...order.attributes, status: status } }
       }
       return order
     }))
-  }
+  }*/
 
   return (
     <div>
       <Accordion>
-        {/*orders into accordian headers*/}
-        {orders.map(order => <Accordion.Item eventKey={order.id}>
+        {/*turns orders into accordian headers*/}
+        {orders && orders.data.map(order => <Accordion.Item eventKey={order.id}>
+          {console.log(order)}
           <Accordion.Header>
             <div>
               <h5 style={{ display: 'inline-block', marginRight: '5px' }}>#</h5>
@@ -39,7 +53,7 @@ const Kitchen = () => {
             <div>
               <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Table: </h5>
               <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
-                {order.attributes.table}
+                {order.attributes.teacher.data.attributes.table}
               </p>
             </div>
             <div>
@@ -56,7 +70,7 @@ const Kitchen = () => {
             </div>
             <ButtonGroup styles={buttonLeft}>
               {order.attributes.status === "UNFINISHED" && <>
-                <button type="button" class="btn btn-outline-primary" onClick={() => handleStatus(order.id, "PREPARED")}>Cooked</button>
+                <button type="button" class="btn btn-outline-primary" onClick={() => /</>handleStatus(order.id, "PREPARED")}>Cooked</button>
               </>}
               {order.attributes.status === "PREPARED" && <>
                 <button type="button" class="btn btn-secondary "nClick={() => handleStatus(order.id, "UNFINISHED")}>Undo Cook</button>
@@ -67,9 +81,9 @@ const Kitchen = () => {
           <Accordion.Body>
             <table class="table">
               <tbody>
-                {order.attributes.items.map(item =>
+                {order.attributes.items.data.map(item =>
                   <tr>
-                    <td>{item.attributes.name}</td>
+                    <td>{item.attributes.name.toString()}</td>
                     <td>
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>

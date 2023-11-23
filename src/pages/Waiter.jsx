@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Accordion, Button, ButtonGroup, Modal, Table } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SeatView } from "../components/SeatView";
+import { useGetEntitiesQuery } from "../services/lastmeal";
 
 function Waiter() {
   const Regtangle = {
@@ -10,19 +11,19 @@ function Waiter() {
     height: "200px",
     background: "grey"
   }
-  const tables = [
-    { id: 1, attributes: { number: 1, seats: [1, 2] } },
-    { id: 2, attributes: { number: 2, seats: [3, 4] } },
-  ]
-  const seats = [
-    { id: 1, attributes: { number: 1, table: 1 } },
-    { id: 2, attributes: { number: 2, table: 1 } },
-    { id: 3, attributes: { number: 1, table: 2 } },
-    { id: 4, attributes: { number: 2, table: 2 } },
-  ]
+  const { data: tables } = useGetEntitiesQuery({ name: "table", populate: true });
+
+  const { data: seats } = useGetEntitiesQuery({ name: "seat", populate: true });
 
   const [show, setShow] = useState(false);
-  const [currentSeat, setCurrentSeat] = useState(seats[0]);
+  const [currentSeat, setCurrentSeat] = useState({});
+
+  useEffect(() => {
+    if (seats) {
+      console.log(seats.data[0])
+      setCurrentSeat(seats.data[0])
+    }
+  }, [seats])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -31,25 +32,25 @@ function Waiter() {
     <div>
       {/*Table views*/}
       <Accordion>
-        {tables.map(table => <Accordion.Item eventKey={table.id}>
+        {tables && tables.data.map(table => <Accordion.Item eventKey={table.id}>
           <Accordion.Header>Table {table.attributes.number}</Accordion.Header>
           <Accordion.Body>
-          <div className="vstack">
-            <div className="hstack gap-5">
-              {seats.filter(seat => seat.attributes.table === table.attributes.number).map(seat => <button type="button" class="btn btn-outline-primary" dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow();  setCurrentSeat(seat)}}>
-                Seat {seat.attributes.number}
-              </button>)}
-            </div>
-            <div style={Regtangle}></div>
+            <div className="vstack">
+              <div className="hstack gap-5">
+                {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).map(seat => <button type="button" class="btn btn-outline-primary" dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                  Seat {seat && seat.attributes.number}
+                </button>)}
+              </div>
+              <div style={Regtangle}></div>
             </div>
           </Accordion.Body>
         </Accordion.Item>)}
       </Accordion>
-          
+
       {/*Modal*/}
-      <Modal show={show} onHide={handleClose}>
+      {tables && seats && currentSeat.attributes && <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Table {tables.filter(t => t.id === currentSeat.attributes.table)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
+          <Modal.Title>Table {tables.data.filter(t => t.id === currentSeat.attributes.table.data.id)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
         </Modal.Header>
         <SeatView seat={currentSeat} />
         <Modal.Footer>
@@ -57,7 +58,7 @@ function Waiter() {
             Close
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal>}
     </div>
   );
 }

@@ -56,13 +56,13 @@ function Waiter() {
               <Col>
               <div className="vstack" style={containerStyle}>
                 <div className="hstack gap-5">
-                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).filter(seat => seat.attributes.number <= 6 && seat.attributes.number>0).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0,6).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
                     Seat {seat && seat.attributes.number}
                   </button>)}
                 </div>
                 <div style={Regtangle}></div>
                 <div className="hstack gap-5">
-                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).filter(seat => seat.attributes.number > 6).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(6,12).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
                     Seat {seat && seat.attributes.number}
                   </button>)}
                 </div>

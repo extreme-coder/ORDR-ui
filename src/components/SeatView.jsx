@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
 import { toast } from "react-toastify"
-import { useAddEntityMutation, useGetEntitiesByFieldQuery, useGetEntitiesQuery, useGetEntityQuery } from "../services/lastmeal"
+import { useAddEntityMutation, useGetEntitiesByFieldQuery, useGetEntitiesQuery, useGetEntityQuery, useUpdateEntityMutation } from "../services/lastmeal"
 
 export const SeatView = ({ seat }) => {
   const { data: teacher } = useGetEntityQuery({ name: "teacher", id: seat.attributes.teacher.data.id })
@@ -13,6 +13,7 @@ export const SeatView = ({ seat }) => {
   const [items, setItems] = useState([])
 
   const [addEntity] = useAddEntityMutation();
+  const [updateEntity] = useUpdateEntityMutation();
 
   const [submitted, setSubmitted] = useState(false)
 
@@ -23,6 +24,11 @@ export const SeatView = ({ seat }) => {
 
   const removeItem = (id) => {
     setItems(items.filter(item => item.id !== id))
+  }
+
+  const leaveTeacher = () => {
+    updateEntity({ name: "teacher", id: teacher.data.id, body: { data: { teacher_status: "LEFT" } } })
+    updateEntity({ name: "seat", id: seat.id, body: { data: { teacher: null } } })
   }
 
   const submitOrder = () => {
@@ -49,6 +55,8 @@ export const SeatView = ({ seat }) => {
       <h4>{teacher.data.attributes.name}</h4>
       <h5>Status: {teacher.data.attributes.teacher_status}</h5>
       {teacher.data.attributes.teacher_status === "ARRIVED" && <>
+        {/*mark as left button*/}
+        <Button variant="danger" onClick={leaveTeacher}>Mark as Left</Button>
         <h5>{orders.data.filter(o => o.attributes.status !== "SERVED").length} orders in progress</h5>
         <h5>{orders.data.filter(o => o.attributes.status === "SERVED").length} orders completed</h5>
         {!submitted && <> <h5>Create New Order:</h5>

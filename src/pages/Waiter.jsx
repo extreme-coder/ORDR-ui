@@ -3,6 +3,7 @@ import { Accordion, Button, ButtonGroup, Modal, Table } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SeatView } from "../components/SeatView";
 import { useGetEntitiesQuery } from "../services/lastmeal";
+import { EmptySeat } from "../components/EmptySeat";
 
 function Waiter() {
   const Regtangle = {
@@ -54,7 +55,7 @@ function Waiter() {
         </Modal.Header>
         {currentSeat.attributes.teacher.data && <SeatView seat={currentSeat} />}
         {!currentSeat.attributes.teacher.data && <Modal.Body>
-          <p>Seat is empty.</p>
+          <EmptySeat seat={currentSeat} />
         </Modal.Body>}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

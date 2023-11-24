@@ -49,7 +49,7 @@ function Waiter() {
     <div>
       {/*Table views*/}
       <Accordion>
-        {tables && tables.data.map(table => <Accordion.Item class="collapse show" eventKey={table.id}>
+        {tables && tables.data.map(table => <Accordion.Item class="collapse show" id="accordionPanelsStayOpenExample" eventKey={table.id}>
           <Accordion.Header>Table {table.attributes.number}</Accordion.Header>
           <Accordion.Body>
           <Container>

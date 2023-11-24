@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Accordion, Button, ButtonGroup, Modal, Table } from "react-bootstrap";
+import { Accordion, Button, ButtonGroup, Col, Container, Modal, Row, Table } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SeatView } from "../components/SeatView";
 import { useGetEntitiesQuery } from "../services/lastmeal";
@@ -10,14 +10,26 @@ function Waiter() {
     display: "inlineBlock",
     width: "600px",
     height: "200px",
-    background: "grey"
+    background: "steelblue"
   }
+  const squareButtonStyle = {
+    width: '60px',
+    height: '60px'
+  };
+  const containerStyle = {
+    width: '600px',
+  };
+  const buttonGroupStyle = {
+    marginTop:'70px'
+  };
   const { data: tables } = useGetEntitiesQuery({ name: "table", populate: true });
 
   const { data: seats } = useGetEntitiesQuery({ name: "seat", populate: true });
 
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
+  
+
 
   useEffect(() => {
     if (seats) {
@@ -36,17 +48,35 @@ function Waiter() {
     <div>
       {/*Table views*/}
       <Accordion>
-        {tables && tables.data.map(table => <Accordion.Item eventKey={table.id}>
+        {tables && tables.data.map(table => <Accordion.Item className="" eventKey={table.id}>
           <Accordion.Header>Table {table.attributes.number}</Accordion.Header>
           <Accordion.Body>
-            <div className="vstack">
-              <div className="hstack gap-5">
-                {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).map(seat => <button type="button" class="btn btn-outline-primary" dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
-                  Seat {seat && seat.attributes.number}
-                </button>)}
+          <Container>
+            <Row>
+              <Col>
+              <div className="vstack" style={containerStyle}>
+                <div className="hstack gap-5">
+                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).filter(seat => seat.attributes.number <= 6 && seat.attributes.number>0).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                    Seat {seat && seat.attributes.number}
+                  </button>)}
+                </div>
+                <div style={Regtangle}></div>
+                <div className="hstack gap-5">
+                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).filter(seat => seat.attributes.number > 6).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                    Seat {seat && seat.attributes.number}
+                  </button>)}
+                </div>
               </div>
-              <div style={Regtangle}></div>
-            </div>
+              </Col>
+              <Col>
+              <div class="btn-group-vertical" style={buttonGroupStyle}>
+                {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).filter(seat => seat.attributes.number === 0).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                    Extra
+                  </button>)}
+              </div>
+              </Col> 
+            </Row>
+           </Container>
           </Accordion.Body>
         </Accordion.Item>)}
       </Accordion>

@@ -4,14 +4,9 @@ import { Accordion } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { ButtonGroup } from "react-bootstrap";
 import { useGetEntitiesQuery } from "../services/lastmeal";
+import { Ticket } from "../components/Ticket";
 
 const Kitchen = () => {
-  const buttonLeft = {
-    flex: '0 0 50%',
-    display: 'flex',
-    justifyContent: 'flex-end'
-  }
-
   const { data: orders } = useGetEntitiesQuery({ name: "order", populate: true });
 
   /*const [orders, setOrders] = useState([
@@ -25,9 +20,6 @@ const Kitchen = () => {
     }
   },[orders])
 
-  const handleStatus = (id, status) => {
-    console.log(orders)
-  }
   /*const handleStatus = (id, status) => {
     setOrders(orders.map(order => {
       if (order.id === id) {
@@ -41,64 +33,7 @@ const Kitchen = () => {
     <div>
       <Accordion>
         {/*turns orders into accordian headers*/}
-        {orders && orders.data.map(order => <Accordion.Item eventKey={order.id}>
-          {console.log(order)}
-          <Accordion.Header>
-            <div>
-              <h5 style={{ display: 'inline-block', marginRight: '5px' }}>#</h5>
-              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
-                {order.id}
-              </p>
-            </div>
-            <div>
-              <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Table: </h5>
-              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
-                {order.attributes.teacher.data.attributes.table}
-              </p>
-            </div>
-            <div>
-              <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Seat: </h5>
-              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
-                {order.attributes.seat}
-              </p>
-            </div>
-            <div>
-              <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Teacher:</h5>
-              <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
-                {order.attributes.teacher.name}
-              </p>
-            </div>
-            <ButtonGroup styles={buttonLeft}>
-              {order.attributes.status === "UNFINISHED" && <>
-                <button type="button" class="btn btn-outline-primary" onClick={() => /</>handleStatus(order.id, "PREPARED")}>Cooked</button>
-              </>}
-              {order.attributes.status === "PREPARED" && <>
-                <button type="button" class="btn btn-secondary "nClick={() => handleStatus(order.id, "UNFINISHED")}>Undo Cook</button>
-                <button type="button" class="btn btn-outline-success" onClick={() => handleStatus(order.id, "SERVED")}>Served</button>
-              </>}
-            </ButtonGroup>
-          </Accordion.Header>
-          <Accordion.Body>
-            <table class="table">
-              <tbody>
-                {order.attributes.items.data.map(item =>
-                  <tr>
-                    <td>{item.attributes.name.toString()}</td>
-                    <td>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
-                      <label class="form-check-label" for="flexCheckDefault">
-                        Mark
-                      </label>
-                    </div>
-                    </td>
-                  </tr>
-                  
-                )}
-              </tbody>
-            </table>
-          </Accordion.Body>
-        </Accordion.Item>)}
+        {orders && orders.data.map(order => <Ticket order={order} />)}
       </Accordion>
     </div>
   );

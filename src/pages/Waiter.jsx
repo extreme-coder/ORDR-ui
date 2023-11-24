@@ -43,13 +43,15 @@ function Waiter() {
     setShow(false)
     window.location.reload()
   };
+  
+  const [activeItems, setActiveItems] = useState([]);
   const handleShow = () => setShow(true);
-
+  const defaultActiveItems = tables && tables.data.map(table => table.id)
   return (
     <div>
       {/*Table views*/}
-      <Accordion>
-        {tables && tables.data.map(table => <Accordion.Item class="collapse show" id="accordionPanelsStayOpenExample" eventKey={table.id}>
+      <Accordion activeKey={activeItems.length ? activeItems : defaultActiveItems}>
+        {tables && tables.data.map(table => <Accordion.Item eventKey={table.id}>
           <Accordion.Header>Table {table.attributes.number}</Accordion.Header>
           <Accordion.Body>
           <Container>

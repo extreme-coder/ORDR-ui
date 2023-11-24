@@ -33,7 +33,7 @@ const Kitchen = () => {
     <div>
       <Accordion>
         {/*turns orders into accordian headers*/}
-        {orders && orders.data.map(order => <Ticket order={order} />)}
+        {orders && orders.data.filter(o=>o.attributes.status !== "SERVED").map(order => <Ticket order={order} />)}
       </Accordion>
     </div>
   );

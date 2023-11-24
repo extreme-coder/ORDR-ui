@@ -52,7 +52,10 @@ function Waiter() {
         <Modal.Header closeButton>
           <Modal.Title>Table {tables.data.filter(t => t.id === currentSeat.attributes.table.data.id)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
         </Modal.Header>
-        <SeatView seat={currentSeat} />
+        {currentSeat.attributes.teacher.data && <SeatView seat={currentSeat} />}
+        {!currentSeat.attributes.teacher.data && <Modal.Body>
+          <p>Seat is empty.</p>
+        </Modal.Body>}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

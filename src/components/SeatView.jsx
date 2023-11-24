@@ -4,7 +4,6 @@ import { toast } from "react-toastify"
 import { useAddEntityMutation, useGetEntitiesByFieldQuery, useGetEntitiesQuery, useGetEntityQuery } from "../services/lastmeal"
 
 export const SeatView = ({ seat }) => {
-  console.log(seat)
   const { data: teacher } = useGetEntityQuery({ name: "teacher", id: seat.attributes.teacher.data.id })
 
   const { data: allItems } = useGetEntitiesQuery({ name: "item", populate: true })

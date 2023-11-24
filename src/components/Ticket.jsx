@@ -1,5 +1,6 @@
 import { Accordion, ButtonGroup } from "react-bootstrap";
-import { useGetEntitiesByFieldQuery, useGetEntityQuery } from "../services/lastmeal";
+import { useGetEntitiesByFieldQuery, useGetEntityQuery, useUpdateEntityMutation } from "../services/lastmeal";
+import { useReducer, useState } from "react";
 
 const buttonLeft = {
   flex: '0 0 50%',
@@ -8,10 +9,14 @@ const buttonLeft = {
 }
 
 export const Ticket = ({ order }) => {
-  const {data: seat} = useGetEntitiesByFieldQuery({name: "seat", field: "teacher", value: order.attributes.teacher.data.id, relation: 'id', populate: true})
+  const [orderClone, setOrderClone] = useState(JSON.parse(JSON.stringify(order)))
+  const { data: seat } = useGetEntitiesByFieldQuery({ name: "seat", field: "teacher", value: order.attributes.teacher.data.id, relation: 'id', populate: true })
+  
+  const [updateEntity] = useUpdateEntityMutation();
 
   const handleStatus = (status) => {
-    console.log(status)
+    updateEntity({ name: "order", id: order.id, body: { data: { status: status } } })
+    setOrderClone({ ...orderClone, attributes: { ...orderClone.attributes, status: status } })
   }
 
   return <Accordion.Item eventKey={order.id}>
@@ -41,11 +46,11 @@ export const Ticket = ({ order }) => {
         </p>
       </div>
       <ButtonGroup styles={buttonLeft}>
-        {order.attributes.status === "UNFINISHED" && <>
+        {orderClone.attributes.status === "UNFINISHED" && <>
           <button type="button" class="btn btn-outline-primary" onClick={() => handleStatus("PREPARED")}>Cooked</button>
         </>}
-        {order.attributes.status === "PREPARED" && <>
-          <button type="button" class="btn btn-secondary " nClick={() => handleStatus("UNFINISHED")}>Undo Cook</button>
+        {orderClone.attributes.status === "PREPARED" && <>
+          <button type="button" class="btn btn-secondary " onClick={() => handleStatus("UNFINISHED")}>Undo Cook</button>
           <button type="button" class="btn btn-outline-success" onClick={() => handleStatus("SERVED")}>Served</button>
         </>}
       </ButtonGroup>

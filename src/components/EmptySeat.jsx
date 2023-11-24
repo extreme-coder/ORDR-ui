@@ -20,7 +20,7 @@ export const EmptySeat = ({ seat }) => {
     if(teachers){
       setTeacher(teachers.data[0].id)
     }
-  })
+  }, [teachers])
 
   return <div>
     <h4>Seat {seat.attributes.number}</h4>
@@ -29,7 +29,7 @@ export const EmptySeat = ({ seat }) => {
     {teacherAdded && <h5>Added successfully!</h5>}
     {!addingTeacher && !teacherAdded && <Button variant="primary" onClick={() => setAddingTeacher(true)}>Add Teacher</Button>}
     {addingTeacher && !teacherAdded && <>
-      <select class="form-select" aria-label="Default select example" onChange={(e) => { setTeacher(e.target.value) }}>
+      <select class="form-select" aria-label="Default select example" onChange={(e) => { setTeacher(parseInt(e.target.value)) }}>
         {teachers && teachers.data.map(teacher => <option value={teacher.id}>{teacher.attributes.name}</option>)}
       </select>
       <Button variant="success" onClick={assignTeacherToSeat}>Add</Button>

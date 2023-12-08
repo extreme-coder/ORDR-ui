@@ -58,9 +58,9 @@ export const Ticket = ({ order }) => {
     <Accordion.Body>
       <table class="table">
         <tbody>
-          {order.attributes.items.data.map(item =>
+          {order.attributes.items.split(", ").map(item =>
             <tr>
-              <td>{item.attributes.name.toString()}</td>
+              <td>{item}</td>
               <td>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>

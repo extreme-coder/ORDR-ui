@@ -30,13 +30,13 @@ export const Ticket = ({ order }) => {
       <div>
         <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Table: </h5>
         <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
-          {seat.data[0].attributes.table.data.attributes.number}
+          {seat.data[0] && seat.data[0].attributes.table.data.attributes.number}
         </p>
       </div>
       <div>
         <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Seat: </h5>
         <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
-          {seat.data[0].attributes.number}
+          {seat.data[0] && seat.data[0].attributes.number}
         </p>
       </div>
       <div>

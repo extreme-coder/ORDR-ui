@@ -17,8 +17,8 @@ export const lastmealApi = createApi({
   endpoints: (builder) => ({
     getEntity: builder.query({
       query: (arg) => {
-        const { name, id } = arg;
-        return `${pluralize(name.replace('_', '-'))}/${id}`
+        const { name, id, populate } = arg;
+        return `${pluralize(name.replace('_', '-'))}/${id}`+ (populate ? '?populate=*' : '')
       }
     }),
     getEntities: builder.query({

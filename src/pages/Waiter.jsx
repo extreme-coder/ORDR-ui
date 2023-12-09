@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Accordion, Button, ButtonGroup, Col, Container, Modal, Row, Table } from "react-bootstrap";
+import { Accordion, Button, ButtonGroup, Col, Container, Modal, Row, Tab, Table, Tabs } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SeatView } from "../components/SeatView";
 import { useGetEntitiesQuery } from "../services/lastmeal";
@@ -21,7 +21,7 @@ function Waiter() {
     width: '600px',
   };
   const buttonGroupStyle = {
-    marginTop:'70px'
+    marginTop: '70px'
   };
   const { data: tables } = useGetEntitiesQuery({ name: "table", populate: true });
 
@@ -29,7 +29,7 @@ function Waiter() {
 
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
-  
+
 
 
   useEffect(() => {
@@ -43,46 +43,43 @@ function Waiter() {
     setShow(false)
     window.location.reload()
   };
-  
+
   const [activeItems, setActiveItems] = useState([]);
   const handleShow = () => setShow(true);
   const defaultActiveItems = tables && tables.data.map(table => table.id)
   return (
     <div>
       {/*Table views*/}
-      <Accordion activeKey={activeItems.length ? activeItems : defaultActiveItems}>
-        {tables && tables.data.map(table => <Accordion.Item eventKey={table.id}>
-          <Accordion.Header>Table {table.attributes.number}</Accordion.Header>
-          <Accordion.Body>
+      <Tabs >
+        {tables && tables.data.map(table => <Tab eventKey={table.id} title={"Table " + table.attributes.number}>
           <Container>
             <Row>
               <Col>
-              <div class="vstack" style={containerStyle}>
-                <div class="hstack gap-5">
-                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0,6).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
-                    Seat {seat && seat.attributes.number}
-                  </button>)}
+                <div class="vstack" style={containerStyle}>
+                  <div class="hstack gap-5">
+                    {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0, 6).map((seat, index) => <button type="button" class={"btn btn-" + (seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                      Seat {seat && seat.attributes.number}
+                    </button>)}
+                  </div>
+                  <div style={Regtangle}></div>
+                  <div class="hstack gap-5">
+                    {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(6, 12).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index) => <button type="button" class={"btn btn-" + (seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                      Seat {seat && seat.attributes.number}
+                    </button>)}
+                  </div>
                 </div>
-                <div style={Regtangle}></div>
-                <div class="hstack gap-5">
-                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(6,12).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
-                    Seat {seat && seat.attributes.number}
-                  </button>)}
-                </div>
-              </div>
               </Col>
               <Col>
-              <div class="btn-group-vertical" style={buttonGroupStyle}>
-                {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).filter(seat => seat.attributes.number === 0).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index)=> <button type="button" class={"btn btn-"+(seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                <div class="btn-group-vertical" style={buttonGroupStyle}>
+                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).filter(seat => seat.attributes.number === 0).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index) => <button type="button" class={"btn btn-" + (seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
                     Extra
                   </button>)}
-              </div>
-              </Col> 
+                </div>
+              </Col>
             </Row>
-           </Container>
-          </Accordion.Body>
-        </Accordion.Item>)}
-      </Accordion>
+          </Container>
+        </Tab>)}
+      </Tabs>
 
       {/*Modal*/}
       {tables && seats && currentSeat.attributes && <Modal show={show} onHide={handleClose}>

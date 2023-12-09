@@ -35,10 +35,10 @@ export const SeatView = ({ seat }) => {
     const foodItems = items.filter(item => item.attributes.type === "FOOD")
     const drinkItems = items.filter(item => item.attributes.type === "DRINK")
     if (foodItems.length > 0) {
-      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: foodItems.map(item => item.id), teacher: seat.attributes.teacher.data.id, type: "KITCHEN" } } })
+      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: foodItems.map(item => item.attributes.name).join(", "), teacher: seat.attributes.teacher.data.id, type: "KITCHEN" } } })
     }
     if (drinkItems.length > 0) {
-      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: drinkItems.map(item => item.id), teacher: seat.attributes.teacher.data.id, type: "BAR" } } })
+      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: drinkItems.map(item => item.attributes.name).join(", "), teacher: seat.attributes.teacher.data.id, type: "BAR" } } })
     }
     setSubmitted(true)
     toast.success("Order submitted!")

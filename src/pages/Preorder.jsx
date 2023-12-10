@@ -34,13 +34,13 @@ export const Preorder = () => {
 
 
   return <div>
-    <h1>Preorder</h1>
+    <h1>The Last Breakfast 2.0 - Preorder</h1>
     <Form.Label>First Name:</Form.Label>
     <Form.Control placeholder="Enter first name" onChange={(e) => setOrder({ ...order, name: e.target.value + " " + order.name.split(" ")[1] })} />
     <Form.Label>Last Name:</Form.Label>
     <Form.Control placeholder="Enter last name" onChange={(e) => setOrder({ ...order, name: order.name.split(" ")[0] + " " + e.target.value })} />
-    <Form.Label>Modifications:</Form.Label>
-    <Form.Control placeholder="Modifications" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
+    <Form.Label>Allergies Relevant to Order:</Form.Label>
+    <Form.Control placeholder="Allergies" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
     <Form.Label>Items</Form.Label>
     <div class="hstack gap-5">
       {allItems && allItems.data.map((item)=> <ItemCard item={item}></ItemCard>)}  

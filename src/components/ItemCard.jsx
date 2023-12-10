@@ -6,7 +6,7 @@ const ItemCard = ({item, imageUrl}) => {
     
 console.log(item.attributes.image);
     const [show, setShow] = useState(false);
-
+    
     const handleClose = () => {
         setShow(false)
         window.location.reload()

@@ -10,7 +10,7 @@ const buttonLeft = {
 
 export const Ticket = ({ order }) => {
   const [orderClone, setOrderClone] = useState(JSON.parse(JSON.stringify(order)))
-  const { data: seat } = useGetEntitiesByFieldQuery({ name: "seat", field: "teacher", value: order.attributes.teacher.data.id && order.attributes.teacher.data.id, relation: 'id', populate: true })
+  const { data: seat } = useGetEntitiesByFieldQuery({ name: "seat", field: "teacher", value: order.attributes.teacher.data.id, relation: 'id', populate: true })
   
   const [updateEntity] = useUpdateEntityMutation();
 

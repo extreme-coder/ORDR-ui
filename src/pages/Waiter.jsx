@@ -44,7 +44,7 @@ function Waiter() {
     window.location.reload()
   };
 
-  const [activeItems, setActiveItems] = useState([]);
+  const [activeItems, setActiveItems] = useState([] );
   const handleShow = () => setShow(true);
   const defaultActiveItems = tables && tables.data.map(table => table.id)
   return (

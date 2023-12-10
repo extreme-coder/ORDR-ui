@@ -14,15 +14,11 @@ export const Preorder = () => {
     console.log(allItems);
   },[allItems])
 
-  const addItem = () => {
-    setOrder({ ...order, items: [...order.items, allItems.data[0]] })
-  }
-
   const [addEntity] = useAddEntityMutation();
 
   const submitOrder = () => {
     console.log(order)
-    addEntity({name: "order", body: {data: order}})
+    addEntity({ name: "order", body: { data: { ...order, items: order.items.join(", "), status: "PRE-EVENT" } } })
     navigate("/confirmation")
   }
 
@@ -32,6 +28,11 @@ export const Preorder = () => {
 
   const navigate = useNavigate()
 
+  const addItem = (item) => {
+    setOrder({ ...order, items: [...order.items, item] })
+    console.log(item)
+    console.log(order)
+  }
 
   return <div>
     <h1>The Last Breakfast 2.0 - Preorder</h1>
@@ -43,7 +44,10 @@ export const Preorder = () => {
     <Form.Control placeholder="Allergies" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
     <Form.Label>Items</Form.Label>
     <div class="hstack gap-5">
-      {allItems && allItems.data.map((item)=> <ItemCard item={item}></ItemCard>)}  
+      {order.items.map((item, index) => <Button variant="danger" onClick={() => removeItem(index)}>{item}</Button>)}
+    </div>
+    <div class="hstack gap-5">
+      {allItems && allItems.data.map((item)=> <ItemCard item={item} addItem={addItem} ></ItemCard>)}
     </div>
     <Button onClick={submitOrder}>Submit Order</Button>
   </div>

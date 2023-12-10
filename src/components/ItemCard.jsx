@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, Modal } from 'react-bootstrap'
 import ItemView from './ItemView'
 
-const ItemCard = ({item, imageUrl}) => {
+const ItemCard = ({item, imageUrl, addItem}) => {
     
 console.log(item.attributes.image);
     const [show, setShow] = useState(false);
     
     const handleClose = () => {
         setShow(false)
-        window.location.reload()
     };
 
     const handleShow = () => {
@@ -38,7 +37,7 @@ console.log(item.attributes.image);
                 <Modal.Header closeButton>
                     <Modal.Title>{item.attributes.name}</Modal.Title>
                 </Modal.Header>
-                <ItemView item={item}></ItemView>
+                <ItemView item={item} addItem={addItem}></ItemView>
             </Modal>
         </div>
   )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, ButtonGroup, Form } from 'react-bootstrap';
 
-const ItemView = ({ item }) => {
+const ItemView = ({ item, addItem }) => {
   const [selectedIndices, setSelectedIndices]= useState([]);
   
   const handleCheckClick = (id) => {
@@ -13,7 +13,10 @@ const ItemView = ({ item }) => {
   }
 
   const handleMultiToppingClick = () => {
-
+    if(selectedIndices.length === 0){
+      return;
+    }
+    addItem(item.attributes.name + " w/ " + item.attributes.toppings.data.filter(topping => selectedIndices.includes(topping.id)).map(t => t.attributes.name).join(" & "));
   }
 
   const handleSingleToppingClick = ()=> {
@@ -34,7 +37,7 @@ const ItemView = ({ item }) => {
       :
     <p>not multi-topping</p>}
     <br></br>
-     {item.attributes.multi_topping && <button className='btn btn-success'>Confirm</button>}
+     {item.attributes.multi_topping && <button className='btn btn-success' onClick={handleMultiToppingClick}>Confirm</button>}
     </div>
   )
 }

@@ -2,12 +2,12 @@ import { useEffect, useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
-import { useAddEntityMutation, useGetEntitiesByDebthQuery, useGetEntitiesQuery } from "../services/lastmeal"
+import { useAddEntityMutation, useGetEntitiesByDepthQuery, useGetEntitiesQuery } from "../services/lastmeal"
 import ItemCard from "../components/ItemCard"
 
 export const Preorder = () => {
   const [order, setOrder] = useState({ name: "", mods: "", status: "UNFINISHED", items: [] })
-  const { data: allItems } = useGetEntitiesByDebthQuery({ name: "item", populate: true, debthField: "toppings" });
+  const { data: allItems } = useGetEntitiesByDepthQuery({ name: "item", populate: true, debthField: "toppings" });
 
 
   useEffect(() => {

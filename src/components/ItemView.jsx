@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, ButtonGroup, Form } from 'react-bootstrap';
 import './styles/ItemView.css'
+import { toast } from 'react-toastify';
 
 const ItemView = ({ item, addItem }) => {
   const [selectedIndices, setSelectedIndices]= useState([]);
@@ -14,14 +15,15 @@ const ItemView = ({ item, addItem }) => {
   }
 
   const handleMultiToppingClick = () => {
-    if(selectedIndices.length === 0){
+    if (selectedIndices.length === 0) {
+      toast.error("Please select at least one topping");
       return;
     }
     addItem(item.attributes.name + " w/ " + item.attributes.toppings.data.filter(topping => selectedIndices.includes(topping.id)).map(t => t.attributes.name).join(" & "));
   }
 
-  const handleSingleToppingClick = ()=> {
-    //Aryan can you plz work on this, I counld't figure it out.
+  const handleSingleToppingClick = (topping)=> {
+    addItem(item.attributes.name + " w/ " + topping.attributes.name);
   }
 
   return (
@@ -37,7 +39,7 @@ const ItemView = ({ item, addItem }) => {
       </ButtonGroup>
       :
       <div className='single-topping-container'>
-        {item.attributes.toppings.data.map(topping => (<Button className="single-topping-btn" variant="outline-primary" key={topping.id} onClick={handleSingleToppingClick}>{topping.attributes.name}</Button>))}
+        {item.attributes.toppings.data.map(topping => (<Button className="single-topping-btn" variant="outline-primary" key={topping.id} onClick={() => handleSingleToppingClick(topping)}>{topping.attributes.name}</Button>))}
       </div>
      }
     <br></br>

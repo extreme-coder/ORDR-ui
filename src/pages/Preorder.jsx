@@ -4,10 +4,15 @@ import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { useAddEntityMutation, useGetEntitiesByDepthQuery, useGetEntitiesQuery } from "../services/lastmeal"
 import ItemCard from "../components/ItemCard"
+import styles from './pageStyles/Preorder.module.css'
+import './pageStyles/Preorder.css'
+import { setupListeners } from "@reduxjs/toolkit/query"
+import SingleOrder from "../components/SingleOrder"
+
 
 export const Preorder = () => {
   const [order, setOrder] = useState({ name: "", mods: "", status: "UNFINISHED", items: [] })
-  const { data: allItems } = useGetEntitiesByDepthQuery({ name: "item", populate: true, debthField: "toppings" });
+  const { data: allItems } = useGetEntitiesByDepthQuery({ name: "item", populate: true, depthField: "toppings" });
 
 
   useEffect(() => {
@@ -35,22 +40,26 @@ export const Preorder = () => {
     console.log(order)
   }
 
-  return <div>
-    <h1>The Last Breakfast 2.0 - Preorder</h1>
-    <Form.Label>First Name:</Form.Label>
-    <Form.Control placeholder="Enter first name" onChange={(e) => setOrder({ ...order, name: e.target.value + " " + order.name.split(" ")[1] })} />
-    <Form.Label>Last Name:</Form.Label>
-    <Form.Control placeholder="Enter last name" onChange={(e) => setOrder({ ...order, name: order.name.split(" ")[0] + " " + e.target.value })} />
-    <Form.Label>Allergies Relevant to Order:</Form.Label>
-    <Form.Control placeholder="Allergies" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
-    <Form.Label>Items</Form.Label>
-    <div class="hstack gap-5">
-      {order.items.map((item, index) => <Button variant="danger" onClick={() => removeItem(index)}>{item}</Button>)}
+  return <div className={styles.preorder}>
+    <div className={styles.header}>
+      <h1>The Last Breakfast 2.0 - Preorder</h1>
     </div>
-    <div class="hstack gap-5">
-      {allItems && allItems.data.map((item) => <ItemCard item={item} addItem={addItem} ></ItemCard>)}
+    <form>
+      <Form.Label className={styles[`form-header`]}>First Name:</Form.Label>
+      <Form.Control className={styles[`form-input`]} placeholder="Enter first name" onChange={(e) => setOrder({ ...order, name: e.target.value + " " + order.name.split(" ")[1] })} />
+      <Form.Label className={styles[`form-header`]}>Last Name:</Form.Label>
+      <Form.Control className={styles[`form-input`]} placeholder="Enter last name" onChange={(e) => setOrder({ ...order, name: order.name.split(" ")[0] + " " + e.target.value })} />
+      <Form.Label className={styles[`form-header`]} >Allergies Relevant to Order:</Form.Label>
+      <Form.Control className={styles[`form-input`]} placeholder="Allergies" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
+    </form>
+      <h4 className={styles.h}>Select Order</h4>
+    <div>
+      {order.items.map((item, index) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(index)}></SingleOrder>))}
     </div>
-    <Button onClick={submitOrder}>Submit Order</Button>
+    <div className={styles[`cards-container`]}>
+      {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard className="card" item={item} addItem={addItem} imageAdress={require(`/Users/alihosseini/Documents/GitHub/lastmeal-ui/assets/${index+1}.jpg`)} ></ItemCard>)}
+    </div>
+    <Button className={styles[`submit-btn`]}onClick={submitOrder}>Submit Order</Button>
   </div>
 }
 

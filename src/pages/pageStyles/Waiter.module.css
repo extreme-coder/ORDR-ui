@@ -1,6 +1,7 @@
-.modal-header{
+.header{
     background-color: darkslategray;
     color: snow;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .close-button{
@@ -15,8 +16,4 @@
     border-color: rgb(28, 47, 47);
     color: snow;
     border-radius: 10;
-}
-
-closeButton{
-    color: snow;
 }

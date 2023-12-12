@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { SeatView } from "../components/SeatView";
 import { useGetEntitiesQuery } from "../services/lastmeal";
 import { EmptySeat } from "../components/EmptySeat";
-import "./pageStyles/Waiter.css"
+import styles from "./pageStyles/Waiter.module.css"
 
 function Waiter() {
   const Regtangle = {
@@ -96,7 +96,7 @@ function Waiter() {
 
       {/*Modal*/}
       {tables && seats && currentSeat.attributes && <Modal show={show} onHide={handleClose}>
-        <Modal.Header className="modal-header" closeButton>
+        <Modal.Header className={styles[`header`]} closeButton>
           <Modal.Title>Table {tables.data.filter(t => t.id === currentSeat.attributes.table.data.id)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
         </Modal.Header>
         {currentSeat.attributes.teacher.data && <SeatView seat={currentSeat} />}
@@ -104,7 +104,7 @@ function Waiter() {
           <EmptySeat seat={currentSeat} open={setShow}/>
         </Modal.Body>}
         <Modal.Footer>
-          <Button className="close-button" onClick={handleClose}>
+          <Button className={styles[`close-button`]} onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>

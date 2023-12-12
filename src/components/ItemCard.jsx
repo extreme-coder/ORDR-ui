@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Modal } from 'react-bootstrap'
 import ItemView from './ItemView'
+import styles from './styles/ItemCard.module.css'
 
-const ItemCard = ({item, imageUrl, addItem}) => {
-console.log("image")   
-console.log(item.attributes.image);
+const ItemCard = ({item, imageAdress, addItem}) => {
+    console.log(item)
 
     const [show, setShow] = useState(false);
     
@@ -20,24 +20,20 @@ console.log(item.attributes.image);
 
     return (
         
-        
         <div>
             {/*cards*/}
-            <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="/Users/alihosseini/Documents/GitHub/lastmeal-ui/assets/Pancakes.jpg" />
-                <Card.Body>
-                    <Card.Title>{item.attributes.name}</Card.Title>
-                        <Card.Text>
-                            yummmm!
-                        </Card.Text>
-                    <Button variant="info" onClick={handleShow}>Add Item</Button>
-                </Card.Body>
-            </Card>
+            <Card style={{ width: '13rem' }}>
+                <Card.Img className={styles.image} variant="top" src={imageAdress} />
+                    <Card.Body>
+                        <Card.Title>{item.attributes.name}</Card.Title>
+                        <Button className={styles[`card-button`]}variant="info" onClick={handleShow}>Add Item</Button>
+                    </Card.Body>
+                </Card>
             {/*modal*/}
             
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{item.attributes.name}</Modal.Title>
+                <Modal.Header className={styles[`modal-header`]} closeButton>
+                    <Modal.Title className={styles[`modal-heading`]}>{item.attributes.name}</Modal.Title>
                 </Modal.Header>
                 <ItemView item={item} addItem={addItem}></ItemView>
             </Modal>

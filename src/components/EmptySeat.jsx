@@ -31,21 +31,21 @@ export const EmptySeat = ({seat, open}) => {
   }, [teachers])
 
   return(
-  <div className={styles['empty-seat']}>
-    <h4 className={styles['title']}>Add Guest</h4>   
-      <div className={styles['search-bar-container']}>
-        <div className="hstack gap-1">
-          <SearchBar 
-            dataArr={teachers && teachers.data} 
-            setResults={setResults} 
-            selectedTeacher={teacher} 
-            setSelectedTeacher={setTeacher}
-            filled={setSearchBarFilled}
-          />
-          {results.length === 0 && searchBarFilled && <button className="btn btn-outline-success">Add Teacher</button>}
+    <div className={styles['empty-seat']}>
+      <h4 className={styles['title']}>Add Guest</h4>   
+        <div className={styles['search-bar-container']}>
+          <div className="hstack gap-1">
+            <SearchBar 
+              dataArr={teachers && teachers.data} 
+              setResults={setResults} 
+              selectedTeacher={teacher} 
+              setSelectedTeacher={setTeacher}
+              filled={setSearchBarFilled}
+            />
+            {results.length === 0 && searchBarFilled && <button className="btn btn-outline-success">Add Teacher</button>}
+          </div>
+          <SearchResultsList results={results} setSelectedTeacher={setTeacher}/>
         </div>
-        <SearchResultsList results={results} setSelectedTeacher={setTeacher}/>
-      </div>
-    {teacher.attributes && <Button variant="success" onClick={assignTeacherToSeat}>Seat Teacher</Button>}
-  </div>
+      {teacher.attributes && <Button variant="success" onClick={assignTeacherToSeat}>Seat Teacher</Button>}
+    </div>
 )}

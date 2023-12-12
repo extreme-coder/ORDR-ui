@@ -1,0 +1,29 @@
+.item-view{
+    background-color: snow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    padding-bottom: 2rem;
+}
+.title{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1.5rem;
+}
+.single-topping-container{
+    height:340px;
+    width: 340;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.single-topping-btn{
+    width: 150px;
+    height: 150px;
+    margin: 12px;
+    color:#20242e;
+    border-color: #20242e;
+}

@@ -51,7 +51,7 @@ export const Ticket = ({ order }) => {
         </>}
         {orderClone.attributes.status === "PREPARED" && <>
           <button type="button" class="btn btn-secondary " onClick={() => handleStatus("UNFINISHED")}>Undo Cook</button>
-          <button type="button" class="btn btn-outline-success" onClick={() => handleStatus("SERVED")}>Served</button>
+          <button type="button" class="btn btn-outline-success" onClick={() => {handleStatus("SERVED"); window.location.reload()}}>Served</button>
         </>}
       </ButtonGroup>
     </Accordion.Header>}

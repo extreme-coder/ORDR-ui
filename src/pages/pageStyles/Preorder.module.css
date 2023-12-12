@@ -1,0 +1,75 @@
+.preorder{
+    margin:0;
+    padding-bottom:60px;
+    background-color: #20242e;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    background-color:antiquewhite;
+    color:#20242e;
+    padding:10px;
+    padding-top:12px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.form-header{
+    margin-left:2rem;
+    margin-top:1rem;
+    color:antiquewhite
+}
+.form-input{
+    margin-left:2rem;
+    width: 50%;
+    height: 2rem;
+    border-radius: 5px;
+    border: 1px solid snow;
+    background-color: #20242e;
+    color:antiquewhite;
+    padding-left: 5px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.form-input:hover{
+    margin-left:2rem;
+    width: 50%;
+    height: 2rem;
+    border-radius: 5px;
+    border: 1px solid snow;
+    background-color: #14171e;
+    color:antiquewhite;
+    padding-left: 5px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.form-input:focus{
+    margin-left:2rem;
+    width: 50%;
+    height: 2rem;
+    border-radius: 5px;
+    border: 1px solid snow;
+    background-color: #20242e;
+    color:antiquewhite;
+    padding-left: 5px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.h{
+    margin-top:2rem;
+    margin-left:2rem;
+    font-weight: bold;
+    color: antiquewhite;
+    font-family: 'Courier New', Courier, monospace
+
+}
+.cards-container{
+    display: flex;
+    flex-direction: row;
+    margin-left: 2rem;
+    margin-top:1.3rem;
+    margin-bottom: 1.3rem
+}
+.submit-btn{
+    margin:10px;
+    margin-left:30px;
+    width:10rem;
+}

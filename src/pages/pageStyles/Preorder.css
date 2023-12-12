@@ -1,0 +1,32 @@
+.card{
+    margin-right:2.5rem;
+    background-color: antiquewhite;
+}
+.row{
+    margin: 1px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.r-con{
+    border-color: antiquewhite;
+}
+
+.item-name{
+    color:antiquewhite;
+}
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:rgba(169, 158, 144, 0.504);
+    opacity: 1; /* Firefox */
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:rgba(169, 158, 144, 0.504);
+    opacity: 1;
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color:rgba(169, 158, 144, 0.504);
+    opacity: 1;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, ButtonGroup, Form } from 'react-bootstrap';
+import './styles/ItemView.css'
 
 const ItemView = ({ item, addItem }) => {
   const [selectedIndices, setSelectedIndices]= useState([]);
@@ -20,12 +21,12 @@ const ItemView = ({ item, addItem }) => {
   }
 
   const handleSingleToppingClick = ()=> {
-
+    //Aryan can you plz work on this, I counld't figure it out.
   }
 
   return (
-    <div>
-      <h4>
+    <div className='item-view'>
+      <h4 className='title'>
         {item.attributes.multi_topping? "Select All Desired Toppings" : "Please Select Type"}
       </h4>
       {item.attributes.multi_topping? 
@@ -35,7 +36,10 @@ const ItemView = ({ item, addItem }) => {
         ))}
       </ButtonGroup>
       :
-    <p>not multi-topping</p>}
+      <div className='single-topping-container'>
+        {item.attributes.toppings.data.map(topping => (<Button className="single-topping-btn" variant="outline-primary" key={topping.id} onClick={handleSingleToppingClick}>{topping.attributes.name}</Button>))}
+      </div>
+     }
     <br></br>
      {item.attributes.multi_topping && <button className='btn btn-success' onClick={handleMultiToppingClick}>Confirm</button>}
     </div>

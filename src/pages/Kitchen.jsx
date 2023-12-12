@@ -29,15 +29,17 @@ const Kitchen = () => {
     }))
   }*/
 
+
+
   return (
     <div>
       <Tabs defaultActiveKey="kitchen" id="uncontrolled-tab-example" className="mb-3">
-        <Tab eventKey="kitchen" title="Kitchen">
+        <Tab eventKey="kitchen" title="Kitchen" id="kitchen">
           <Accordion>
-            {orders && orders.data.filter(o => o.attributes.status !== "SERVED" && o.attributes.type === "KITCHEN").map(order => <Ticket order={order} />)}
+            {orders && orders.data.filter(o => o.attributes.status !== "SERVED" && o.attributes.type === "KITCHEN").reverse().map(order => <Ticket order={order} />)}
           </Accordion>
         </Tab>
-        <Tab eventKey="bar" title="Bar">
+        <Tab eventKey="bar" title="Bar" id="bar">
           <Accordion>
             {orders && orders.data.filter(o => o.attributes.status !== "SERVED" && o.attributes.type === "BAR").map(order => <Ticket order={order} />)}
           </Accordion>

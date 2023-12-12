@@ -1,0 +1,35 @@
+
+.image{
+    width: 100%;
+    height:auto;
+
+}
+
+.card-button{
+    background-color: #20242e;
+    border-color: #20242e;
+    width: 100%;
+    color: antiquewhite
+}
+.card-button:hover{
+    background-color: #20242eb0;
+    border-color:#20242e;
+    width:100%;
+    color: antiquewhite
+}
+.modal-header{
+    background-color:#20242e;
+    color: antiquewhite;
+    border-color:#20242e;
+    padding:1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.modal-heading{
+    background-color: #20242e;
+    color: antiquewhite;
+    border-color: #20242e;
+    margin:0px;
+}

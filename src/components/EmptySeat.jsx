@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar"
 import SearchResultsList from "./SearchResultsList"
 
 
-export const EmptySeat = ({seat, open}) => {
+export const EmptySeat = ({seat, open, updateView}) => {
   const { data: teachers } = useGetEntitiesQuery({ name: "teacher", populate: true })
   const [addingTeacher, setAddingTeacher] = useState(false)
   const [searchBarFilled, setSearchBarFilled] = useState(false)
@@ -17,13 +17,12 @@ export const EmptySeat = ({seat, open}) => {
   const [teacher, setTeacher] = useState({})
   const [teacherName, setTeacherName] = useState("")
 
-  const assignTeacherToSeat = () => {
-    updateEntity({ name: "seat", id: seat.id, body: { data: { teacher: teacher } } })
+  const assignTeacherToSeat = async () => {
+    const newSeat = await updateEntity({ name: "seat", id: seat.id, body: { data: { teacher: teacher } } })
     updateEntity({ name: "teacher", id: teacher.id, body: { data: { teacher_status: "ARRIVED" } } })
     setAddingTeacher(false)
     setTeacherAdded(true);
-    // close this window by updating parent state
-    window.location.reload();
+    updateView(newSeat.data.data)
   }
 
   useEffect(() => { 
@@ -34,7 +33,8 @@ export const EmptySeat = ({seat, open}) => {
 
   const addNewTeacher = async () => {
     const newTeacher = await addEntity({ name: "teacher", body: { data: { name: teacherName, teacher_status: "ARRIVED" } } })
-    updateEntity({ name: "seat", id: seat.id, body: { data: { teacher: newTeacher.data.data.id } } })
+    const newSeat = await updateEntity({ name: "seat", id: seat.id, body: { data: { teacher: newTeacher.data.data.id } } })
+    updateView(newSeat.data.data)
   }
 
   const updateName = (e) => {

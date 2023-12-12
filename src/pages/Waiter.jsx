@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { SeatView } from "../components/SeatView";
 import { useGetEntitiesQuery } from "../services/lastmeal";
 import { EmptySeat } from "../components/EmptySeat";
-import styles from "./pageStyles/Waiter.module.css"
+import styles from "./pageStyles/Waiter.css"
 
 function Waiter() {
   const Regtangle = {
@@ -44,7 +44,6 @@ function Waiter() {
 
   const handleClose = () => {
     setShow(false)
-    window.location.reload()
   };
 
   const [activeItems, setActiveItems] = useState([] );
@@ -97,11 +96,12 @@ function Waiter() {
       {/*Modal*/}
       {tables && seats && currentSeat.attributes && <Modal show={show} onHide={handleClose}>
         <Modal.Header className={styles[`header`]} closeButton>
+          {console.log(currentSeat)}
           <Modal.Title>Table {tables.data.filter(t => t.id === currentSeat.attributes.table.data.id)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
         </Modal.Header>
-        {currentSeat.attributes.teacher.data && <SeatView seat={currentSeat} />}
+        {currentSeat.attributes.teacher.data && <SeatView seat={currentSeat} updateView={setCurrentSeat} />}
         {!currentSeat.attributes.teacher.data && <Modal.Body>
-          <EmptySeat seat={currentSeat} open={setShow}/>
+          <EmptySeat seat={currentSeat} open={setShow} updateView={setCurrentSeat} />
         </Modal.Body>}
         <Modal.Footer>
           <Button className={styles[`close-button`]} onClick={handleClose}>

@@ -108,7 +108,7 @@ export const lastmealApi = createApi({
       query(arg) {
         const { name, body, id } = arg;
         return {
-          url: `${pluralize(name.replace('_', '-'))}/${id}`,
+          url: `${pluralize(name.replace('_', '-'))}/${id}?populate=*`,
           method: 'PUT',
           body,
         }

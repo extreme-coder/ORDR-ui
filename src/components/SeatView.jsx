@@ -3,7 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap"
 import { toast } from "react-toastify"
 import { useAddEntityMutation, useGetEntitiesByFieldQuery, useGetEntitiesQuery, useGetEntityQuery, useUpdateEntityMutation } from "../services/lastmeal"
 
-export const SeatView = ({ seat }) => {
+export const SeatView = ({ seat}) => {
   const { data: teacher } = useGetEntityQuery({ name: "teacher", id: seat.attributes.teacher.data.id, populate: true })
 
   const { data: allItems } = useGetEntitiesQuery({ name: "item", populate: true })
@@ -34,6 +34,7 @@ export const SeatView = ({ seat }) => {
     updateEntity({ name: "teacher", id: teacher.data.id, body: { data: { teacher_status: "LEFT" } } })
     updateEntity({ name: "seat", id: seat.id, body: { data: { teacher: null } } })
     toast.success("Teacher marked as left!")
+    window.location.reload()
   }
 
   const submitOrder = () => {

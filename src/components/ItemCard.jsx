@@ -3,8 +3,9 @@ import { Button, Card, Modal } from 'react-bootstrap'
 import ItemView from './ItemView'
 
 const ItemCard = ({item, imageUrl, addItem}) => {
-    
+console.log("image")   
 console.log(item.attributes.image);
+
     const [show, setShow] = useState(false);
     
     const handleClose = () => {
@@ -18,6 +19,7 @@ console.log(item.attributes.image);
     };
 
     return (
+        
         
         <div>
             {/*cards*/}

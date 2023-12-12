@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { SeatView } from "../components/SeatView";
 import { useGetEntitiesQuery } from "../services/lastmeal";
 import { EmptySeat } from "../components/EmptySeat";
+import "./pageStyles/Waiter.css"
 
 function Waiter() {
   const Regtangle = {
@@ -30,7 +31,9 @@ function Waiter() {
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
 
-
+  const openSeatView = ()=> {
+    setShow(true)
+  }
 
   useEffect(() => {
     if (seats) {
@@ -46,6 +49,7 @@ function Waiter() {
 
   const [activeItems, setActiveItems] = useState([] );
   const handleShow = () => setShow(true);
+
   const defaultActiveItems = tables && tables.data.map(table => table.id)
   return (
     <div>
@@ -57,7 +61,16 @@ function Waiter() {
               <Col>
                 <div class="vstack" style={containerStyle}>
                   <div class="hstack gap-5">
-                    {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0, 6).map((seat, index) => <button type="button" class={"btn btn-" + (seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                    {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0, 6).map((seat, index) => 
+                    <button 
+                      type="button" 
+                      class={"btn btn-" + (seat.attributes.teacher.data ? 'success' : 'outline-secondary')} 
+                      style={squareButtonStyle} 
+                      dataToggle="button" 
+                      ariaPressed="false" 
+                      autocomplete="off" 
+                      onClick={() => { handleShow(); setCurrentSeat(seat) }}
+                    >
                       Seat {seat && seat.attributes.number}
                     </button>)}
                   </div>
@@ -83,15 +96,15 @@ function Waiter() {
 
       {/*Modal*/}
       {tables && seats && currentSeat.attributes && <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header className="modal-header" closeButton>
           <Modal.Title>Table {tables.data.filter(t => t.id === currentSeat.attributes.table.data.id)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
         </Modal.Header>
         {currentSeat.attributes.teacher.data && <SeatView seat={currentSeat} />}
         {!currentSeat.attributes.teacher.data && <Modal.Body>
-          <EmptySeat seat={currentSeat} />
+          <EmptySeat seat={currentSeat} open={setShow}/>
         </Modal.Body>}
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button className="close-button" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>

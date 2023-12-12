@@ -1,0 +1,22 @@
+.modal-header{
+    background-color: darkslategray;
+    color: snow;
+}
+
+.close-button{
+    background-color: darkslategray;
+    border-color: darkslategrey;
+    color: snow;
+    border-radius: 10;
+}
+
+.close-button:hover{
+    background-color: rgb(28, 47, 47);
+    border-color: rgb(28, 47, 47);
+    color: snow;
+    border-radius: 10;
+}
+
+closeButton{
+    color: snow;
+}

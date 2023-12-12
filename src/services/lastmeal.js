@@ -29,11 +29,11 @@ export const lastmealApi = createApi({
         return query
       }
     }),
-    getEntitiesByDebth: builder.query({
+    getEntitiesByDepth: builder.query({
       query: (arg) => {
-        const { name, populate, debthField} = arg;
+        const { name, populate, depthField} = arg;
         let query = `${pluralize(name.replace('_', '-'))}`
-        if (populate) query += '?populate[0]=' + debthField;
+        if (populate) query += '?populate[0]=' + depthField;
         console.log("query");
         console.log(query);
         return query
@@ -300,7 +300,7 @@ export const lastmealApi = createApi({
 export const {
   useGetEntityQuery,
   useGetEntitiesQuery,
-  useGetEntitiesByDebthQuery,
+  useGetEntitiesByDepthQuery,
   useGetEntitiesByFieldsQuery,
   useGetEntitiesByFieldQuery,
   useLoginMutation,

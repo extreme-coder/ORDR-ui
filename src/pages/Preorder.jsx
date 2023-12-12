@@ -57,7 +57,7 @@ export const Preorder = () => {
       {order.items.map((item, index) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(index)}></SingleOrder>))}
     </div>
     <div className={styles[`cards-container`]}>
-      {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard className="card" item={item} addItem={addItem} imageAdress={require(`/Users/alihosseini/Documents/GitHub/lastmeal-ui/assets/${index+1}.jpg`)} ></ItemCard>)}
+      {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard className="card" item={item} addItem={addItem} imageAdress={require(`../../assets/${index+1}.jpg`)} ></ItemCard>)}
     </div>
     <Button className={styles[`submit-btn`]}onClick={submitOrder}>Submit Order</Button>
   </div>

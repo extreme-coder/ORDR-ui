@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap"
-import { useGetEntitiesQuery, useUpdateEntityMutation } from "../services/lastmeal"
+import { useAddEntityMutation, useGetEntitiesQuery, useUpdateEntityMutation } from "../services/lastmeal"
 import { useEffect, useState } from "react"
 import styles from "./styles/EmptySeat.module.css"
 import SearchBar from "./SearchBar"
@@ -12,8 +12,10 @@ export const EmptySeat = ({seat, open}) => {
   const [searchBarFilled, setSearchBarFilled] = useState(false)
   const [teacherAdded, setTeacherAdded] = useState(false)
   const [results, setResults] = useState([]);
+  const [addEntity] = useAddEntityMutation();
   const [updateEntity] = useUpdateEntityMutation();
   const [teacher, setTeacher] = useState({})
+  const [teacherName, setTeacherName] = useState("")
 
   const assignTeacherToSeat = () => {
     updateEntity({ name: "seat", id: seat.id, body: { data: { teacher: teacher } } })
@@ -30,6 +32,15 @@ export const EmptySeat = ({seat, open}) => {
     }
   }, [teachers])
 
+  const addNewTeacher = async () => {
+    const newTeacher = await addEntity({ name: "teacher", body: { data: { name: teacherName, teacher_status: "ARRIVED" } } })
+    updateEntity({ name: "seat", id: seat.id, body: { data: { teacher: newTeacher.data.data.id } } })
+  }
+
+  const updateName = (e) => {
+    setTeacherName(e.target.value)
+  }
+
   return(
   <div className={styles['empty-seat']}>
     <h4 className={styles['title']}>Add Guest</h4>   
@@ -41,8 +52,9 @@ export const EmptySeat = ({seat, open}) => {
             selectedTeacher={teacher} 
             setSelectedTeacher={setTeacher}
             filled={setSearchBarFilled}
+            updateName={updateName}
           />
-          {results.length === 0 && searchBarFilled && <button className="btn btn-outline-success">Add Teacher</button>}
+          {results.length === 0 && searchBarFilled && <button className="btn btn-outline-success" onClick={addNewTeacher}>Add Teacher</button>}
         </div>
         <SearchResultsList results={results} setSelectedTeacher={setTeacher}/>
       </div>

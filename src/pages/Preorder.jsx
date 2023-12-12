@@ -7,23 +7,24 @@ import ItemCard from "../components/ItemCard"
 
 export const Preorder = () => {
   const [order, setOrder] = useState({ name: "", mods: "", status: "UNFINISHED", items: [] })
-  const { data: allItems } = useGetEntitiesByDebthQuery({ name: "item", populate: true, debthField: "toppings"});
-  
+  const { data: allItems } = useGetEntitiesByDebthQuery({ name: "item", populate: true, debthField: "toppings" });
 
-  useEffect(()=> {
+
+  useEffect(() => {
     console.log(allItems);
-  },[allItems])
+  }, [allItems])
 
   const [addEntity] = useAddEntityMutation();
 
-  const submitOrder = () => {
+  const submitOrder = async () => {
     console.log(order)
-    addEntity({ name: "order", body: { data: { ...order, items: order.items.join(", "), status: "PRE-EVENT" } } })
+    const teacher = await addEntity({ name: "teacher", body: { data: { name: order.name } } })
+    addEntity({ name: "order", body: { data: { ...order, items: order.items.join(", "), status: "PRE-EVENT", teacher: teacher.data.data.addItem } } })
     navigate("/confirmation")
   }
 
   const removeItem = (index) => {
-    setOrder({ ...order, items: order.items.filter((item, i) => i !== index)})
+    setOrder({ ...order, items: order.items.filter((item, i) => i !== index) })
   }
 
   const navigate = useNavigate()
@@ -47,7 +48,7 @@ export const Preorder = () => {
       {order.items.map((item, index) => <Button variant="danger" onClick={() => removeItem(index)}>{item}</Button>)}
     </div>
     <div class="hstack gap-5">
-      {allItems && allItems.data.map((item)=> <ItemCard item={item} addItem={addItem} ></ItemCard>)}
+      {allItems && allItems.data.map((item) => <ItemCard item={item} addItem={addItem} ></ItemCard>)}
     </div>
     <Button onClick={submitOrder}>Submit Order</Button>
   </div>

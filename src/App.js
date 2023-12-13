@@ -8,6 +8,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Waiter from './pages/Waiter';
 import Kitchen from './pages/Kitchen';
 import { Confirmation, Preorder } from './pages/Preorder';
+import Host from './pages/pageStyles/Host';
 
 
 function App() {
@@ -20,11 +21,15 @@ function App() {
           <a href="/preorder">Preorder Page</a>
           <br />
           <a href="/Kitchen">Kitchen Page</a>
+          <br />
+          <a href="/host">Host Page</a>
+          
         </div>
     },
     { path: "/waiters", element: <Waiter /> },
     { path: "/preorder", element: <Preorder /> },
     { path: "/Kitchen", element: <Kitchen /> },
+    { path: "/host", element: <Host /> },
     { path: "confirmation", element: <Confirmation /> }
   ]);
 

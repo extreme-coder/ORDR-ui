@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from "/Users/alihosseini/Documents/GitHub/lastmeal-ui/src/components/styles/EmptySeat.module.css"
+import styles from "../../components/styles/EmptySeat.module.css"
 import SearchBar from '../../components/SearchBar'
 import SearchResultsList from '../../components/SearchResultsList'
 import { Button } from 'react-bootstrap'

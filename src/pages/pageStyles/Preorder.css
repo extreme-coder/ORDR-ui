@@ -30,3 +30,9 @@
     color:rgba(169, 158, 144, 0.504);
     opacity: 1;
 }
+
+@media (max-width: 767px) {
+    .card{
+        margin-bottom: 15px;
+    }
+  }

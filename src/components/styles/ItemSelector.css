@@ -1,0 +1,16 @@
+.item-selector{
+    background-color: rgb(233, 233, 233);
+    width:47%;
+}
+
+.menu-container{
+    padding:10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.menu-btn{
+    margin:3px;
+    height: 80px;
+    width: 80px;
+}

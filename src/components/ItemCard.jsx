@@ -30,7 +30,6 @@ const ItemCard = ({item, imageAdress, addItem}) => {
                     </Card.Body>
                 </Card>
             {/*modal*/}
-            
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header className={styles[`modal-header`]} closeButton>
                     <Modal.Title className={styles[`modal-heading`]}>{item.attributes.name}</Modal.Title>

@@ -18,3 +18,27 @@ return <div className="vstack gap-2 mx-auto">
       <Button variant="success" onClick={assignTeacherToSeat}>Add</Button>
     </>}
   </div>
+
+  <div class ="container">
+      {order.items.map((item, index) => 
+      <div class="row"> 
+        <div class="col-4">
+          <div className="item-name">
+          {item}
+          </div>
+        </div>
+        <div class="col-md-auto">
+          <Button variant="danger" onClick={() => removeItem(index)}>Remove</Button>
+         </div>
+      </div>)
+      }    
+    </div>
+
+
+    <ul>
+            {items.map(item => <p><Form.Select value={item.id} onChange={(e) => { setItems(items.map((i, index) => (index === items.indexOf(item) ? allItems.data[e.target.value - 1] : i))); console.log(items) }}>
+              {allItems.data.map(allItem => <option value={allItem.id}>{allItem.attributes.name}</option>)}
+            </Form.Select>
+              <Button variant="danger" onClick={() => removeItem(item.id)}>Remove Item</Button></p>)}
+            <Button onClick={addItem}>Add Item</Button>
+          </ul>

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Button, ButtonGroup, Form } from 'react-bootstrap';
 import './styles/ItemView.css'
 import { toast } from 'react-toastify';
 
-const ItemView = ({ item, addItem }) => {
+const ItemView = ({ item, addItem, closeSelf}) => {
   const [selectedIndices, setSelectedIndices]= useState([]);
   
   const handleCheckClick = (id) => {
@@ -20,10 +20,28 @@ const ItemView = ({ item, addItem }) => {
       return;
     }
     addItem(item.attributes.name + " w/ " + item.attributes.toppings.data.filter(topping => selectedIndices.includes(topping.id)).map(t => t.attributes.name).join(" & "));
+    closeSelf();
+    window.location.reload();
   }
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  },[]);
+
 
   const handleSingleToppingClick = (topping)=> {
     addItem(item.attributes.name + " w/ " + topping.attributes.name);
+    closeSelf();
   }
 
   return (
@@ -32,11 +50,11 @@ const ItemView = ({ item, addItem }) => {
         {item.attributes.multi_topping? "Select All Desired Toppings" : "Please Select Type"}
       </h4>
       {item.attributes.multi_topping? 
-      <ButtonGroup>
+      <div class={window.innerWidth>420? "btn-group" : "btn-group-vertical"}>
         {item.attributes.toppings.data.map(topping => (
           <button className={selectedIndices.includes(topping.id)? "btn btn-primary" : "btn btn-outline-dark"} key={topping.id} onClick={() => {handleCheckClick(topping.id)}}>{topping.attributes.name}</button>
         ))}
-      </ButtonGroup>
+      </div>
       :
       <div className='single-topping-container'>
         {item.attributes.toppings.data.map(topping => (<Button className="single-topping-btn" variant="outline-primary" key={topping.id} onClick={() => handleSingleToppingClick(topping)}>{topping.attributes.name}</Button>))}

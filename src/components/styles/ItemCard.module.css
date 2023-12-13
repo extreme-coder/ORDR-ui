@@ -4,7 +4,6 @@
     height:auto;
 
 }
-
 .card-button{
     background-color: #20242e;
     border-color: #20242e;
@@ -18,18 +17,26 @@
     color: antiquewhite
 }
 .modal-header{
-    background-color:#20242e;
+    background-color:#424a5f;
     color: antiquewhite;
-    border-color:#20242e;
+    border-color:#424a5f;
     padding:1rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
+.closeButton{
+    color:antiquewhite;
+    background-color: antiquewhite;
+}
 .modal-heading{
-    background-color: #20242e;
     color: antiquewhite;
-    border-color: #20242e;
     margin:0px;
 }
+
+@media (max-width: 767px) {
+    .modal-header{
+        margin-bottom:0px;
+    }
+  }

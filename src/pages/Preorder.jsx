@@ -14,7 +14,6 @@ export const Preorder = () => {
   const [order, setOrder] = useState({ name: "", mods: "", status: "UNFINISHED", items: [] })
   const { data: allItems } = useGetEntitiesByDepthQuery({ name: "item", populate: true, depthField: "toppings" });
 
-
   useEffect(() => {
     console.log(allItems);
   }, [allItems])
@@ -53,11 +52,13 @@ export const Preorder = () => {
       <Form.Control className={styles[`form-input`]} placeholder="Allergies" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
     </form>
       <h4 className={styles.h}>Select Order</h4>
-    <div>
-      {order.items.map((item, index) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(index)}></SingleOrder>))}
-    </div>
+    
     <div className={styles[`cards-container`]}>
       {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard className="card" item={item} addItem={addItem} imageAdress={require(`../../assets/${index+1}.jpg`)} ></ItemCard>)}
+    </div>
+
+    <div>
+      {order.items.map((item, index) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(index)}></SingleOrder>))}
     </div>
     <Button className={styles[`submit-btn`]}onClick={submitOrder}>Submit Order</Button>
   </div>

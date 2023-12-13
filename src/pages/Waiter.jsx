@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Accordion, Button, ButtonGroup, Col, Container, Modal, Row, Tab, Table, Tabs } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SeatView } from "../components/SeatView";
-import { useGetEntitiesQuery } from "../services/lastmeal";
+import { useGetEntitiesByDepth2Query, useGetEntitiesQuery } from "../services/lastmeal";
 import { EmptySeat } from "../components/EmptySeat";
-import styles from "./pageStyles/Waiter.css"
+import styles from "./pageStyles/Waiter.module.css"
 
 function Waiter() {
   const Regtangle = {
@@ -25,9 +25,9 @@ function Waiter() {
     marginTop: '70px'
   };
   const { data: tables } = useGetEntitiesQuery({ name: "table", populate: true });
-
-  const { data: seats } = useGetEntitiesQuery({ name: "seat", populate: true });
-
+  const { data: seats } = useGetEntitiesQuery({ name: "seat", populate: true});
+  const { data: seatsWithOrders } = useGetEntitiesByDepth2Query({ name: "seat", populate: true, depthField1:"teacher", depthField2:"orders"});
+  console.log(seats)
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
 
@@ -44,6 +44,7 @@ function Waiter() {
 
   const handleClose = () => {
     setShow(false)
+    window.location.reload();
   };
 
   const [activeItems, setActiveItems] = useState([] );
@@ -55,7 +56,7 @@ function Waiter() {
       {/*Table views*/}
       <Tabs >
         {tables && tables.data.map(table => <Tab eventKey={table.id} title={"Table " + table.attributes.number}>
-          <Container>
+          <Container className={styles.table}>
             <Row>
               <Col>
                 <div class="vstack" style={containerStyle}>
@@ -63,7 +64,20 @@ function Waiter() {
                     {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0, 6).map((seat, index) => 
                     <button 
                       type="button" 
-                      class={"btn btn-" + (seat.attributes.teacher.data ? 'success' : 'outline-secondary')} 
+                      class={"btn btn-" + (
+                        !seat.attributes.teacher.data ? 'outline-secondary' 
+                        :
+                        seatsWithOrders 
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+                          order => order.attributes.status === "UNFINISHED").length>0? 'warning' : 
+                          seatsWithOrders 
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+                          order => order.attributes.status === "PREPARED").length>0?'danger'
+                          : 'success')} 
                       style={squareButtonStyle} 
                       dataToggle="button" 
                       ariaPressed="false" 
@@ -75,7 +89,29 @@ function Waiter() {
                   </div>
                   <div style={Regtangle}></div>
                   <div class="hstack gap-5">
-                    {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(6, 12).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index) => <button type="button" class={"btn btn-" + (seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                    {seats && seats.data.filter(seat => 
+                      seat.attributes.table.data.id === table.id).slice(6, 12).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index) => 
+                      <button 
+                      type="button" 
+                      class={"btn btn-" + (
+                        !seat.attributes.teacher.data ? 'outline-secondary' 
+                        :
+                        seatsWithOrders 
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+                          order => order.attributes.status === "UNFINISHED").length>0? 'warning' : 
+                          seatsWithOrders 
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
+                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+                          order => order.attributes.status === "PREPARED").length>0?'danger'
+                          : 'success')}  
+                      style={squareButtonStyle} 
+                      dataToggle="button" 
+                      ariaPressed="false" 
+                      autocomplete="off" 
+                      onClick={() => { handleShow(); setCurrentSeat(seat) }}>
                       Seat {seat && seat.attributes.number}
                     </button>)}
                   </div>

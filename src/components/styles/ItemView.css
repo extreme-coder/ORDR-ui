@@ -27,3 +27,16 @@
     color:#20242e;
     border-color: #20242e;
 }
+
+@media (max-width: 767px) {
+   .item-view{
+        padding-top:0;
+        height:800px;
+        display: flex;
+        justify-content: flex-start;
+   }
+   .title{
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+  }

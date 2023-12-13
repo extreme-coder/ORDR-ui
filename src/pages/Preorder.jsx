@@ -13,6 +13,7 @@ import SingleOrder from "../components/SingleOrder"
 export const Preorder = () => {
   const [order, setOrder] = useState({ name: "", mods: "", status: "UNFINISHED", items: [] })
   const { data: allItems } = useGetEntitiesByDepthQuery({ name: "item", populate: true, depthField: "toppings" });
+  const [warning, setWarning] = useState(false)
 
   useEffect(() => {
     console.log(allItems);
@@ -21,7 +22,10 @@ export const Preorder = () => {
   const [addEntity] = useAddEntityMutation();
 
   const submitOrder = async () => {
-    console.log(order)
+    if(order.name.split(" ").map(n => n.trim()).filter(n => n !== "").length !== 2){
+      setWarning(true)
+      return
+    }
     const teacher = await addEntity({ name: "teacher", body: { data: { name: order.name } } })
     addEntity({ name: "order", body: { data: { ...order, items: order.items.join(", "), status: "PRE-EVENT", teacher: teacher.data.data.addItem } } })
     navigate("/confirmation")
@@ -48,6 +52,7 @@ export const Preorder = () => {
       <Form.Control className={styles[`form-input`]} placeholder="Enter first name" onChange={(e) => setOrder({ ...order, name: e.target.value + " " + order.name.split(" ")[1] })} />
       <Form.Label className={styles[`form-header`]}>Last Name:</Form.Label>
       <Form.Control className={styles[`form-input`]} placeholder="Enter last name" onChange={(e) => setOrder({ ...order, name: order.name.split(" ")[0] + " " + e.target.value })} />
+      {warning && <p className={styles['form-header']} style={{ color: 'red' }}>Please enter your first and last name. </p>}
       <Form.Label className={styles[`form-header`]} >Allergies Relevant to Order:</Form.Label>
       <Form.Control className={styles[`form-input`]} placeholder="Allergies" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
     </form>

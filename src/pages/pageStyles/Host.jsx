@@ -28,7 +28,7 @@ const { data: teachers } = useGetEntitiesQuery({ name: "teacher", populate: true
   return (
     <div>
         <h1>Host Ipad</h1>
-        <div>
+        <div> 
         <h4 className={styles['title']}>Guest Check-In</h4>   
       <div className={styles['search-bar-container']}>
         <div className="hstack gap-1">

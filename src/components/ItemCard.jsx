@@ -3,7 +3,7 @@ import { Button, Card, Modal } from 'react-bootstrap'
 import ItemView from './ItemView'
 import styles from './styles/ItemCard.module.css'
 
-const ItemCard = ({item, imageAdress, addItem}) => {
+const ItemCard = ({item, imageAdress, addItem, small}) => {
     console.log(item)
 
     const [show, setShow] = useState(false);
@@ -22,8 +22,8 @@ const ItemCard = ({item, imageAdress, addItem}) => {
         
         <div>
             {/*cards*/}
-            <Card style={{ width: '13rem' }}>
-                <Card.Img className={styles.image} variant="top" src={imageAdress} />
+            <Card style={small? {width: '7rem' }:{ width: '13rem' }}>
+                {imageAdress && <Card.Img className={styles.image} variant="top" src={imageAdress} />}
                     <Card.Body>
                         <Card.Title>{item.attributes.name}</Card.Title>
                         <Button className={styles[`card-button`]}variant="info" onClick={handleShow}>Add Item</Button>

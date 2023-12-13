@@ -72,7 +72,9 @@
     margin-left:30px;
     width:10rem;
 }
-
+.vo-so{
+    width: 10px;
+}
 /* For screens smaller than 768px (portrait phones) */
 @media (max-width: 767px) {
     .form-input{

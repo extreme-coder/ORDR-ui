@@ -2,8 +2,11 @@ import { useEffect, useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
 import { toast } from "react-toastify"
 import { useAddEntityMutation, useGetEntitiesByFieldQuery, useGetEntitiesQuery, useGetEntityQuery, useUpdateEntityMutation } from "../services/lastmeal"
+import SingleOrder from "./SingleOrder"
+import styles from '../pages/pageStyles/Preorder.module.css'
+import ItemCard from "./ItemCard"
 
-export const SeatView = ({ seat, updateView}) => {
+export const SeatView = ({ seat, updateView }) => {
   const { data: teacher } = useGetEntityQuery({ name: "teacher", id: seat.attributes.teacher.data.id, populate: true })
 
   const { data: allItems } = useGetEntitiesQuery({ name: "item", populate: true })
@@ -17,9 +20,8 @@ export const SeatView = ({ seat, updateView}) => {
 
   const [submitted, setSubmitted] = useState(false)
 
-  const addItem = () => {
-    console.log([...items, allItems.data[0]])
-    setItems([...items, allItems.data[0]])
+  const addItem = (item) => {
+    setItems([...items, item])
   }
 
   const removeItem = (id) => {
@@ -41,20 +43,20 @@ export const SeatView = ({ seat, updateView}) => {
     const foodItems = items.filter(item => item.attributes.type === "FOOD")
     const drinkItems = items.filter(item => item.attributes.type === "DRINK")
     if (foodItems.length > 0) {
-      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: foodItems.map(item => item.attributes.name).join(", "), teacher: seat.attributes.teacher.data.id, type: "KITCHEN" } } })
+      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: foodItems.join(", "), teacher: seat.attributes.teacher.data.id, type: "KITCHEN" } } })
     }
     if (drinkItems.length > 0) {
-      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: drinkItems.map(item => item.attributes.name).join(", "), teacher: seat.attributes.teacher.data.id, type: "BAR" } } })
+      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: drinkItems.join(", "), teacher: seat.attributes.teacher.data.id, type: "BAR" } } })
     }
     setSubmitted(true)
     toast.success("Order submitted!")
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (allItems) {
       setItems([allItems.data[0]])
     }
-  }, [allItems])
+  }, [allItems])*/
 
   return teacher && allItems && orders && <Modal.Body>
     <div>
@@ -66,13 +68,10 @@ export const SeatView = ({ seat, updateView}) => {
         <h5>{orders.data.filter(o => o.attributes.status !== "SERVED").length} orders in progress</h5>
         <h5>{orders.data.filter(o => o.attributes.status === "SERVED").length} orders completed</h5>
         {!submitted && <> <h5>Create New Order:</h5>
-          <ul>
-            {items.map(item => <p><Form.Select value={item.id} onChange={(e) => { setItems(items.map((i, index) => (index === items.indexOf(item) ? allItems.data[e.target.value - 1] : i))); console.log(items) }}>
-              {allItems.data.map(allItem => <option value={allItem.id}>{allItem.attributes.name}</option>)}
-            </Form.Select>
-              <Button variant="danger" onClick={() => removeItem(item.id)}>Remove Item</Button></p>)}
-            <Button onClick={addItem}>Add Item</Button>
-          </ul>
+          <div className={styles[`cards-container`]}>
+            {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard className="card" item={item} addItem={addItem} imageAdress={require(`../../assets/${index + 1}.jpg`)} ></ItemCard>)}
+          </div>
+          {items.map((item) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(item.id)}></SingleOrder>))}
           <Button onClick={submitOrder}>Submit Order</Button>
         </>}
         {submitted && <h5>Order Submitted!</h5>}

@@ -34,7 +34,7 @@ const ItemCard = ({item, imageAdress, addItem}) => {
                 <Modal.Header className={styles[`modal-header`]} closeButton>
                     <Modal.Title className={styles[`modal-heading`]}>{item.attributes.name}</Modal.Title>
                 </Modal.Header>
-                <ItemView item={item} addItem={addItem}></ItemView>
+                <ItemView item={item} addItem={addItem} closeSelf={handleClose}></ItemView>
             </Modal>
         </div>
   )

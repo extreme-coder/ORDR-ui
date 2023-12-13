@@ -20,8 +20,8 @@ export const SeatView = ({ seat, updateView }) => {
 
   const [submitted, setSubmitted] = useState(false)
 
-  const addItem = (item) => {
-    setItems([...items, item])
+  const addItem = (item, type="FOOD") => {
+    setItems([...items, {name: item, type: type}])
   }
 
   const removeItem = (id) => {
@@ -40,13 +40,13 @@ export const SeatView = ({ seat, updateView }) => {
   }
 
   const submitOrder = () => {
-    const foodItems = items.filter(item => item.attributes.type === "FOOD")
-    const drinkItems = items.filter(item => item.attributes.type === "DRINK")
+    const foodItems = items.filter(item => item.type === "FOOD")
+    const drinkItems = items.filter(item => item.type === "DRINK")
     if (foodItems.length > 0) {
-      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: foodItems.join(", "), teacher: seat.attributes.teacher.data.id, type: "KITCHEN" } } })
+      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: foodItems.map(i=>i.name).join(", "), teacher: seat.attributes.teacher.data.id, type: "KITCHEN" } } })
     }
     if (drinkItems.length > 0) {
-      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: drinkItems.join(", "), teacher: seat.attributes.teacher.data.id, type: "BAR" } } })
+      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: drinkItems.map(i=>i.name).join(", "), teacher: seat.attributes.teacher.data.id, type: "BAR" } } })
     }
     setSubmitted(true)
     toast.success("Order submitted!")
@@ -71,7 +71,7 @@ export const SeatView = ({ seat, updateView }) => {
           <div className={styles[`cards-container`]}>
             {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard className="card" item={item} addItem={addItem} small ></ItemCard>)}
           </div>
-          {items.map((item) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(item.id)}></SingleOrder>))}
+          {items.map((item) => (<SingleOrder itemName={item.name} removeItem={() => removeItem(item.id)}></SingleOrder>))}
           <Button onClick={submitOrder}>Submit Order</Button>
         </>}
         {submitted && <h5>Order Submitted!</h5>}

@@ -24,8 +24,8 @@ export const SeatView = ({ seat, updateView }) => {
     setItems([...items, {name: item, type: type}])
   }
 
-  const removeItem = (id) => {
-    setItems(items.filter(item => item.id !== id))
+  const removeItem = (name) => {
+    setItems(items.filter(item => item.name !== name))
   }
 
   const leaveTeacher = async () => {
@@ -71,7 +71,7 @@ export const SeatView = ({ seat, updateView }) => {
           <div className={styles[`cards-container`]}>
             {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard className="card" item={item} addItem={addItem} small ></ItemCard>)}
           </div>
-          {items.map((item) => (<SingleOrder itemName={item.name} removeItem={() => removeItem(item.id)}></SingleOrder>))}
+          {items.map((item) => (<SingleOrder itemName={item.name} removeItem={() => removeItem(item.name)}></SingleOrder>))}
           <Button onClick={submitOrder}>Submit Order</Button>
         </>}
         {submitted && <h5>Order Submitted!</h5>}

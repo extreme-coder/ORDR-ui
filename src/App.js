@@ -9,7 +9,6 @@ import Waiter from './pages/Waiter';
 import Kitchen from './pages/Kitchen';
 import { Confirmation, Preorder } from './pages/Preorder';
 import Host from './pages/pageStyles/Host';
-import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -48,7 +47,6 @@ function App() {
 
   return (
     <div className="container" style={{ padding: 0, width: "100%", margin: 0, maxWidth: "100%" }}>
-      <ToastContainer />
       <RouterProvider router={router} />
     </div>
   );

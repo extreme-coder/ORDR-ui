@@ -12,6 +12,7 @@ const Kitchen = () => {
   /*const [orders, setOrders] = useState([
     { id: 1, attributes: { table: 1, seat: 1, teacher: { id: 1, name: 'Ms Smith' }, items: [{ id: 1, attributes: { name: 'Pancakes' } }, { id: 3, attributes: { name: 'Ommlettes' } }], status: "UNFINISHED", mods: '-' } },
     { id: 2, attributes: { table: 1, seat: 2, teacher: { id: 2, name: 'Mr Sok' }, items: [{ id: 1, attributes: { name: 'Pancakes' } }], status: "PREPARED", mods: '-' }, },
+    test
   ])*/
 
   useEffect(() => {

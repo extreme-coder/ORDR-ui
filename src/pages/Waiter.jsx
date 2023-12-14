@@ -5,6 +5,7 @@ import { SeatView } from "../components/SeatView";
 import { useGetEntitiesByDepth2Query, useGetEntitiesQuery } from "../services/lastmeal";
 import { EmptySeat } from "../components/EmptySeat";
 import styles from "./pageStyles/Waiter.module.css"
+import { current } from "@reduxjs/toolkit";
 
 function Waiter() {
   const Regtangle = {
@@ -35,6 +36,25 @@ function Waiter() {
     setShow(true)
   }
 
+  const getSeatColor = (seat) => {
+    return(
+      !seat.attributes.teacher.data ? 'outline-secondary' 
+      : seatsWithOrders 
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+        order => order.attributes.status === "PREPARED").length>0? 'danger' 
+        : 
+        seatsWithOrders 
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+        order => order.attributes.status === "UNFINISHED").length>0? 'warning'
+        : 'success'
+      )
+  }
+
+      
   useEffect(() => {
     if (seats) {
       console.log(seats.data[0])
@@ -64,20 +84,7 @@ function Waiter() {
                     {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0, 6).map((seat, index) => 
                     <button 
                       type="button" 
-                      class={"btn btn-" + (
-                        !seat.attributes.teacher.data ? 'outline-secondary' 
-                        :
-                        seatsWithOrders 
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
-                          order => order.attributes.status === "UNFINISHED").length>0? 'warning' : 
-                          seatsWithOrders 
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
-                          order => order.attributes.status === "PREPARED").length>0?'danger'
-                          : 'success')} 
+                      class={"btn btn-" + (getSeatColor(seat))} 
                       style={squareButtonStyle} 
                       dataToggle="button" 
                       ariaPressed="false" 
@@ -93,20 +100,7 @@ function Waiter() {
                       seat.attributes.table.data.id === table.id).slice(6, 12).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index) => 
                       <button 
                       type="button" 
-                      class={"btn btn-" + (
-                        !seat.attributes.teacher.data ? 'outline-secondary' 
-                        :
-                        seatsWithOrders 
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
-                          order => order.attributes.status === "UNFINISHED").length>0? 'warning' : 
-                          seatsWithOrders 
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
-                        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
-                          order => order.attributes.status === "PREPARED").length>0?'danger'
-                          : 'success')}  
+                      class={"btn btn-" + (getSeatColor(seat))}
                       style={squareButtonStyle} 
                       dataToggle="button" 
                       ariaPressed="false" 
@@ -131,7 +125,7 @@ function Waiter() {
 
       {/*Modal*/}
       {tables && seats && currentSeat.attributes && <Modal show={show} onHide={handleClose}>
-        <Modal.Header className={styles[`header`]} closeButton>
+        <Modal.Header className={styles[`header-${getSeatColor(currentSeat)}`]} closeButton>
           {console.log(currentSeat)}
           <Modal.Title>Table {tables.data.filter(t => t.id === currentSeat.attributes.table.data.id)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
         </Modal.Header>

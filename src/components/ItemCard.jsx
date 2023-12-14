@@ -23,10 +23,16 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
     console.log(item)
   };
 
+  const smallStyle = {
+      width:'fit-content',
+      margin:'0.2rem'
+  }
+
   return (
+  
     <div>
       {/*cards*/}
-      <Card style={small ? { width:'fit-content' } : { width: '13rem' }}>
+      <Card style={small ? smallStyle : { width: '13rem' }}>
         {imageAdress && <Card.Img className={styles.image} variant="top" src={imageAdress} />}
         <Card.Body className={small? styles.c : styles.ccc}>
           <Card.Title>{item.attributes.name}</Card.Title>

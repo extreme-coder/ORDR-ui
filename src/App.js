@@ -9,6 +9,7 @@ import Waiter from './pages/Waiter';
 import Kitchen from './pages/Kitchen';
 import { Confirmation, Preorder } from './pages/Preorder';
 import Host from './pages/pageStyles/Host';
+import ShoppingRef from './pages/ShoppingRef';
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
           <a href="/Kitchen">Kitchen Page</a>
           <br />
           <a href="/host">Host Page</a>
+          <br />
+          <a href="/Shopping-Ref">Shopping Reference</a>
           
         </div>
     },
@@ -39,6 +42,13 @@ function App() {
       element: <Kitchen />,
       children: [
         { path: ":type", element: <Kitchen /> },
+      ]
+    },
+    {
+      path: "/Shopping-Ref",
+      element: <ShoppingRef />,
+      children: [
+        { path: ":type", element: <ShoppingRef /> },
       ]
     },
     { path: "/host", element: <Host /> },

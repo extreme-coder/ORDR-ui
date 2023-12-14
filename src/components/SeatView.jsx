@@ -56,6 +56,7 @@ export const SeatView = ({ seat, updateView }) => {
     if (allItems) {
       setItems([allItems.data[0]])
     }
+    test
   }, [allItems])*/
 
   return teacher && allItems && orders && <Modal.Body>

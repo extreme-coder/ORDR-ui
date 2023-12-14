@@ -37,21 +37,23 @@ function Waiter() {
   }
 
   const getSeatColor = (seat) => {
-    return(
-      !seat.attributes.teacher.data ? 'outline-secondary' 
-      : seatsWithOrders 
-      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
-      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
-      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
-        order => order.attributes.status === "PREPARED").length>0? 'danger' 
-        : 
-        seatsWithOrders 
-      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
-      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
-      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
-        order => order.attributes.status === "UNFINISHED").length>0? 'warning'
-        : 'success'
-      )
+      if (!seat.attributes.teacher.data){
+        return 'outline-secondary' 
+      } else if(seatsWithOrders 
+        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
+        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+        order => order.attributes.status === "PREPARED").length>0){
+            return 'danger'
+      } else if (seatsWithOrders 
+        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
+        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+          order => order.attributes.status === "UNFINISHED").length>0){
+           return 'warning'
+      } else {
+        return 'success'
+      }    
   }
 
       
@@ -125,7 +127,7 @@ function Waiter() {
 
       {/*Modal*/}
       {tables && seats && currentSeat.attributes && <Modal show={show} onHide={handleClose}>
-        <Modal.Header className={styles[`header-${getSeatColor(currentSeat)}`]} closeButton>
+        <Modal.Header className={styles[`header`]} closeButton>
           {console.log(currentSeat)}
           <Modal.Title>Table {tables.data.filter(t => t.id === currentSeat.attributes.table.data.id)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
         </Modal.Header>

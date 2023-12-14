@@ -1,6 +1,6 @@
 .preorder{
     margin:0;
-    padding-bottom:60px;
+    height: 120vh;
     background-color: #20242e;
 }
 .header{
@@ -10,7 +10,6 @@
     justify-content: center;
     width:100%;
     background-color:antiquewhite;
-    color:#20242e;
     padding:10px;
     padding-top:12px;
     font-family: 'Courier New', Courier, monospace;

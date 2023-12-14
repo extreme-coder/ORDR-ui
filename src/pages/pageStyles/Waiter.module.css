@@ -1,28 +1,8 @@
-.header-outline-secondary{
-    background-color: rgb(72, 72, 72);
+.header{
+    background-color: white;
     color: snow;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
-.header-success{
-    background-color: #198754;
-    color: snow;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.header-warning{
-    background-color: #ffc107;
-    color: snow;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.header-danger{
-    background-color: #dc3545
-    ;
-    color: snow;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
 
 .close-button{
     background-color: darkslategray;

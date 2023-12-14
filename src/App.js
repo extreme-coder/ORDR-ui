@@ -13,20 +13,29 @@ import ShoppingRef from './pages/ShoppingRef';
 
 
 function App() {
+  const btnStyle = {
+    margin:'0.5rem',
+    marginLeft: '1.5rem',
+    
+}
+const btnStyleFirst = {
+  margin:'0.5rem',
+  marginLeft: '1.5rem',
+  marginTop: '1.5rem'
+}
   const router = createBrowserRouter([
     {
       path: "/", element:
         <div>
-          <a href="/waiters">Waiter Page</a>
+          <Button style={btnStyleFirst} variant="secondary" href="/waiters">Waiter Page</Button>
           <br />
-          <a href="/preorder">Preorder Page</a>
+          <Button style={btnStyle} variant="secondary" href="/preorder">Preorder Page</Button>
           <br />
-          <a href="/Kitchen">Kitchen Page</a>
+          <Button style={btnStyle} variant="secondary" href="/Kitchen">Kitchen Page</Button>
           <br />
-          <a href="/host">Host Page</a>
+          <Button style={btnStyle} variant="secondary" href="/host">Host Page</Button>
           <br />
-          <a href="/Shopping-Ref">Shopping Reference</a>
-          
+          <Button style={btnStyle} variant="secondary" href="/Shopping-Ref">Shopping Reference</Button>
         </div>
     },
     {
@@ -56,7 +65,7 @@ function App() {
   ]);
 
   return (
-    <div className="container" style={{ padding: 0, width: "100%", margin: 0, maxWidth: "100%" }}>
+    <div className="container" style={{ padding: 0, width: "100%", margin: "0", maxWidth: "100%" }}>
       <RouterProvider router={router} />
     </div>
   );

@@ -9,6 +9,7 @@ import Waiter from './pages/Waiter';
 import Kitchen from './pages/Kitchen';
 import { Confirmation, Preorder } from './pages/Preorder';
 import Host from './pages/pageStyles/Host';
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -26,15 +27,28 @@ function App() {
           
         </div>
     },
-    { path: "/waiters", element: <Waiter /> },
+    {
+      path: "/waiters",
+      element: <Waiter />,
+      children: [
+        { path: ":id", element: <Waiter /> },
+      ]
+    },
     { path: "/preorder", element: <Preorder /> },
-    { path: "/Kitchen", element: <Kitchen /> },
+    {
+      path: "/Kitchen",
+      element: <Kitchen />,
+      children: [
+        { path: ":type", element: <Kitchen /> },
+      ]
+    },
     { path: "/host", element: <Host /> },
     { path: "confirmation", element: <Confirmation /> }
   ]);
 
   return (
     <div className="container" style={{ padding: 0, width: "100%", margin: 0, maxWidth: "100%" }}>
+      <ToastContainer />
       <RouterProvider router={router} />
     </div>
   );

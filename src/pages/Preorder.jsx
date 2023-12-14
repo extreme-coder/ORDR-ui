@@ -63,7 +63,7 @@ export const Preorder = () => {
     </div>
     <h4 className={styles.h}>My Order:</h4>
     <div>
-      {order.items.map((item, index) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(index)}></SingleOrder>))}
+      {order.items.length===0? <p className={styles[`no-items`]}>No items selected</p>: order.items.map((item, index) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(index)}></SingleOrder>))}
     </div>
     <Button className={styles[`submit-btn`]}onClick={submitOrder}>Submit Order</Button>
   </div>

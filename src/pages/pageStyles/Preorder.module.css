@@ -60,6 +60,20 @@
     font-family: 'Courier New', Courier, monospace
 
 }
+.no-items{
+    background-color:rgba(250, 235, 215, 0.212);
+    color: antiquewhite;
+    border-radius: 5px;
+    padding:1rem;
+    width: 13rem;
+    margin-top:0;
+    margin-left:2rem;
+    font-weight: bold;
+    color: antiquewhite;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+
+}
 .cards-container{
     display: flex;
     flex-direction: row;

@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Form } from 'react-bootstrap';
 import './styles/ItemView.css'
 import { toast } from 'react-toastify';
 
-const ItemView = ({ item, addItem}) => {
+const ItemView = ({ item, addItem, closeSelf}) => {
   const [selectedIndices, setSelectedIndices]= useState([]);
   
   const handleCheckClick = (id) => {
@@ -20,6 +20,7 @@ const ItemView = ({ item, addItem}) => {
       return;
     }
     addItem(item.attributes.name + " w/ " + item.attributes.toppings.data.filter(topping => selectedIndices.includes(topping.id)).map(t => t.attributes.name).join(" & "));
+    closeSelf();
   }
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -39,6 +40,7 @@ const ItemView = ({ item, addItem}) => {
 
   const handleSingleToppingClick = (topping)=> {
     addItem(item.attributes.name + " w/ " + topping.attributes.name);
+    closeSelf();
   }
 
   return (

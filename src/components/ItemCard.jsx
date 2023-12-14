@@ -26,9 +26,9 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
   return (
     <div>
       {/*cards*/}
-      <Card style={small ? { width: '7rem' } : { width: '13rem' }}>
+      <Card style={small ? { width:'fit-content' } : { width: '13rem' }}>
         {imageAdress && <Card.Img className={styles.image} variant="top" src={imageAdress} />}
-        <Card.Body>
+        <Card.Body className={small? styles.c : styles.ccc}>
           <Card.Title>{item.attributes.name}</Card.Title>
           <Button className={styles[`card-button`]} variant="info" onClick={customize}>Add Item</Button>
         </Card.Body>

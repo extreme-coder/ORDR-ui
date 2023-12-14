@@ -59,7 +59,7 @@ export const Preorder = () => {
       <h4 className={styles.h}>Select Order</h4>
     
     <div className={styles[`cards-container`]}>
-      {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard className="card" item={item} addItem={addItem} imageAdress={require(`../../assets/${index+1}.jpg`)} ></ItemCard>)}
+      {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard item={item} addItem={addItem} imageAdress={require(`../../assets/${index+1}.jpg`)} ></ItemCard>)}
     </div>
 
     <div>
@@ -70,8 +70,9 @@ export const Preorder = () => {
 }
 
 export const Confirmation = () => (
-  <div>
-    <h1>Order Confirmed</h1>
-    <p>Your order has been confirmed!</p>
+  <div className={styles.preorder}>
+    <h1 className="oc">Order Confirmed</h1>
+    <h4 className="oc-sub">Thank you for preordering. We can't wait to see you on Thursday!</h4>
+    <p className="oc-credit">developed by Aryan Singh and Ali Hosseini</p>
   </div>
 )

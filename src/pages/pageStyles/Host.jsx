@@ -3,6 +3,7 @@ import styles from "../../components/styles/EmptySeat.module.css"
 import SearchBar from '../../components/SearchBar'
 import SearchResultsList from '../../components/SearchResultsList'
 import { Button } from 'react-bootstrap'
+import './Host.css'
 import { useAddEntityMutation, useGetEntitiesQuery, useUpdateEntityMutation } from '../../services/lastmeal'
 
 const Host = () => {
@@ -22,6 +23,8 @@ const Host = () => {
     teacher.attributes.orders.data.map(o => {
       updateEntity({ name: "order", id: o.id, body: { data: { status: "UNFINISHED" } } })
     })
+    setTeacher({});
+    setSearchBarFilled(false);
   }
 
   const addNewTeacher = async () => {
@@ -32,12 +35,13 @@ const Host = () => {
     setTeacherName(e.target.value)
   }
   return (
-    <div>
-      <h1>Host Ipad</h1>
+    <div className="host-container">
+      <h1 className="host-title">Guest Check-In</h1>
+      
       <div>
-        <h4 className={styles['title']}>Guest Check-In</h4>
         <div className={styles['search-bar-container']}>
           <div className="hstack gap-1">
+            <div className="sb-container">
             <SearchBar
               dataArr={teachers && teachers.data}
               setResults={setResults}
@@ -46,14 +50,16 @@ const Host = () => {
               filled={setSearchBarFilled}
               updateName={updateName}
             />
+            </div>
             {results.length === 0 && searchBarFilled && <button className="btn btn-outline-success" onClick={addNewTeacher}>Add Teacher</button>}
           </div>
           <SearchResultsList results={results} setSelectedTeacher={setTeacher} />
+          {teacher.attributes? <Button className="check-in-btn"variant="success" onClick={arriveTeacher}>Check Guest In</Button> : <h4 className='sub-title'>Check-In successfull</h4>}
         </div>
-        {teacher.attributes && <Button variant="success" onClick={arriveTeacher}>Check Guest In</Button>}
+        
       </div>
     </div>
   )
 }
 
-export default Host
+export default Host;

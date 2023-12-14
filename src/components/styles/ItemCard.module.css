@@ -16,6 +16,13 @@
     width:100%;
     color: antiquewhite
 }
+.ccc{
+    background-color:antiquewhite !important;
+}
+.c{
+    background-color: rgb(164, 184, 184);
+    border-radius: 6px;
+}
 .modal-header{
     background-color:#424a5f;
     color: antiquewhite;

@@ -4,6 +4,7 @@ import { toast } from "react-toastify"
 import { useAddEntityMutation, useGetEntitiesByFieldQuery, useGetEntitiesQuery, useGetEntityQuery, useUpdateEntityMutation } from "../services/lastmeal"
 import SingleOrder from "./SingleOrder"
 import styles from '../pages/pageStyles/Preorder.module.css'
+import '../pages/pageStyles/Preorder.css'
 import ItemCard from "./ItemCard"
 import SingleOrderWaiter from "./SingleOrderWaiter"
 
@@ -14,7 +15,9 @@ export const SeatView = ({ seat, updateView }) => {
 
   const { data: orders } = useGetEntitiesByFieldQuery({ name: "order", field: "teacher", value: seat.attributes.teacher.data.id, relation: 'id', populate: true })
 
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
+
+  const[showModal, setShowModal] = useState(false);
 
   const [addEntity] = useAddEntityMutation();
   const [updateEntity] = useUpdateEntityMutation();
@@ -63,20 +66,32 @@ export const SeatView = ({ seat, updateView }) => {
   return teacher && allItems && orders && <Modal.Body>
     <div>
       <h4>{teacher.data.attributes.name}</h4>
-      <h5>Status: {teacher.data.attributes.teacher_status}</h5>
       {teacher.data.attributes.teacher_status === "ARRIVED" && <>
         {/*mark as left button*/}
         <Button variant="danger" onClick={leaveTeacher}>Mark as Left</Button>
-        <h5>{orders.data.filter(o => o.attributes.status !== "SERVED").length} orders in progress</h5>
-        <h5>{orders.data.filter(o => o.attributes.status === "SERVED").length} orders completed</h5>
+        <div class="hstack gap-1">
+        <p style={{marginTop:"1rem"}}>{orders.data.filter(o => o.attributes.status !== "SERVED").length} orders in progress</p>
+        <Button className="view-order-btn" onClick={()=> setShowModal(true)}>View</Button>
+        </div>
+        <p style={{marginTop: "-1rem"}}>{orders.data.filter(o => o.attributes.status === "SERVED").length} orders completed</p>
         {!submitted && <> <h5>Create New Order:</h5>
-          <div className={styles[`cards-container`]}>
-            {allItems && allItems.data.map((item, index) => <ItemCard className="card" item={item} addItem={addItem} small ></ItemCard>)}
+          <div className={styles[`sv-cards-container`]}>
+            {allItems && allItems.data.map((item, index) => <ItemCard item={item} addItem={addItem} small ></ItemCard>)}
           </div>
           {items.map((item) => (<SingleOrderWaiter itemName={item.name} removeItem={() => removeItem(item.name)}></SingleOrderWaiter>))}
           <Button onClick={submitOrder}>Submit Order</Button>
         </>}
         {submitted && <h5>Order Submitted!</h5>}
+        <Modal show={showModal} onHide={() => setShowModal(false)} closeButton>
+          <Modal.Header className={styles[`pv-header`]}>
+            Orders in Progress
+            <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={()=> setShowModal(false)}></button>
+          </Modal.Header>
+          <Modal.Body>
+            <h5>{teacher.data.attributes.name}</h5>
+            {orders.data.filter(o => o.attributes.teacher.id === teacher.id && o.attributes.status !== "SERVED").map(o => <div>{o.attributes.items.split(",").map(item => <div className={styles[`pv-item-${o.attributes.status}`]}>{item}</div>)}</div>)}
+          </Modal.Body>
+        </Modal>
       </>}
     </div>
   </Modal.Body>

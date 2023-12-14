@@ -1,9 +1,0 @@
-.sv-cards-container{
-    display: flexbox;
-    flex-direction: row;
-
-}
-
-.sv-card{
-    margin: 20px;
-}

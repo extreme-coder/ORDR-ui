@@ -1,6 +1,7 @@
 .preorder{
     margin:0;
-    height: 120vh;
+    height: fit-content;
+    padding-bottom: 10vh;
     background-color: #20242e;
 }
 .header{
@@ -66,14 +67,65 @@
     margin-top:1.3rem;
     margin-bottom: 1.3rem
 }
+.sv-cards-container{
+    display: flex;
+    flex-direction: row;
+    padding-top:1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(234, 234, 234);
+    border-radius: 10px;
+    margin-bottom:1rem;
+}
+
 .submit-btn{
     margin:10px;
     margin-left:30px;
     width:10rem;
 }
+
+.pv-header{
+    background-color: #000000;
+    font-weight: bold;
+    color:white;
+}
+
+.pv-item-UNFINISHED{
+    background-color: #fad054;
+    padding:3px;
+    padding-left:1rem;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.pv-item-PREPARED{
+    background-color:  #dc3545;
+    padding:3px;
+    padding-left:1rem;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    color:white;
+}
 /* For screens smaller than 768px (portrait phones) */
 @media (max-width: 767px) {
+    .preorder{
+        margin:0;
+        height: fit-content;
+        padding-bottom: 5vh;
+        background-color: #20242e;
+    }
     .form-input{
+        width: 80%;
+    }
+    .form-input:hover{
+        width: 80%;
+    }
+    .form-input:focus{
         width: 80%;
     }
     .cards-container{

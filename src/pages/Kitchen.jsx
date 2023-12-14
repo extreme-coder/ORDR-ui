@@ -39,7 +39,7 @@ const Kitchen = () => {
       <Tabs defaultActiveKey={type ? type : "kitchen"} id="uncontrolled-tab-example" className="mb-3">
         {(!type || type === "kitchen") && <Tab eventKey="kitchen" title="Kitchen" id="kitchen">
           <Accordion>
-            {orders && orders.data.filter(o => o.attributes.status !== "SERVED" && o.attributes.type === "KITCHEN").reverse().map(order => <Ticket order={order} />)}
+            {orders && orders.data.filter(o => o.attributes.status !== "SERVED" && o.attributes.status !== "PRE-EVENT" && o.attributes.type === "KITCHEN").reverse().map(order => <Ticket order={order} />)}
           </Accordion>
         </Tab>}
         {(!type || type === "bar") && <Tab eventKey="bar" title="Bar" id="bar">

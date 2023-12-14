@@ -22,7 +22,7 @@ export const Preorder = () => {
   const [addEntity] = useAddEntityMutation();
 
   const submitOrder = async () => {
-    if(order.name.split(" ").map(n => n.trim()).filter(n => n !== "").length !== 2){
+    if(order.name.split(" ").map(n => n.trim()).filter(n => n !== "" && n !== "undefined").length !== 2){
       setWarning(true)
       return
     }

@@ -27,7 +27,7 @@ export const Preorder = () => {
       return
     }
     const teacher = await addEntity({ name: "teacher", body: { data: { name: order.name } } })
-    addEntity({ name: "order", body: { data: { ...order, items: order.items.join(", "), status: "PRE-EVENT", teacher: teacher.data.data.id, type: "FOOD" } } })
+    addEntity({ name: "order", body: { data: { ...order, items: order.items.join(", "), status: "PRE-EVENT", teacher: teacher.data.data.id, type: "KITCHEN" } } })
     navigate("/confirmation")
   }
 

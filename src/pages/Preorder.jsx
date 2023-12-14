@@ -13,7 +13,9 @@ import SingleOrder from "../components/SingleOrder"
 export const Preorder = () => {
   const [order, setOrder] = useState({ name: "", mods: "", status: "UNFINISHED", items: [] })
   const { data: allItems } = useGetEntitiesByDepthQuery({ name: "item", populate: true, depthField: "toppings" });
+  const { data: allOrders } = useGetEntitiesByDepthQuery({ name: "order", populate: true, depthField: "teacher" });
   const [warning, setWarning] = useState(false)
+  const [already, setAlready] = useState(false)
 
   useEffect(() => {
     console.log(allItems);
@@ -22,6 +24,10 @@ export const Preorder = () => {
   const [addEntity] = useAddEntityMutation();
 
   const submitOrder = async () => {
+    if (allOrders && allOrders.data.filter(o => o.attributes.teacher.data.attributes.name === order.name).length > 0) {
+      setAlready(true)
+      return
+    }
     if(order.name.split(" ").map(n => n.trim()).filter(n => n !== "" && n !== "undefined").length !== 2){
       setWarning(true)
       return
@@ -53,6 +59,7 @@ export const Preorder = () => {
       <Form.Label className={styles[`form-header`]}>Last Name:</Form.Label>
       <Form.Control className={styles[`form-input`]} placeholder="Enter last name" onChange={(e) => setOrder({ ...order, name: order.name.split(" ")[0] + " " + e.target.value })} />
       {warning && <p className={styles['form-header']} style={{ color: 'red' }}>Please enter a valid first and last name (no spaces or special characters).</p>}
+      {already && <p className={styles['form-header']} style={{ color: 'red' }}>There’s already a preorder under this name. If you’d like to change your order, please contact ali20060101@gmail.com</p>}
       <Form.Label className={styles[`form-header`]} >Allergies Relevant to Order:</Form.Label>
       <Form.Control className={styles[`form-input`]} placeholder="Allergies" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
     </form>

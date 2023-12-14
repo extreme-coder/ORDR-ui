@@ -1,8 +1,6 @@
-
-.image{
+.image-sizing{
     width: 100%;
-    height:auto;
-
+    height: 13rem;
 }
 .card-button{
     background-color: #20242e;
@@ -21,7 +19,7 @@
 }
 .c{
     background-color: rgb(164, 184, 184);
-    border-radius: 5px;
+    border-radius: px;
 }
 .modal-header{
     background-color:#424a5f;

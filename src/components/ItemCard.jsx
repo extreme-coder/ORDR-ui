@@ -22,7 +22,7 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
     console.log("TEST")
     console.log(item)
   };
-
+  
   const smallStyle = {
       width:'fit-content',
       margin:'0.2rem'
@@ -33,7 +33,7 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
     <div>
       {/*cards*/}
       <Card style={small ? smallStyle : { width: '13rem' }}>
-        {imageAdress && <Card.Img className={styles.image} variant="top" src={imageAdress} />}
+        {imageAdress && <Card.Img className={styles[`image-sizing`]} variant="top" src={imageAdress} />}
         <Card.Body className={small? styles.c : styles.ccc}>
           <Card.Title>{item.attributes.name}</Card.Title>
           <Button className={styles[`card-button`]} variant="info" onClick={customize}>Add Item</Button>

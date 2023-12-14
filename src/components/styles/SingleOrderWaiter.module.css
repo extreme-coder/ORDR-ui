@@ -1,0 +1,19 @@
+.so-container{
+    background-color: darkslategray;
+    color: snow;
+    width: 90%;
+    margin:2px;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+.item-name{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+}
+
+/*@media (max-width: 767px) {
+    .so-container{
+        width: 80vw;
+    }
+}*/

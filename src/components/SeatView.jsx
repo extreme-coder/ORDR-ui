@@ -5,6 +5,7 @@ import { useAddEntityMutation, useGetEntitiesByFieldQuery, useGetEntitiesQuery, 
 import SingleOrder from "./SingleOrder"
 import styles from '../pages/pageStyles/Preorder.module.css'
 import ItemCard from "./ItemCard"
+import SingleOrderWaiter from "./SingleOrderWaiter"
 
 export const SeatView = ({ seat, updateView }) => {
   const { data: teacher } = useGetEntityQuery({ name: "teacher", id: seat.attributes.teacher.data.id, populate: true })
@@ -72,7 +73,7 @@ export const SeatView = ({ seat, updateView }) => {
           <div className={styles[`cards-container`]}>
             {allItems && allItems.data.map((item, index) => <ItemCard className="card" item={item} addItem={addItem} small ></ItemCard>)}
           </div>
-          {items.map((item) => (<SingleOrder itemName={item.name} removeItem={() => removeItem(item.name)}></SingleOrder>))}
+          {items.map((item) => (<SingleOrderWaiter itemName={item.name} removeItem={() => removeItem(item.name)}></SingleOrderWaiter>))}
           <Button onClick={submitOrder}>Submit Order</Button>
         </>}
         {submitted && <h5>Order Submitted!</h5>}

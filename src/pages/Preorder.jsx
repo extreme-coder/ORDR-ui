@@ -52,7 +52,7 @@ export const Preorder = () => {
       <Form.Control className={styles[`form-input`]} placeholder="Enter first name" onChange={(e) => setOrder({ ...order, name: e.target.value + " " + order.name.split(" ")[1] })} />
       <Form.Label className={styles[`form-header`]}>Last Name:</Form.Label>
       <Form.Control className={styles[`form-input`]} placeholder="Enter last name" onChange={(e) => setOrder({ ...order, name: order.name.split(" ")[0] + " " + e.target.value })} />
-      {warning && <p className={styles['form-header']} style={{ color: 'red' }}>Please enter your first and last name. </p>}
+      {warning && <p className={styles['form-header']} style={{ color: 'red' }}>Please enter a valid first and last name (no spaces or special characters).</p>}
       <Form.Label className={styles[`form-header`]} >Allergies Relevant to Order:</Form.Label>
       <Form.Control className={styles[`form-input`]} placeholder="Allergies" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
     </form>

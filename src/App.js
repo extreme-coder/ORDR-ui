@@ -26,9 +26,21 @@ function App() {
           
         </div>
     },
-    { path: "/waiters", element: <Waiter /> },
+    {
+      path: "/waiters",
+      element: <Waiter />,
+      children: [
+        { path: ":id", element: <Waiter /> },
+      ]
+    },
     { path: "/preorder", element: <Preorder /> },
-    { path: "/Kitchen", element: <Kitchen /> },
+    {
+      path: "/Kitchen",
+      element: <Kitchen />,
+      children: [
+        { path: ":type", element: <Kitchen /> },
+      ]
+    },
     { path: "/host", element: <Host /> },
     { path: "confirmation", element: <Confirmation /> }
   ]);

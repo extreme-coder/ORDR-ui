@@ -56,12 +56,12 @@ export const Preorder = () => {
       <Form.Label className={styles[`form-header`]} >Allergies Relevant to Order:</Form.Label>
       <Form.Control className={styles[`form-input`]} placeholder="Allergies" onChange={(e) => setOrder({ ...order, mods: e.target.value })} />
     </form>
-      <h4 className={styles.h}>Select Order</h4>
+      <h4 className={styles.h}>Select Items to Preorder</h4>
     
     <div className={styles[`cards-container`]}>
       {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard item={item} addItem={addItem} imageAdress={require(`../../assets/${index+1}.jpg`)} ></ItemCard>)}
     </div>
-
+    <h4 className={styles.h}>My Order:</h4>
     <div>
       {order.items.map((item, index) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(index)}></SingleOrder>))}
     </div>

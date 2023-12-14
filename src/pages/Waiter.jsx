@@ -6,6 +6,7 @@ import { useGetEntitiesByDepth2Query, useGetEntitiesQuery } from "../services/la
 import { EmptySeat } from "../components/EmptySeat";
 import styles from "./pageStyles/Waiter.module.css"
 import { current } from "@reduxjs/toolkit";
+import { useParams } from "react-router";
 
 function Waiter() {
   const Regtangle = {
@@ -31,6 +32,7 @@ function Waiter() {
   console.log(seats)
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
+  const id = useParams().id;
 
   const openSeatView = ()=> {
     setShow(true)
@@ -77,7 +79,7 @@ function Waiter() {
     <div>
       {/*Table views*/}
       <Tabs >
-        {tables && tables.data.map(table => <Tab eventKey={table.id} title={"Table " + table.attributes.number}>
+        {tables && tables.data.filter(t => !id || parseInt(id) === t.attributes.number ).map(table => <Tab eventKey={table.id} title={"Table " + table.attributes.number}>
           <Container className={styles.table}>
             <Row>
               <Col>

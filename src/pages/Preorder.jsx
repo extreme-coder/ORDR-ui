@@ -72,7 +72,7 @@ export const Preorder = () => {
 export const Confirmation = () => (
   <div className={styles.preorder}>
     <h1 className="oc">Order Confirmed</h1>
-    <h4 className="oc-sub">Thank you for preordering. We can't wait to see you on Thursday!</h4>
+    <h4 className="oc-sub">Thank you for preordering. The Student Government class can't wait to serve you on Dec. 21st!</h4>
     <p className="oc-credit">developed by Aryan Singh and Ali Hosseini</p>
   </div>
 )

@@ -71,7 +71,7 @@ export const SeatView = ({ seat, updateView }) => {
         <h5>{orders.data.filter(o => o.attributes.status === "SERVED").length} orders completed</h5>
         {!submitted && <> <h5>Create New Order:</h5>
           <div className={styles[`cards-container`]}>
-            {allItems && allItems.data.filter(item => item.attributes.type === "FOOD").map((item, index) => <ItemCard className="card" item={item} addItem={addItem} small ></ItemCard>)}
+            {allItems && allItems.data.map((item, index) => <ItemCard className="card" item={item} addItem={addItem} small ></ItemCard>)}
           </div>
           {items.map((item) => (<SingleOrderWaiter itemName={item.name} removeItem={() => removeItem(item.name)}></SingleOrderWaiter>))}
           <Button onClick={submitOrder}>Submit Order</Button>

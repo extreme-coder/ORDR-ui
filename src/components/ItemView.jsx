@@ -3,15 +3,15 @@ import { Button, ButtonGroup, Form } from 'react-bootstrap';
 import './styles/ItemView.css'
 import { toast } from 'react-toastify';
 
-const ItemView = ({ item, addItem, closeSelf}) => {
-  const [selectedIndices, setSelectedIndices]= useState([]);
-  
+const ItemView = ({ item, addItem, closeSelf }) => {
+  const [selectedIndices, setSelectedIndices] = useState([]);
+
   const handleCheckClick = (id) => {
-    if(selectedIndices.includes(id)){
+    if (selectedIndices.includes(id)) {
       setSelectedIndices(selectedIndices.filter(index => index !== id));
       return;
     }
-      setSelectedIndices([...selectedIndices, id]);
+    setSelectedIndices([...selectedIndices, id]);
   }
 
   const handleMultiToppingClick = () => {
@@ -24,7 +24,7 @@ const ItemView = ({ item, addItem, closeSelf}) => {
   }
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  
+
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
@@ -35,10 +35,10 @@ const ItemView = ({ item, addItem, closeSelf}) => {
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
-  },[]);
+  }, []);
 
 
-  const handleSingleToppingClick = (topping)=> {
+  const handleSingleToppingClick = (topping) => {
     addItem(item.attributes.name + " w/ " + topping.attributes.name);
     closeSelf();
   }
@@ -46,21 +46,21 @@ const ItemView = ({ item, addItem, closeSelf}) => {
   return (
     <div className='item-view'>
       <h4 className='title'>
-        {item.attributes.multi_topping? "Select All Desired Toppings" : "Please Select Type"}
+        {item.attributes.multi_topping ? "Select All Desired Toppings" : "Please Select Type"}
       </h4>
-      {item.attributes.multi_topping? 
-      <div class={window.innerWidth>420? "btn-group" : "btn-group-vertical"}>
-        {item.attributes.toppings.data.map(topping => (
-          <button className={selectedIndices.includes(topping.id)? "btn btn-primary" : "btn btn-outline-dark"} key={topping.id} onClick={() => {handleCheckClick(topping.id)}}>{topping.attributes.name}</button>
-        ))}
-      </div>
-      :
-      <div className='single-topping-container'>
-        {item.attributes.toppings.data.map(topping => (<Button className="single-topping-btn" variant="outline-primary" key={topping.id} onClick={() => handleSingleToppingClick(topping)}>{topping.attributes.name}</Button>))}
-      </div>
-     }
-    <br></br>
-     {item.attributes.multi_topping && <button className='btn btn-success' onClick={handleMultiToppingClick}>Confirm</button>}
+      {item.attributes.multi_topping ?
+        <div class={window.innerWidth > 420 ? "btn-group" : "btn-group-vertical"}>
+          {item.attributes.toppings.data.map(topping => (
+            <button className={selectedIndices.includes(topping.id) ? "btn btn-primary" : "btn btn-outline-dark"} key={topping.id} onClick={() => { handleCheckClick(topping.id) }}>{topping.attributes.name}</button>
+          ))}
+        </div>
+        :
+        <div className='single-topping-container'>
+          {item.attributes.toppings.data.map(topping => (<Button className="single-topping-btn" variant="outline-primary" key={topping.id} onClick={() => handleSingleToppingClick(topping)}>{topping.attributes.name}</Button>))}
+        </div>
+      }
+      <br></br>
+      {item.attributes.multi_topping && <button className='btn btn-success' onClick={handleMultiToppingClick}>Confirm</button>}
     </div>
   )
 }

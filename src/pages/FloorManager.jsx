@@ -6,7 +6,6 @@ import { EmptySeat } from '../components/EmptySeat';
 import { SeatView } from '../components/SeatView';
 import styles from './pageStyles/FloorManager.module.css'
 import { SingleTable } from '../components/SingleTable';
-import AllOrders from '../components/AllOrders';
 
 const FloorManager = () => {
       const { data: tables } = useGetEntitiesQuery({ name: "table", populate: true });
@@ -42,17 +41,6 @@ const FloorManager = () => {
                 </div>
             </div>
           </div>
-        </Tab>
-        <Tab eventKey="2" title="orders">
-          <Tabs>
-            <Tab eventKey="3" title="Prepared">
-              <AllOrders type="PREPARED"></AllOrders>
-            </Tab>
-                      
-            <Tab eventKey="4" title="Unprepared">
-              <AllOrders type="UNFINISHED"></AllOrders>
-            </Tab>
-          </Tabs>
         </Tab>
         </Tabs>
         

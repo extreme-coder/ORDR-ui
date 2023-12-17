@@ -12,12 +12,13 @@ const FloorManager = () => {
 
       const id = useParams().id;
     
-    
 
       return (
-        <div className={styles[`fm-container`]}>
+        
           <Tabs>
-            <Tab>
+           
+            <Tab  eventKey="1" title="floor">
+            <div className={styles[`fm-container`]}>
               <div class="container">
                 <div class="row">
                   <div class="col-auto">
@@ -39,9 +40,11 @@ const FloorManager = () => {
                   </div>
                 </div>
             </div>
+          </div>
         </Tab>
+        
         </Tabs>
-        </div>
+        
       )
     
 }

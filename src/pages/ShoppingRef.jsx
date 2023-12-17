@@ -7,7 +7,7 @@ const ShoppingRef = () => {
     const preOrders = [];
     const buggyStyle = {
         margin: "-20px",
-        transform: "scale(0.1)",
+        transform: "scale(0.001)",
         color: "#1b1b1b"
     }
 

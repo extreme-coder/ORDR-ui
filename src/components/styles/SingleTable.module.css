@@ -22,11 +22,24 @@
     margin:1rem;
 }
 
-.fm-container{
-    margin: 0;
-    background-color: rgb(23, 23, 23);
+.regtangle {
+    display: inline-block;
+    width: 600px;
+    height: 200px;
+    background-color: darkslategrey;
+    border-radius: 10px;
 }
+.square-button-style {
+    width: 60px;
+    height: 60px;
+}
+.container-style {
+    width: 600px;
+};
+.button-group-style {
+    marginTop: 70px
+};
 
-.fm-div{
-    transform: scale(0.8);
+.table-container{
+    display: grid
 }

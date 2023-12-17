@@ -69,7 +69,7 @@ function Waiter() {
   const handleClose = () => {
     setShow(false)
     window.location.reload();
-  };
+  }
 
   const [activeItems, setActiveItems] = useState([] );
   const handleShow = () => setShow(true);
@@ -117,7 +117,7 @@ function Waiter() {
               </Col>
               <Col>
                 <div class="btn-group-vertical" style={buttonGroupStyle}>
-                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).filter(seat => seat.attributes.number === 0).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index) => <button type="button" class={"btn btn-" + (seat.attributes.teacher.data ? 'success' : 'outline-secondary')} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
+                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id &&  seat.attributes.number === 0).map((seat) => <button type="button" class={"btn btn-" + (getSeatColor(seat))} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
                     Extra
                   </button>)}
                 </div>

@@ -10,6 +10,7 @@ import Kitchen from './pages/Kitchen';
 import { Confirmation, Preorder } from './pages/Preorder';
 import Host from './pages/pageStyles/Host';
 import ShoppingRef from './pages/ShoppingRef';
+import FloorManager from './pages/FloorManager';
 
 
 function App() {
@@ -27,7 +28,9 @@ const btnStyleFirst = {
     {
       path: "/", element:
         <div>
-          <Button style={btnStyleFirst} variant="secondary" href="/waiters">Waiter Page</Button>
+          <Button style={btnStyleFirst} variant="secondary" href="/floor-manager">Floor Manager</Button>
+          <br />
+          <Button style={btnStyle} variant="secondary" href="/waiters">Waiter Page</Button>
           <br />
           <Button style={btnStyle} variant="secondary" href="/preorder">Preorder Page</Button>
           <br />
@@ -37,6 +40,13 @@ const btnStyleFirst = {
           <br />
           <Button style={btnStyle} variant="secondary" href="/Shopping-Ref">Shopping Reference</Button>
         </div>
+    },
+    {
+      path: "/floor-manager",
+      element: <FloorManager />,
+      children: [
+        { path: ":id", element: <FloorManager /> },
+      ]
     },
     {
       path: "/waiters",

@@ -1,4 +1,4 @@
-import { Accordion, ButtonGroup } from "react-bootstrap";
+import { Accordion, ButtonGroup, Card } from "react-bootstrap";
 import { useGetEntitiesByFieldQuery, useGetEntityQuery, useUpdateEntityMutation } from "../services/lastmeal";
 import { useReducer, useState } from "react";
 
@@ -8,7 +8,7 @@ const buttonLeft = {
   justifyContent: 'flex-end'
 }
 
-export const Ticket = ({ order }) => {
+export const TicketCard = ({ order }) => {
   const [orderClone, setOrderClone] = useState(JSON.parse(JSON.stringify(order)))
   const { data: seat } = useGetEntitiesByFieldQuery({ name: "seat", field: "teacher", value: order.attributes.teacher.data.id, relation: 'id', populate: true })
   
@@ -19,10 +19,12 @@ export const Ticket = ({ order }) => {
     setOrderClone({ ...orderClone, attributes: { ...orderClone.attributes, status: status } })
   }
 
-  return <Accordion.Item eventKey={order.id}>
-    {seat && <Accordion.Header class="always-open">
+
+
+  return <Card eventKey={order.id} style={{backgroundColor:"#f0f4fc"}}>
+    {seat && <div className="hstack" style={{marginTop:'20px'}}>
       <div>
-        <h5 style={{ display: 'inline-block', marginRight: '5px' }}>#</h5>
+        <h5 style={{ display: 'inline-block', marginRight: '5px', marginLeft:'15px'}}>#</h5>
         <p style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw' }}>
           {order.id}
         </p>
@@ -54,14 +56,18 @@ export const Ticket = ({ order }) => {
           <button type="button" class="btn btn-outline-success" onClick={() => {handleStatus("SERVED"); window.location.reload()}}>Served</button>
         </>}
       </ButtonGroup>
-    </Accordion.Header>}
-    <Accordion.Body>
+    </div>}
+    <div>
       <table class="table">
         <tbody>
           {order.attributes.items.split(", ").map(item =>
             <tr>
-              <td>{item}</td>
-              <td>
+              <td style={{backgroundColor:"#f0f4fc", borderBottomColor:"#b7bbc4"}}>
+                <div style={{marginLeft: "30px"}}>
+                  {item}
+                </div>
+                </td>
+              <td style={{backgroundColor:"#f0f4fc", borderBottomColor:"#b7bbc4"}}>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
                   <label class="form-check-label" for="flexCheckDefault">
@@ -74,6 +80,6 @@ export const Ticket = ({ order }) => {
           )}
         </tbody>
       </table>
-    </Accordion.Body>
-  </Accordion.Item>
+    </div>
+  </Card>
 }

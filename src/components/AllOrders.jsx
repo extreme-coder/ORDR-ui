@@ -40,10 +40,10 @@ const AllOrders = ({type, tableId}) => {
                         {o.attributes.teacher.data.attributes.name}   
                     </td>
                     <td class={`ao-item-${type}`}>
-                        {o.attributes.teacher.data.attributes.seat.data.attributes.table.data.attributes.number}
+                        {o.attributes.teacher.data.attributes.seat.data ? o.attributes.teacher.data.attributes.seat.data.attributes.table.data.attributes.number : ''}
                     </td>
                     <td class={`ao-item-${type}`}>
-                        {o.attributes.teacher.data.attributes.seat.data.attributes.number}
+                        {o.attributes.teacher.data.attributes.seat.data ? o.attributes.teacher.data.attributes.seat.data.attributes.number : ''}
                     </td>
                     <td class={`ao-item-${type} last`}>
                     {item}

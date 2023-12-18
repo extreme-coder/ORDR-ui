@@ -20,6 +20,12 @@
 
 .table{
     margin:1rem;
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    gap: 0.4rem;
+    position: sticky;
+    top: 1rem;
 }
 
 .fm-container{
@@ -29,4 +35,14 @@
 
 .fm-div{
     transform: scale(0.8);
+}
+
+.order-list-container{
+    width: 100%;
+}
+
+.wb{
+    display: flex;
+    flex-direction: row;
+    
 }

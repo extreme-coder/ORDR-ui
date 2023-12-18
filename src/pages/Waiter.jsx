@@ -7,6 +7,7 @@ import { EmptySeat } from "../components/EmptySeat";
 import styles from "./pageStyles/Waiter.module.css"
 import { current } from "@reduxjs/toolkit";
 import { useParams } from "react-router";
+import AllOrders from "../components/AllOrders";
 
 function Waiter() {
   const Regtangle = {
@@ -28,7 +29,8 @@ function Waiter() {
     width: '600px',
   };
   const buttonGroupStyle = {
-    marginTop: '70px'
+    marginTop: '70px',
+    height: '180px'
   };
   const { data: tables } = useGetEntitiesQuery({ name: "table", populate: true });
   const { data: seats } = useGetEntitiesQuery({ name: "seat", populate: true});
@@ -80,13 +82,15 @@ function Waiter() {
 
   const defaultActiveItems = tables && tables.data.map(table => table.id)
   return (
+
     <div>
       {/*Table views*/}
       <Tabs >
         {tables && tables.data.filter(t => !id || parseInt(id) === t.attributes.number ).map(table => <Tab eventKey={table.id} title={"Table " + table.attributes.number}>
-          <Container className={styles.table}>
-            <Row>
-              <Col>
+        <div className={styles.wb}>
+          <div className={styles.table}>
+            
+             
                 <div class="vstack" style={containerStyle}>
                   <div class="hstack gap-5">
                     {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0, 6).map((seat, index) => 
@@ -118,16 +122,18 @@ function Waiter() {
                     </button>)}
                   </div>
                 </div>
-              </Col>
-              <Col>
+ 
                 <div class="btn-group-vertical" style={buttonGroupStyle}>
                   {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id &&  seat.attributes.number === 0).map((seat) => <button type="button" class={"btn btn-" + (getSeatColor(seat))} style={squareButtonStyle} dataToggle="button" ariaPressed="false" autocomplete="off" onClick={() => { handleShow(); setCurrentSeat(seat) }}>
                     Extra
                   </button>)}
                 </div>
-              </Col>
-            </Row>
-          </Container>
+
+          </div>
+          <div className={styles[`order-list-container`]}>
+            <AllOrders type="PREPARED" tableId={table.id}></AllOrders>
+          </div>
+          </div>
         </Tab>)}
       </Tabs>
 
@@ -147,7 +153,8 @@ function Waiter() {
           </Button>
         </Modal.Footer>
       </Modal>}
-    </div>
+    </div>   
+
   );
 }
 

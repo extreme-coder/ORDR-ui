@@ -10,11 +10,15 @@ import { useParams } from "react-router";
 
 function Waiter() {
   const Regtangle = {
-    display: "inlineBlock",
+    display: "flex",
     width: "600px",
     height: "200px",
     background: "darkslategrey",
     borderRadius: "10px",
+    color: "snow",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "2rem"
   }
   const squareButtonStyle = {
     width: '60px',
@@ -98,7 +102,7 @@ function Waiter() {
                       Seat {seat && seat.attributes.number}
                     </button>)}
                   </div>
-                  <div style={Regtangle}></div>
+                  <div style={Regtangle}> Table: {table.attributes.number}</div>
                   <div class="hstack gap-5">
                     {seats && seats.data.filter(seat => 
                       seat.attributes.table.data.id === table.id).slice(6, 12).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index) => 

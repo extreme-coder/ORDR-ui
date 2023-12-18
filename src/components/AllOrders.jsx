@@ -11,6 +11,9 @@ const AllOrders = ({type, tableId}) => {
      { !tableId? 
     <table class="orders"> 
                 <tr class='ao-heading'>
+                <th class='sticky'>
+                        <h5 className={styles[`table-heading`]}>Pickup at</h5>
+                    </th>
                     <th class='sticky'>
                         <h5 className={styles[`table-heading`]}>Teacher</h5>
                     </th>
@@ -31,8 +34,10 @@ const AllOrders = ({type, tableId}) => {
             
                 <tr class="ao-row">
                     <td class={`ao-item-${type} first`}>
-                        {o.attributes.teacher.data.attributes.name}
-                        
+                        {o.attributes.type}
+                    </td>
+                    <td class={`ao-item-${type}`}>
+                        {o.attributes.teacher.data.attributes.name}   
                     </td>
                     <td class={`ao-item-${type}`}>
                         {o.attributes.teacher.data.attributes.seat.data.attributes.table.data.attributes.number}
@@ -52,6 +57,9 @@ const AllOrders = ({type, tableId}) => {
         <h3>Prepared Items</h3>
         <table class="orders"> 
                 <tr class='ao-heading'>
+                <th class='sticky'>
+                        <h5 className={styles[`table-heading`]}>Pickup at</h5>
+                    </th>
                     <th class='sticky'>
                         <h5 className={styles[`table-heading`]}>Teacher</h5>
                     </th>
@@ -69,6 +77,9 @@ const AllOrders = ({type, tableId}) => {
             
                 <tr class="ao-row">
                     <td class={`ao-item-${type} first`}>
+                        {o.attributes.type}
+                    </td>
+                    <td class={`ao-item-${type}`}>
                         {o.attributes.teacher.data.attributes.name}
                         
                     </td>

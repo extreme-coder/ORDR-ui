@@ -23,11 +23,13 @@ td.ao-item-PREPARED{
     background-color: #ffbbc2;
     padding: 10px;
     color: rgb(0, 0, 0);
+    font-size: 0.9rem;
 }
 td.ao-item-UNFINISHED{
     background-color: #ffd12c;
     padding: 10px;
     color: rgb(0, 0, 0);
+    font-size: 0.9rem;
 }
 
 td.first{

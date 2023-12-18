@@ -89,7 +89,13 @@ export const SeatView = ({ seat, updateView }) => {
           </Modal.Header>
           <Modal.Body>
             <h5>{teacher.data.attributes.name}</h5>
-            {orders.data.filter(o => o.attributes.teacher.id === teacher.id && o.attributes.status !== "SERVED").map(o => <div>{o.attributes.items.split(",").map(item => <div className={styles[`pv-item-${o.attributes.status}`]}>{item}</div>)}</div>)}
+            {orders.data.filter(o => 
+              o.attributes.teacher.id === teacher.id && o.attributes.status !== "SERVED").map(o => 
+              <div>{o.attributes.items.split(",").map(item => 
+              <div className={styles[`pv-item-${o.attributes.status}`]}>
+                {item} 
+              </div>)}
+            </div>)}
           </Modal.Body>
         </Modal>
       </>}

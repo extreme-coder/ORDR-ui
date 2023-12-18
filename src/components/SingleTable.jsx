@@ -27,14 +27,12 @@ export const SingleTable = ({table}) => {
         alignItems: 'center',
         justfityContent: 'center',
       };
-      const containerStyle = {
-        width: '600px',
-      };
+
 
       const { data: tables } = useGetEntitiesQuery({ name: "table", populate: true });
       const { data: seats } = useGetEntitiesQuery({ name: "seat", populate: true});
       const { data: seatsWithOrders } = useGetEntitiesByDepth2Query({ name: "seat", populate: true, depthField1:"teacher", depthField2:"orders"});
-      console.log(seats)
+
       const [show, setShow] = useState(false);
       const [currentSeat, setCurrentSeat] = useState({});
       const id = useParams().id;
@@ -66,7 +64,6 @@ export const SingleTable = ({table}) => {
           
       useEffect(() => {
         if (seats) {
-          console.log(seats.data[0])
           setCurrentSeat(seats.data[0])
         }
       }, [seats])
@@ -80,7 +77,7 @@ export const SingleTable = ({table}) => {
 
   return (
     <div>
-                <div class="vstack" style={containerStyle}>
+                <div>
                     
                   <div class="hstack gap-4">
                     {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0, 6).map((seat, index) => 
@@ -132,7 +129,7 @@ export const SingleTable = ({table}) => {
                 {/*Modal*/}
                 {table && seats && currentSeat.attributes && <Modal show={show} onHide={handleClose}>
                     <Modal.Header className={styles[`header`]} closeButton>
-                    {console.log(currentSeat)}
+                    
                     <Modal.Title>Table {tables.data.filter(t => t.id === currentSeat.attributes.table.data.id)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
                     </Modal.Header>
                     {currentSeat.attributes.teacher.data && <SeatView seat={currentSeat} updateView={setCurrentSeat} />}

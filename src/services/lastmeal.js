@@ -50,6 +50,21 @@ export const lastmealApi = createApi({
         return query
       }
     }),
+    getNestedEntities: builder.query({
+      query: (arg) => {
+        const { name, populate, fields} = arg;
+        let query = `${pluralize(name.replace('_', '-'))}`
+        if (populate){
+          query += '?populate='
+          for (const field of fields) {
+            query+=  field + '.';
+        }
+      }
+        console.log("nested query");
+        console.log(query);
+        return query
+      }
+    }),
     getEntitiesByFields: builder.query({
       query: (arg) => {
         const { name, fields, values, relations } = arg;
@@ -313,6 +328,7 @@ export const {
   useGetEntitiesQuery,
   useGetEntitiesByDepthQuery,
   useGetEntitiesByDepth2Query,
+  useGetNestedEntitiesQuery,
   useGetEntitiesByFieldsQuery,
   useGetEntitiesByFieldQuery,
   useLoginMutation,

@@ -11,6 +11,7 @@ import { Confirmation, Preorder } from './pages/Preorder';
 import Host from './pages/pageStyles/Host';
 import ShoppingRef from './pages/ShoppingRef';
 import FloorManager from './pages/FloorManager';
+import ServerAssistant from './pages/ServerAssistant';
 
 
 function App() {
@@ -31,6 +32,8 @@ const btnStyleFirst = {
           <Button style={btnStyleFirst} variant="secondary" href="/floor-manager">Floor Manager</Button>
           <br />
           <Button style={btnStyle} variant="secondary" href="/waiters">Waiter Page</Button>
+          <br />
+          <Button style={btnStyle} variant="secondary" href="/server-assistant">Server Assistant</Button>
           <br />
           <Button style={btnStyle} variant="secondary" href="/preorder">Preorder Page</Button>
           <br />
@@ -53,6 +56,13 @@ const btnStyleFirst = {
       element: <Waiter />,
       children: [
         { path: ":id", element: <Waiter /> },
+      ]
+    },
+    {
+      path: "/server-assistant",
+      element: <ServerAssistant />,
+      children: [
+        { path: ":id", element: <ServerAssistant /> },
       ]
     },
     { path: "/preorder", element: <Preorder /> },

@@ -20,7 +20,7 @@ const ShoppingRef = () => {
                     <h5 className={styles.sub}>S: {preOrders.filter(item => item.toLowerCase().includes("pancake") && item.toLowerCase().includes("strawberry")).length}</h5>
                     <h5 className={styles.sub}>CCC: {preOrders.filter(item => item.toLowerCase().includes("pancake") && item.toLowerCase().includes("cinnamon")).length}</h5>
                     <h5 className={styles.sub}>BF: {preOrders.filter(item => item.toLowerCase().includes("pancake") && item.toLowerCase().includes("banana")).length}</h5>
-                    <h5 className={styles.sub}>MC: {preOrders.filter(item => item.toLowerCase().includes("pancake") && item.toLowerCase().includes("ol'")).length}</h5>
+                    <h5 className={styles.sub}>MS: {preOrders.filter(item => item.toLowerCase().includes("pancake") && item.toLowerCase().includes("ol'")).length}</h5>
                 </div>
             <h3  className={styles.title}>Crepes :{preOrders.filter(item => item.toLowerCase().includes("crepe")).length}</h3>
             <div className={styles.wrapper}>

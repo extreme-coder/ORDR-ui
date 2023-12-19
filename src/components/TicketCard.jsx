@@ -47,6 +47,12 @@ export const TicketCard = ({ order }) => {
           {order.attributes.teacher.data.attributes.name}
         </p>
       </div>
+      {order.attributes.mods && <div>
+        <h5 style={{ display: 'inline-block', marginRight: '5px' }}>Allergies:</h5>
+        <b style={{ display: 'inline-block', marginBottom: '0', marginRight: '10vw', color: 'red' }}>
+          {order.attributes.mods}
+        </b>
+      </div>}
       <ButtonGroup styles={buttonLeft}>
         {orderClone.attributes.status === "UNFINISHED" && <>
           <button type="button" class="btn btn-outline-primary" onClick={() => handleStatus("PREPARED")}>Cooked</button>

@@ -1,6 +1,7 @@
 import { Accordion, ButtonGroup, Card } from "react-bootstrap";
 import { useGetEntitiesByFieldQuery, useGetEntityQuery, useUpdateEntityMutation } from "../services/lastmeal";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
+import { refetchTime } from "../constants";
 
 const buttonLeft = {
   flex: '0 0 50%',
@@ -10,7 +11,7 @@ const buttonLeft = {
 
 export const TicketCard = ({ order }) => {
   const [orderClone, setOrderClone] = useState(JSON.parse(JSON.stringify(order)))
-  const { data: seat } = useGetEntitiesByFieldQuery({ name: "seat", field: "teacher", value: order.attributes.teacher.data.id, relation: 'id', populate: true })
+  const { data: seat, refetch } = useGetEntitiesByFieldQuery({ name: "seat", field: "teacher", value: order.attributes.teacher.data.id, relation: 'id', populate: true })
   
   const [updateEntity] = useUpdateEntityMutation();
 
@@ -19,7 +20,14 @@ export const TicketCard = ({ order }) => {
     setOrderClone({ ...orderClone, attributes: { ...orderClone.attributes, status: status } })
   }
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("refetch")
+      refetch();
+    }, refetchTime);
 
+    return () => clearInterval(interval);
+  }, [refetch])
 
   return <Card eventKey={order.id} style={{backgroundColor:"#f0f4fc"}}>
     {seat && <div className="hstack" style={{marginTop:'20px'}}>

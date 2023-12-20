@@ -3,6 +3,7 @@ import { useGetNestedEntitiesQuery } from '../services/lastmeal';
 import styles from './styles/AllOrders.module.css'
 import './styles/AllOrders.css'
 import socket from '../sockets/socket';
+import { refetchTime } from '../constants';
 
 const AllOrders = ({ type, tableId }) => {
   const { data: orders, refetch } = useGetNestedEntitiesQuery({ name: "order", populate: true, fields: ['teacher', 'seat', 'table'] });
@@ -11,7 +12,7 @@ const AllOrders = ({ type, tableId }) => {
     const interval = setInterval(() => {
       console.log("refetch")
       refetch();
-    }, 10000);
+    }, refetchTime);
 
     return () => clearInterval(interval);
   }, [refetch])

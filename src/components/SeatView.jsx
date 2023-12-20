@@ -7,13 +7,14 @@ import styles from '../pages/pageStyles/Preorder.module.css'
 import '../pages/pageStyles/Preorder.css'
 import ItemCard from "./ItemCard"
 import SingleOrderWaiter from "./SingleOrderWaiter"
+import { refetchTime } from "../constants"
 
 export const SeatView = ({ seat, updateView }) => {
-  const { data: teacher } = useGetEntityQuery({ name: "teacher", id: seat.attributes.teacher.data.id, populate: true })
+  const { data: teacher, refetch: tRefetch } = useGetEntityQuery({ name: "teacher", id: seat.attributes.teacher.data.id, populate: true })
 
-  const { data: allItems } = useGetEntitiesQuery({ name: "item", populate: true })
+  const { data: allItems, refetch: iRefetch } = useGetEntitiesQuery({ name: "item", populate: true })
 
-  const { data: orders } = useGetEntitiesByFieldQuery({ name: "order", field: "teacher", value: seat.attributes.teacher.data.id, relation: 'id', populate: true })
+  const { data: orders, refetch: oRefetch } = useGetEntitiesByFieldQuery({ name: "order", field: "teacher", value: seat.attributes.teacher.data.id, relation: 'id', populate: true })
 
   const [items, setItems] = useState([]);
 
@@ -31,6 +32,17 @@ export const SeatView = ({ seat, updateView }) => {
   const removeItem = (name) => {
     setItems(items.filter(item => item.name !== name))
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("refetch")
+      tRefetch()
+      iRefetch()
+      oRefetch()
+    }, refetchTime);
+
+    return () => clearInterval(interval);
+  }, [tRefetch, iRefetch, oRefetch])
 
   const leaveTeacher = async () => {
     console.log(teacher)

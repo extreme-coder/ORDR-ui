@@ -8,6 +8,7 @@ import styles from "./pageStyles/Waiter.module.css"
 import { current } from "@reduxjs/toolkit";
 import { useParams } from "react-router";
 import AllOrders from "../components/AllOrders";
+import { refetchTime } from "../constants";
 
 function Waiter() {
   const Regtangle = {
@@ -32,9 +33,9 @@ function Waiter() {
     marginTop: '70px',
     height: '180px'
   };
-  const { data: tables } = useGetEntitiesQuery({ name: "table", populate: true });
-  const { data: seats } = useGetEntitiesQuery({ name: "seat", populate: true});
-  const { data: seatsWithOrders } = useGetEntitiesByDepth2Query({ name: "seat", populate: true, depthField1:"teacher", depthField2:"orders"});
+  const { data: tables, refetch: tRefetch } = useGetEntitiesQuery({ name: "table", populate: true });
+  const { data: seats, refetch: sRefetch } = useGetEntitiesQuery({ name: "seat", populate: true});
+  const { data: seatsWithOrders, refetch: soRefetch } = useGetEntitiesByDepth2Query({ name: "seat", populate: true, depthField1:"teacher", depthField2:"orders"});
   console.log(seats)
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
@@ -43,6 +44,17 @@ function Waiter() {
   const openSeatView = ()=> {
     setShow(true)
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("refetch")
+      tRefetch()
+      sRefetch()
+      soRefetch()
+    }, refetchTime);
+
+    return () => clearInterval(interval);
+  }, [tRefetch, sRefetch, soRefetch])
 
   const getSeatColor = (seat) => {
       if (!seat.attributes.teacher.data){

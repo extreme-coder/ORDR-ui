@@ -7,9 +7,19 @@ import { SeatView } from '../components/SeatView';
 import styles from './pageStyles/FloorManager.module.css'
 import { SingleTable } from '../components/SingleTable';
 import AllOrders from '../components/AllOrders';
+import { refetchTime } from '../constants';
 
 const FloorManager = () => {
-      const { data: tables } = useGetEntitiesQuery({ name: "table", populate: true });
+  const { data: tables, refetch } = useGetEntitiesQuery({ name: "table", populate: true });
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("refetch")
+      refetch();
+    }, refetchTime);
+
+    return () => clearInterval(interval);
+  }, [refetch])
 
       const id = useParams().id;
     

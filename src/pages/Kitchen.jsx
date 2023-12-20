@@ -7,9 +7,10 @@ import { useGetEntitiesQuery } from "../services/lastmeal";
 import { Ticket } from "../components/Ticket";
 import { TicketCard } from "../components/TicketCard";
 import { useParams } from "react-router";
+import { refetchTime } from "../constants";
 
 const Kitchen = () => {
-  const { data: orders } = useGetEntitiesQuery({ name: "order", populate: true });
+  const { data: orders, refetch } = useGetEntitiesQuery({ name: "order", populate: true });
   const type = useParams().type;
 
   /*const [orders, setOrders] = useState([
@@ -17,6 +18,15 @@ const Kitchen = () => {
     { id: 2, attributes: { table: 1, seat: 2, teacher: { id: 2, name: 'Mr Sok' }, items: [{ id: 1, attributes: { name: 'Pancakes' } }], status: "PREPARED", mods: '-' }, },
     test
   ])*/
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("refetch")
+      refetch();
+    }, refetchTime);
+
+    return () => clearInterval(interval);
+  }, [refetch])
 
   useEffect(() => {
     if (orders) {

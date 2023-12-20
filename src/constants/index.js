@@ -1,0 +1,1 @@
+export const refetchTime = 10000

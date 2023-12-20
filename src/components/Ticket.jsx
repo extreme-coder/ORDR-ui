@@ -1,6 +1,7 @@
 import { Accordion, ButtonGroup } from "react-bootstrap";
 import { useGetEntitiesByFieldQuery, useGetEntityQuery, useUpdateEntityMutation } from "../services/lastmeal";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
+import { refetchTime } from "../constants";
 
 const buttonLeft = {
   flex: '0 0 50%',
@@ -10,14 +11,23 @@ const buttonLeft = {
 
 export const Ticket = ({ order }) => {
   const [orderClone, setOrderClone] = useState(JSON.parse(JSON.stringify(order)))
-  const { data: seat } = useGetEntitiesByFieldQuery({ name: "seat", field: "teacher", value: order.attributes.teacher.data.id, relation: 'id', populate: true })
-  
+  const { data: seat, refetch } = useGetEntitiesByFieldQuery({ name: "seat", field: "teacher", value: order.attributes.teacher.data.id, relation: 'id', populate: true })
+
   const [updateEntity] = useUpdateEntityMutation();
 
   const handleStatus = (status) => {
     updateEntity({ name: "order", id: order.id, body: { data: { status: status } } })
     setOrderClone({ ...orderClone, attributes: { ...orderClone.attributes, status: status } })
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("refetch")
+      refetch();
+    }, refetchTime);
+
+    return () => clearInterval(interval);
+  }, [refetch])
 
   return <Accordion.Item eventKey={order.id}>
     {seat && <Accordion.Header class="always-open">
@@ -51,7 +61,7 @@ export const Ticket = ({ order }) => {
         </>}
         {orderClone.attributes.status === "PREPARED" && <>
           <button type="button" class="btn btn-secondary " onClick={() => handleStatus("UNFINISHED")}>Undo Cook</button>
-          <button type="button" class="btn btn-outline-success" onClick={() => {handleStatus("SERVED"); window.location.reload()}}>Served</button>
+          <button type="button" class="btn btn-outline-success" onClick={() => { handleStatus("SERVED"); window.location.reload() }}>Served</button>
         </>}
       </ButtonGroup>
     </Accordion.Header>}

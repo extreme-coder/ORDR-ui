@@ -167,7 +167,7 @@ function Waiter() {
           {console.log(currentSeat)}
           <Modal.Title>Table {tables.data.filter(t => t.id === currentSeat.attributes.table.data.id)[0].attributes.number} - Seat {currentSeat.attributes.number}</Modal.Title>
         </Modal.Header>
-        {currentSeat.attributes.teacher.data && <SeatView seat={seatsWithOrders && currentSeat && seatsWithOrders.data.filter(s => s.id === currentSeat.id)[0]} updateView={setCurrentSeat} />}
+        {currentSeat.attributes.teacher.data && <SeatView seat={currentSeat} updateView={setCurrentSeat} />}
         {!currentSeat.attributes.teacher.data && <Modal.Body>
           <EmptySeat seat={currentSeat} open={setShow} updateView={setCurrentSeat} />
         </Modal.Body>}

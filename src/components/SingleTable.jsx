@@ -54,23 +54,24 @@ export const SingleTable = ({ table }) => {
   }, [tRefetch, sRefetch, soRefetch])
 
   const getSeatColor = (seat) => {
-    if (!seat.attributes.teacher.data) {
-      return 'outline-light'
-    } else if (seatsWithOrders
+    if (!seat.attributes.teacher.data || (seatsWithOrders && !seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data)) {
+      return 'outline-secondary'
+    } else if (seatsWithOrders && seatsWithOrders.data && seatsWithOrders.data[0]
       && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
       && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders
       && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
         order => order.attributes.status === "PREPARED").length > 0) {
       return 'danger'
-    } else if (seatsWithOrders
+    } else if (seatsWithOrders && seatsWithOrders.data && seatsWithOrders.data[0] && seat.id
       && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
       && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders
       && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
         order => order.attributes.status === "UNFINISHED").length > 0) {
       return 'warning'
-    } else {
+    } else  if (seatsWithOrders) {
       return 'success'
     }
+    return 'outline-secondary'
   }
 
 
@@ -84,6 +85,7 @@ export const SingleTable = ({ table }) => {
     setShow(false)
     tRefetch()
     sRefetch()
+    soRefetch()
   }
 
   const handleShow = () => setShow(true);

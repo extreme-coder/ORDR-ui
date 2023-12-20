@@ -34,14 +34,14 @@ function Waiter() {
     height: '180px'
   };
   const { data: tables, refetch: tRefetch } = useGetEntitiesQuery({ name: "table", populate: true });
-  const { data: seats, refetch: sRefetch } = useGetEntitiesQuery({ name: "seat", populate: true});
-  const { data: seatsWithOrders, refetch: soRefetch } = useGetEntitiesByDepth2Query({ name: "seat", populate: true, depthField1:"teacher", depthField2:"orders"});
+  const { data: seats, refetch: sRefetch } = useGetEntitiesQuery({ name: "seat", populate: true });
+  const { data: seatsWithOrders, refetch: soRefetch } = useGetEntitiesByDepth2Query({ name: "seat", populate: true, depthField1: "teacher", depthField2: "orders" });
   console.log(seats)
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
   const id = useParams().id;
 
-  const openSeatView = ()=> {
+  const openSeatView = () => {
     setShow(true)
   }
 
@@ -50,7 +50,7 @@ function Waiter() {
       console.log("refetch")
       tRefetch()
       sRefetch()
-      //soRefetch()
+      soRefetch()
       console.log(tables)
       console.log(seats)
       console.log(seatsWithOrders)
@@ -60,26 +60,27 @@ function Waiter() {
   }, [tRefetch, sRefetch, soRefetch])
 
   const getSeatColor = (seat) => {
-      if (!seat.attributes.teacher.data){
-        return 'outline-secondary' 
-      } else if(seatsWithOrders && seatsWithOrders.data && seatsWithOrders.data[0]
-        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
-        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
-        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
-        order => order.attributes.status === "PREPARED").length>0){
-            return 'danger'
-      } else if (seatsWithOrders && seatsWithOrders.data && seatsWithOrders.data[0] && seat.id
-        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
-        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
-        && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
-          order => order.attributes.status === "UNFINISHED").length>0){
-           return 'warning'
-      } else {
-        return 'success'
-      }    
+    if (!seat.attributes.teacher.data || (seatsWithOrders && !seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data)) {
+      return 'outline-secondary'
+    } else if (seatsWithOrders && seatsWithOrders.data && seatsWithOrders.data[0]
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+        order => order.attributes.status === "PREPARED").length > 0) {
+      return 'danger'
+    } else if (seatsWithOrders && seatsWithOrders.data && seatsWithOrders.data[0] && seat.id
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders
+      && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
+        order => order.attributes.status === "UNFINISHED").length > 0) {
+      return 'warning'
+    } else  if (seatsWithOrders) {
+      return 'success'
+    }
+    return 'outline-secondary'
   }
 
-      
+
   useEffect(() => {
     if (seats) {
       console.log(seats.data[0])
@@ -91,10 +92,10 @@ function Waiter() {
     setShow(false)
     sRefetch()
     tRefetch()
-    //soRefetch()
+    soRefetch()
   }
 
-  const [activeItems, setActiveItems] = useState([] );
+  const [activeItems, setActiveItems] = useState([]);
   const handleShow = () => setShow(true);
 
   const defaultActiveItems = tables && tables.data.map(table => table.id)
@@ -103,16 +104,16 @@ function Waiter() {
     <div>
       {/*Table views*/}
       <Tabs >
-        {tables && tables.data.filter(t => !id || parseInt(id) === t.attributes.number ).map(table => <Tab eventKey={table.id} title={"Table " + table.attributes.number}>
-        <div className={styles.wb}>
-          <div className={styles.table}>
-            
-             
-                <div class="vstack" style={containerStyle}>
-                  <div class="hstack gap-5">
-                    {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0, 6).map((seat, index) => 
-                    <button 
-                      type="button" 
+        {tables && tables.data.filter(t => !id || parseInt(id) === t.attributes.number).map(table => <Tab eventKey={table.id} title={"Table " + table.attributes.number}>
+          <div className={styles.wb}>
+            <div className={styles.table}>
+
+
+              <div class="vstack" style={containerStyle}>
+                <div class="hstack gap-5">
+                  {seats && seats.data.filter(seat => seat.attributes.table.data.id === table.id).slice(0, 6).map((seat, index) =>
+                    <button
+                      type="button"
                       class={"btn btn-" + (getSeatColor(seat))} 
                       style={squareButtonStyle} 
                       dataToggle="button" 
@@ -122,13 +123,13 @@ function Waiter() {
                     >
                       Seat {seat && seat.attributes.number}
                     </button>)}
-                  </div>
-                  <div style={Regtangle}> Table: {table.attributes.number}</div>
-                  <div class="hstack gap-5">
-                    {seats && seats.data.filter(seat => 
-                      seat.attributes.table.data.id === table.id).slice(6, 12).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index) => 
-                      <button 
-                      type="button" 
+                </div>
+                <div style={Regtangle}> Table: {table.attributes.number}</div>
+                <div class="hstack gap-5">
+                  {seats && seats.data.filter(seat =>
+                    seat.attributes.table.data.id === table.id).slice(6, 12).sort((a, b) => b.attributes.number - a.attributes.number).map((seat, index) =>
+                      <button
+                        type="button"
                       class={"btn btn-" + (getSeatColor(seat))}
                       style={squareButtonStyle} 
                       dataToggle="button" 
@@ -146,10 +147,10 @@ function Waiter() {
                   </button>)}
                 </div>
 
-          </div>
-          <div className={styles[`order-list-container`]}>
-            <AllOrders type="PREPARED" tableId={table.id}></AllOrders>
-          </div>
+            </div>
+            <div className={styles[`order-list-container`]}>
+              <AllOrders type="PREPARED" tableId={table.id}></AllOrders>
+            </div>
           </div>
         </Tab>)}
       </Tabs>
@@ -170,7 +171,7 @@ function Waiter() {
           </Button>
         </Modal.Footer>
       </Modal>}
-    </div>   
+    </div>
 
   );
 }

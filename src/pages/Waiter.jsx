@@ -84,7 +84,6 @@ function Waiter() {
 
   useEffect(() => {
     if (seats && seatsAreNew) {
-      window.location.reload();
       console.log(seats.data[0])
       setCurrentSeat(seats.data[0])
       setSeatsAreNew(false)
@@ -99,7 +98,11 @@ function Waiter() {
   }
 
   const [activeItems, setActiveItems] = useState([]);
-  const handleShow = () => setShow(true);
+  
+  const handleShow = () => {
+    setShow(true);
+
+  };
 
   const defaultActiveItems = tables && tables.data.map(table => table.id)
   return (

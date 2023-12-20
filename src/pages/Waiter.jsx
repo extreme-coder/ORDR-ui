@@ -40,6 +40,7 @@ function Waiter() {
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
   const id = useParams().id;
+  const [seatsAreNew, setSeatsAreNew] = useState(true)
 
   const openSeatView = () => {
     setShow(true)
@@ -82,9 +83,10 @@ function Waiter() {
 
 
   useEffect(() => {
-    if (seats) {
+    if (seats && seatsAreNew) {
       console.log(seats.data[0])
       setCurrentSeat(seats.data[0])
+      setSeatsAreNew(false)
     }
   }, [seats])
 

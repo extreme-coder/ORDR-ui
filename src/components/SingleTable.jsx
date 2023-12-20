@@ -37,6 +37,7 @@ export const SingleTable = ({ table }) => {
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
   const id = useParams().id;
+  const [seatsAreNew, setSeatsAreNew] = useState(true)
 
   const openSeatView = () => {
     setShow(true)
@@ -76,8 +77,9 @@ export const SingleTable = ({ table }) => {
 
 
   useEffect(() => {
-    if (seats) {
+    if (seats && seatsAreNew) {
       setCurrentSeat(seats.data[0])
+      setSeatsAreNew(false)
     }
   }, [seats])
 

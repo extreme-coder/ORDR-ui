@@ -20,7 +20,7 @@ export const EmptySeat = ({seat, open, updateView}) => {
   const assignTeacherToSeat = async () => {
     const newSeat = await updateEntity({ name: "seat", id: seat.id, body: { data: { teacher: teacher } } })
     updateEntity({ name: "teacher", id: teacher.id, body: { data: { teacher_status: "ARRIVED" } } })
-    setAddingTeacher(false)
+    setAddingTeacher(false)  
     setTeacherAdded(true);
     updateView(newSeat.data.data)
   }

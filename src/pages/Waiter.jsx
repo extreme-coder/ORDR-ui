@@ -84,6 +84,7 @@ function Waiter() {
 
   useEffect(() => {
     if (seats && seatsAreNew) {
+      window.location.reload();
       console.log(seats.data[0])
       setCurrentSeat(seats.data[0])
       setSeatsAreNew(false)

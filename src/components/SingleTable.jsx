@@ -82,7 +82,8 @@ export const SingleTable = ({ table }) => {
 
   const handleClose = () => {
     setShow(false)
-    window.location.reload();
+    tRefetch()
+    sRefetch()
   }
 
   const handleShow = () => setShow(true);

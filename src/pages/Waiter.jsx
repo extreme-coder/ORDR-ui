@@ -46,11 +46,14 @@ function Waiter() {
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = setInterval(async () => {
       console.log("refetch")
       tRefetch()
       sRefetch()
-      soRefetch()
+      //soRefetch()
+      console.log(tables)
+      console.log(seats)
+      console.log(seatsWithOrders)
     }, refetchTime);
 
     return () => clearInterval(interval);
@@ -59,13 +62,13 @@ function Waiter() {
   const getSeatColor = (seat) => {
       if (!seat.attributes.teacher.data){
         return 'outline-secondary' 
-      } else if(seatsWithOrders 
+      } else if(seatsWithOrders && seatsWithOrders.data && seatsWithOrders.data[0]
         && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
         && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
         && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
         order => order.attributes.status === "PREPARED").length>0){
             return 'danger'
-      } else if (seatsWithOrders 
+      } else if (seatsWithOrders && seatsWithOrders.data && seatsWithOrders.data[0] && seat.id
         && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0]
         && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders 
         && seatsWithOrders.data.filter(seatOrder => seatOrder.id === seat.id)[0].attributes.teacher.data.attributes.orders.data.filter(
@@ -86,7 +89,9 @@ function Waiter() {
 
   const handleClose = () => {
     setShow(false)
-    window.location.reload();
+    sRefetch()
+    tRefetch()
+    //soRefetch()
   }
 
   const [activeItems, setActiveItems] = useState([] );

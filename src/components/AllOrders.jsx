@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useGetNestedEntitiesQuery } from '../services/lastmeal';
 import styles from './styles/AllOrders.module.css'
 import './styles/AllOrders.css'
-import socket from '../sockets/socket';
+//import socket from '../sockets/socket';
 import { refetchTime } from '../constants';
 
 const AllOrders = ({ type, tableId }) => {

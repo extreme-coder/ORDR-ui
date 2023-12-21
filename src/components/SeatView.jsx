@@ -11,7 +11,6 @@ import { refetchTime } from "../constants"
 
 export const SeatView = ({ seat, updateView }) => {
   const { data: teacher, refetch: tRefetch } = useGetEntityQuery({ name: "teacher", id: seat.attributes.teacher.data.id, populate: true })
-
   const { data: allItems, refetch: iRefetch } = useGetEntitiesQuery({ name: "item", populate: true })
 
   const { data: orders, refetch: oRefetch } = useGetEntitiesByFieldQuery({ name: "order", field: "teacher", value: seat.attributes.teacher.data.id, relation: 'id', populate: true })
@@ -77,7 +76,7 @@ export const SeatView = ({ seat, updateView }) => {
 
   return teacher && allItems && orders && <Modal.Body>
     <div>
-      <h4>{teacher.data.attributes.name}</h4>
+      <h4>{teacher.data.attributes.name}{teacher.data.attributes.status === "PENDING" && "...loading..."}</h4>
       {teacher.data.attributes.teacher_status === "ARRIVED" && <>
         {/*mark as left button*/}
         <Button variant="danger" onClick={leaveTeacher}>Mark as Left</Button>

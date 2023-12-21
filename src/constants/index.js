@@ -1,1 +1,1 @@
-export const refetchTime = 5000
+export const refetchTime = 3500

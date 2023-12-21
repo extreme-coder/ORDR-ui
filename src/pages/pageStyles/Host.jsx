@@ -51,7 +51,7 @@ const Host = () => {
               updateName={updateName}
             />
             </div>
-            {results.length === 0 && searchBarFilled && <button className="btn btn-outline-success" onClick={addNewTeacher}>Add Teacher</button>}
+            {results.length === 0 && searchBarFilled && <button className="btn btn-outline-success" onClick={()=> console.log("can't add teachers from host view")}>Add Teacher</button>}
           </div>
           <SearchResultsList results={results} setSelectedTeacher={setTeacher} />
           {teacher.attributes? <Button className="check-in-btn"variant="success" onClick={arriveTeacher}>Check Guest In</Button> : <h4 className='sub-title'>Check-In successfull</h4>}

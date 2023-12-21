@@ -75,6 +75,9 @@ const AllOrders = ({ type, tableId }) => {
               <h5 className={styles[`table-heading`]}>Teacher</h5>
             </th>
             <th class='sticky'>
+              <h5 className={styles[`table-heading`]}>Table</h5>
+            </th>
+            <th class='sticky'>
               <h5 className={styles[`table-heading`]}>Seat</h5>
             </th>
             <th class='sticky'>
@@ -92,6 +95,9 @@ const AllOrders = ({ type, tableId }) => {
                   </td>
                   <td class={`ao-item-${type}`}>
                     {o.attributes.teacher.data.attributes.name}
+                  </td>
+                  <td class={`ao-item-${type}`}>
+                    {o.attributes.teacher.data.attributes.seat.data ? o.attributes.teacher.data.attributes.seat.data.attributes.table.data.attributes.number : ''}
                   </td>
                   <td class={`ao-item-${type}`}>
                     {o.attributes.teacher.data.attributes.seat.data ? o.attributes.teacher.data.attributes.seat.data.attributes.number : ''}

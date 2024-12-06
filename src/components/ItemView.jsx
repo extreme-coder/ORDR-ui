@@ -19,7 +19,7 @@ const ItemView = ({ item, addItem, closeSelf }) => {
       toast.error("Please select at least one topping");
       return;
     }
-    addItem(item.attributes.name + " w/ " + item.attributes.toppings.data.filter(topping => selectedIndices.includes(topping.id)).map(t => t.attributes.name).join(" & "));
+    addItem(item.id, item.attributes.toppings.data.filter(topping => selectedIndices.includes(topping.id)).map(t => t.id), item.attributes.name + " w/ " + item.attributes.toppings.data.filter(topping => selectedIndices.includes(topping.id)).map(t => t.attributes.name).join(" & "));
     closeSelf();
   }
 
@@ -39,12 +39,13 @@ const ItemView = ({ item, addItem, closeSelf }) => {
 
 
   const handleSingleToppingClick = (topping) => {
-    addItem(item.attributes.name + " w/ " + topping.attributes.name);
+    addItem(item.id, [topping.id], item.attributes.name + " w/ " + topping.attributes.name);
     closeSelf();
   }
 
   return (
     <div className='item-view'>
+      {console.log(item)}
       <h4 className='title'>
         {item.attributes.multi_topping ? "Select All Desired Toppings" : "Please Select Type"}
       </h4>

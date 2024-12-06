@@ -15,7 +15,7 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
   const customize = () => {
     console.log(item)
     if (item.attributes.type === "DRINK") {
-      addItem(item.attributes.name, "DRINK")
+      addItem(item.id, [], item.attributes.name, "DRINK")
       return
     }
     setShow(true)

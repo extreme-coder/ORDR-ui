@@ -13,19 +13,20 @@ export const SeatView = ({ seat, updateView }) => {
   const { data: teacher, refetch: tRefetch } = useGetEntityQuery({ name: "teacher", id: seat.attributes.teacher.data.id, populate: true })
   const { data: allItems, refetch: iRefetch } = useGetEntitiesQuery({ name: "item", populate: true })
 
-  const { data: orders, refetch: oRefetch } = useGetEntitiesByFieldQuery({ name: "order", field: "teacher", value: seat.attributes.teacher.data.id, relation: 'id', populate: true })
+  const teacherID = seat.attributes.teacher.data.id
+  const { data: orders, refetch: oRefetch } = useGetEntitiesByFieldQuery({ name: "order", field: "teacher", value: seat.attributes.teacher.data.id, relation: 'id', populate: "populate=items.item&populate=items.toppings&populate=teacher" })
 
   const [items, setItems] = useState([]);
 
-  const[showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const [addEntity] = useAddEntityMutation();
   const [updateEntity] = useUpdateEntityMutation();
 
   const [submitted, setSubmitted] = useState(false)
 
-  const addItem = (item, type="FOOD") => {
-    setItems([...items, {name: item, type: type}])
+  const addItem = (id, toppings, name, type = "FOOD") => {
+    setItems([...items, { item: id, toppings, name, type }])
   }
 
   const removeItem = (name) => {
@@ -57,11 +58,33 @@ export const SeatView = ({ seat, updateView }) => {
   const submitOrder = () => {
     const foodItems = items.filter(item => item.type === "FOOD")
     const drinkItems = items.filter(item => item.type === "DRINK")
+    console.log("food items", foodItems)
+    console.log("drink items", drinkItems)
     if (foodItems.length > 0) {
-      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: foodItems.map(i=>i.name).join(", "), teacher: seat.attributes.teacher.data.id, type: "KITCHEN" } } })
+      addEntity({ 
+        name: "order", 
+        body: { 
+          data: { 
+            status: "UNFINISHED", 
+            order_items: foodItems,
+            teacher: seat.attributes.teacher.data.id, 
+            type: "KITCHEN" 
+          } 
+        } 
+      })
     }
     if (drinkItems.length > 0) {
-      addEntity({ name: "order", body: { data: { status: "UNFINISHED", items: drinkItems.map(i=>i.name).join(", "), teacher: seat.attributes.teacher.data.id, type: "BAR" } } })
+      addEntity({ 
+        name: "order", 
+        body: { 
+          data: { 
+            status: "UNFINISHED", 
+            order_items: drinkItems, 
+            teacher: seat.attributes.teacher.data.id, 
+            type: "BAR" 
+          } 
+        } 
+      })
     }
     setSubmitted(true)
     toast.success("Order submitted!")
@@ -74,17 +97,17 @@ export const SeatView = ({ seat, updateView }) => {
     test
   }, [allItems])*/
 
-  return teacher && allItems && orders && <Modal.Body>
+  return teacher && allItems && orders && orders.data && <Modal.Body>
     <div>
       <h4>{teacher.data.attributes.name}{teacher.data.attributes.status === "PENDING" && "...loading..."}</h4>
       {teacher.data.attributes.teacher_status === "ARRIVED" && <>
         {/*mark as left button*/}
         <Button variant="danger" onClick={leaveTeacher}>Mark as Left</Button>
         <div class="hstack gap-1">
-        <p style={{marginTop:"1rem"}}>{orders.data.filter(o => o.attributes.status !== "SERVED").length} orders in progress</p>
-        <Button className="view-order-btn" onClick={()=> setShowModal(true)}>View</Button>
+          <p style={{ marginTop: "1rem" }}>{orders.data.filter(o => o.attributes.status !== "SERVED").length} orders in progress</p>
+          <Button className="view-order-btn" onClick={() => setShowModal(true)}>View</Button>
         </div>
-        <p style={{marginTop: "-1rem"}}>{orders.data.filter(o => o.attributes.status === "SERVED").length} orders completed</p>
+        <p style={{ marginTop: "-1rem" }}>{orders.data.filter(o => o.attributes.status === "SERVED").length} orders completed</p>
         {!submitted && <> <h5>Create New Order:</h5>
           <div className={styles[`sv-cards-container`]}>
             {allItems && allItems.data.map((item, index) => <ItemCard item={item} addItem={addItem} small ></ItemCard>)}
@@ -96,17 +119,20 @@ export const SeatView = ({ seat, updateView }) => {
         <Modal show={showModal} onHide={() => setShowModal(false)} closeButton>
           <Modal.Header className={styles[`pv-header`]}>
             Orders in Progress
-            <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={()=> setShowModal(false)}></button>
+            <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={() => setShowModal(false)}></button>
           </Modal.Header>
           <Modal.Body>
             <h5>{teacher.data.attributes.name}</h5>
-            {orders.data.filter(o => 
-              o.attributes.teacher.id === teacher.id && o.attributes.status !== "SERVED").map(o => 
-              <div>{o.attributes.items.split(",").map(item => 
-              <div className={styles[`pv-item-${o.attributes.status}`]}>
-                {item} 
-              </div>)}
-            </div>)}
+            {orders.data.filter(o => /*what is the first cond here for??? o.attributes.teacher.id === teacher.id &&*/ o.attributes.status !== "SERVED").map(o =>
+                <div>
+                  {console.log(o.attributes.items.data)}
+                  {o.attributes.items.data.map(item => <div className={styles[`pv-item-${o.attributes.status}`]}>
+                    {item.attributes.item.data.attributes.name} w/ {item.attributes.toppings.data.map(t => t.attributes.name).join(", ")}
+                  </div>)
+                  }
+                </div>
+              )
+            }
           </Modal.Body>
         </Modal>
       </>}

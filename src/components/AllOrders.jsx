@@ -11,7 +11,8 @@ const AllOrders = ({ type, tableId }) => {
     populate: true,
     shape: [
       ["teacher", "seat", "table"],
-      ["items", "item", "toppings"],
+      ["items", "item"],
+      ["items", "toppings"],
     ],
   });
 
@@ -542,7 +543,7 @@ const AllOrders = ({ type, tableId }) => {
       .filter((o) =>
         tableId
           ? o.attributes.teacher.data.attributes.seat.data.attributes.table.data
-              .attributes.number === tableId
+            .attributes.number === tableId
           : true
       )
       .sort(
@@ -550,6 +551,8 @@ const AllOrders = ({ type, tableId }) => {
           new Date(a.attributes.time_cooked) -
           new Date(b.attributes.time_cooked)
       );
+
+  console.log("filtered", filtered);
 
   /*(useEffect(() => {
     const interval = setInterval(() => {
@@ -612,28 +615,30 @@ const AllOrders = ({ type, tableId }) => {
             <div className={tableId ? styles.cell : styles.cell2}>
               {order.attributes &&
                 order.attributes.items &&
-                order.attributes.items.data &&
+                order.attributes.items.data.toString() &&
                 order.attributes.items.data.map((item) => (
                   <div>
                     <span style={{ fontWeight: "800" }}>
-                      {item &&
+                      {
+                        item &&
                         item.attributes &&
                         item.attributes.item &&
                         item.attributes.item.data &&
                         item.attributes.item.data.attributes &&
-                        item.attributes.item.data.attributes.name}
+                        item.attributes.item.data.attributes.name
+                      }
                     </span>
 
-                    {item.attributes.item.data.attributes.toppings.data.length >
-                      0 && (
+                    {item.attributes.toppings && item.attributes.toppings.data.length > 0 && (
                       <span style={{ color: "#5394B7" }}>
-                        {` w/${item.attributes.item.data.attributes.toppings.data.map(
+                        {` w/${item.attributes.toppings.data.map(
                           (topping) => " " + topping.attributes.code
                         )}`}
                       </span>
                     )}
                   </div>
-                ))}
+                ))
+              }
             </div>
           </div>
         ))}

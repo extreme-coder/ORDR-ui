@@ -10,7 +10,7 @@ import { useParams } from "react-router";
 import { refetchTime } from "../constants";
 
 const Kitchen = () => {
-  const { data: orders, refetch } = useGetEntitiesQuery({ name: "order", populate: true });
+  const { data: orders, refetch } = useGetEntitiesQuery({ name: "order", populate: 'populate=items.item&populate=items.toppings&populate=teacher.seat' });
   const type = useParams().type;
 
   /*const [orders, setOrders] = useState([

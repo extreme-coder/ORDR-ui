@@ -14,9 +14,13 @@
     display: flex;
     width:100%;
     background-color: #F4F4F4;
-    height: 3.5rem;
+    height: 4rem;
     font-family: "Inria Sans", serif;
     font-style: normal;
+    min-height: 2rem;
+        height: fit-content;
+        align-items: center;
+        justify-content: center;
 }
 
 .Hcell{
@@ -85,7 +89,7 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    height: 4rem;
+    height: 100%;
 }
 
 .cell:nth-child(1){
@@ -128,4 +132,17 @@
 .cell2:nth-child(5){
     width: 55%;
     flex-direction: column;
+}
+
+@media screen and (max-width: 1024px){
+ .heading{
+     font-size: 0.6rem;
+     height: 2rem;
+     
+ }
+    .row{
+        font-size: 0.6rem;
+        
+    }
+
 }

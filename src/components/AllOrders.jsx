@@ -628,7 +628,7 @@ const AllOrders = ({ type, tableId }) => {
                       0 && (
                       <span style={{ color: "#5394B7" }}>
                         {` w/${item.attributes.item.data.attributes.toppings.data.map(
-                          (topping) => " " + topping.attributes.name
+                          (topping) => " " + topping.attributes.code
                         )}`}
                       </span>
                     )}

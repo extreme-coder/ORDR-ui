@@ -11,7 +11,7 @@ import SingleOrder from "../components/SingleOrder"
 
 
 export const Preorder = () => {
-  const [order, setOrder] = useState({ name: "", mods: "", status: "UNFINISHED", items: [] })
+  const [order, setOrder] = useState({ name: "", mods: "", status: "UNFINISHED", order_items: [] })
   const { data: allItems } = useGetEntitiesByDepthQuery({ name: "item", populate: true, depthField: "toppings" });
   const { data: allOrders } = useGetEntitiesByDepthQuery({ name: "order", populate: true, depthField: "teacher" });
   const [warning, setWarning] = useState(false)
@@ -33,20 +33,18 @@ export const Preorder = () => {
       return
     }
     const teacher = await addEntity({ name: "teacher", body: { data: { name: order.name } } })
-    addEntity({ name: "order", body: { data: { ...order, items: order.items.join(", "), status: "PRE-EVENT", teacher: teacher.data.data.id, type: "KITCHEN" } } })
+    addEntity({ name: "order", body: { data: { ...order, status: "PRE-EVENT", teacher: teacher.data.data.id, type: "KITCHEN" } } })
     navigate("/confirmation")
   }
 
   const removeItem = (index) => {
-    setOrder({ ...order, items: order.items.filter((item, i) => i !== index) })
+    setOrder({ ...order, order_items: order.order_items.filter((item, i) => i !== index) })
   }
 
   const navigate = useNavigate()
 
-  const addItem = (item) => {
-    setOrder({ ...order, items: [...order.items, item] })
-    console.log(item)
-    console.log(order)
+  const addItem = (id, toppings, name, type = "FOOD") => {
+    setOrder({ ...order, order_items: [...order.order_items, { item: id, toppings, name, type }] })
   }
 
   return <div className={styles.preorder}>
@@ -70,7 +68,7 @@ export const Preorder = () => {
     </div>
     <h4 className={styles.h}>My Order:</h4>
     <div>
-      {order.items.length===0? <p className={styles[`no-items`]}>No items selected</p>: order.items.map((item, index) => (<SingleOrder itemName={item.toString()} removeItem={() => removeItem(index)}></SingleOrder>))}
+      {order.order_items.length===0? <p className={styles[`no-items`]}>No items selected</p>: order.order_items.map((item, index) => (<SingleOrder itemName={item.name} removeItem={() => removeItem(index)}></SingleOrder>))}
     </div>
     <Button className={styles[`submit-btn`]}onClick={submitOrder}>Submit Order</Button>
   </div>

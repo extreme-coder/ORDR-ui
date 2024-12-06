@@ -72,7 +72,7 @@ function Waiter() {
     setShow(true);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const interval = setInterval(async () => {
       console.log("refetch");
       tRefetch();
@@ -84,7 +84,7 @@ function Waiter() {
     }, refetchTime);
 
     return () => clearInterval(interval);
-  }, [tRefetch, sRefetch, soRefetch]);
+  }, [tRefetch, sRefetch, soRefetch]);*/
 
   const getSeatStyle = (seat) => {
     if (

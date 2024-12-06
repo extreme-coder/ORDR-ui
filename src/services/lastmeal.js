@@ -65,6 +65,23 @@ export const lastmealApi = createApi({
         return query
       }
     }),
+    GetEntitiesByShape: builder.query({
+      query: (arg) => {
+        const { name, populate, shape } = arg;
+        let query = `${pluralize(name.replace('_', '-'))}?` 
+        if (populate) {
+          for (const fieldGroup of shape) {
+            query += 'populate='
+            for (const field of fieldGroup) {
+              query += field + '.';
+            }
+            query += '&'
+          }
+        }
+        console.log(`query by shape: ${name}`, query);
+        return query
+      }
+    }),
     getEntitiesByFields: builder.query({
       query: (arg) => {
         const { name, fields, values, relations } = arg;
@@ -204,6 +221,7 @@ export const {
   useGetEntitiesByDepthQuery,
   useGetEntitiesByDepth2Query,
   useGetNestedEntitiesQuery,
+  useGetEntitiesByShapeQuery,
   useGetEntitiesByFieldsQuery,
   useGetEntitiesByFieldQuery,
   useLoginMutation,

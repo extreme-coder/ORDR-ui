@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
-import { useGetNestedEntitiesQuery } from "../services/lastmeal";
+import { useGetEntitiesByShapeQuery } from "../services/lastmeal";
 import styles from "./styles/AllOrders.module.css";
 import "./styles/AllOrders.css";
 //import socket from '../sockets/socket';
 import { refetchTime } from "../constants";
 
 const AllOrders = ({ type, tableId }) => {
-  /*const { data: orders, refetch } = useGetNestedEntitiesQuery({
+  const { data: orders, refetch } = useGetEntitiesByShapeQuery({
     name: "order",
     populate: true,
-    fields: ["teacher", "seat", "table"],
-  });*/
+    shape: [
+      ["teacher", "seat", "table"],
+      ["items", "item", "toppings"],
+    ],
+  });
+
+  console.log("orderz", orders);
 
   /* time status are colours */
   const urgent =
@@ -22,8 +27,9 @@ const AllOrders = ({ type, tableId }) => {
 
   const getTimeStatus = (time) => {
     const currentTime = new Date();
-    const orderTime = new Date(time);
-    const diff = currentTime - orderTime;
+    const cookedTime = new Date(time);
+    const diff = currentTime - cookedTime;
+
     if (diff > 7 * 60 * 1000) {
       return urgent;
     } else if (diff > 4 * 60 * 1000) {
@@ -32,6 +38,7 @@ const AllOrders = ({ type, tableId }) => {
       return normal;
     }
   };
+  /*
   const orders = [
     {
       id: 1,
@@ -525,22 +532,26 @@ const AllOrders = ({ type, tableId }) => {
         },
       },
     },
-  ];
+  ];*/
 
-  const filtered = orders
-    .filter((o) => o.attributes.status === type)
-    .filter((o) =>
-      tableId
-        ? o.attributes.teacher.data.attributes.seat.data.attributes.table.data
-            .attributes.number === tableId
-        : true
-    )
-    .sort(
-      (a, b) =>
-        new Date(a.attributes.time_cooked) - new Date(b.attributes.time_cooked)
-    );
+  const filtered =
+    orders &&
+    orders.data &&
+    orders.data
+      .filter((o) => o.attributes.status === type)
+      .filter((o) =>
+        tableId
+          ? o.attributes.teacher.data.attributes.seat.data.attributes.table.data
+              .attributes.number === tableId
+          : true
+      )
+      .sort(
+        (a, b) =>
+          new Date(a.attributes.time_cooked) -
+          new Date(b.attributes.time_cooked)
+      );
 
-  /*useEffect(() => {
+  /*(useEffect(() => {
     const interval = setInterval(() => {
       console.log("refetch");
       refetch();
@@ -579,7 +590,7 @@ const AllOrders = ({ type, tableId }) => {
             }
           >
             <div className={tableId ? styles.cell : styles.cell2}>
-              {order.attributes.type === "FOOD" ? "Kitchen" : "Bar"}
+              {order.attributes.type}
             </div>
             {!tableId && (
               <div className={styles.cell2}>
@@ -600,14 +611,25 @@ const AllOrders = ({ type, tableId }) => {
             </div>
             <div className={tableId ? styles.cell : styles.cell2}>
               {order.attributes &&
-                order.attributes.order_items &&
-                order.attributes.order_items.map((item) => (
+                order.attributes.items &&
+                order.attributes.items.data &&
+                order.attributes.items.data.map((item) => (
                   <div>
-                    <span style={{ fontWeight: "800" }}>{item.name}</span>
+                    <span style={{ fontWeight: "800" }}>
+                      {item &&
+                        item.attributes &&
+                        item.attributes.item &&
+                        item.attributes.item.data &&
+                        item.attributes.item.data.attributes &&
+                        item.attributes.item.data.attributes.name}
+                    </span>
 
-                    {item.toppings.length > 0 && (
+                    {item.attributes.item.data.attributes.toppings.data.length >
+                      0 && (
                       <span style={{ color: "#5394B7" }}>
-                        {` w/${item.toppings.map((topping) => " " + topping)}`}
+                        {` w/${item.attributes.item.data.attributes.toppings.data.map(
+                          (topping) => " " + topping.attributes.name
+                        )}`}
                       </span>
                     )}
                   </div>

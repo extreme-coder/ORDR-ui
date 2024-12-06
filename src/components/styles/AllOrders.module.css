@@ -4,6 +4,7 @@
     width:100%;
     background-color: #D9D9D9;
     height: 3.5rem;
+    font-size: 0.8rem;
     font-family: "Inria Sans", serif;
     font-style: normal;
     position: sticky;
@@ -34,7 +35,6 @@
 
 .Hcell:nth-child(1){
     width: 15%;
-    padding-left: 0.5rem;
     
 }
 .Hcell:nth-child(2){

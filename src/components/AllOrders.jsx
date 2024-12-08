@@ -543,7 +543,7 @@ const AllOrders = ({ type, tableId }) => {
       .filter((o) =>
         tableId
           ? o.attributes.teacher.data.attributes.seat.data.attributes.table.data
-            .attributes.number === tableId
+              .attributes.number === tableId
           : true
       )
       .sort(
@@ -554,14 +554,14 @@ const AllOrders = ({ type, tableId }) => {
 
   console.log("filtered", filtered);
 
-  /*(useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       console.log("refetch");
       refetch();
     }, refetchTime);
 
     return () => clearInterval(interval);
-  }, [refetch]);*/
+  }, [refetch]);
 
   return (
     <div className={styles.allOrders}>
@@ -619,26 +619,24 @@ const AllOrders = ({ type, tableId }) => {
                 order.attributes.items.data.map((item) => (
                   <div>
                     <span style={{ fontWeight: "800" }}>
-                      {
-                        item &&
+                      {item &&
                         item.attributes &&
                         item.attributes.item &&
                         item.attributes.item.data &&
                         item.attributes.item.data.attributes &&
-                        item.attributes.item.data.attributes.name
-                      }
+                        item.attributes.item.data.attributes.name}
                     </span>
 
-                    {item.attributes.toppings && item.attributes.toppings.data.length > 0 && (
-                      <span style={{ color: "#5394B7" }}>
-                        {` w/${item.attributes.toppings.data.map(
-                          (topping) => " " + topping.attributes.code
-                        )}`}
-                      </span>
-                    )}
+                    {item.attributes.toppings &&
+                      item.attributes.toppings.data.length > 0 && (
+                        <span style={{ color: "#5394B7" }}>
+                          {` w/${item.attributes.toppings.data.map(
+                            (topping) => " " + topping.attributes.code
+                          )}`}
+                        </span>
+                      )}
                   </div>
-                ))
-              }
+                ))}
             </div>
           </div>
         ))}

@@ -3,14 +3,25 @@ import { useState } from "react";
 import { Accordion, Tab, Tabs } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { ButtonGroup } from "react-bootstrap";
-import { useGetEntitiesQuery } from "../services/lastmeal";
-import { Ticket } from "../components/Ticket";
+import {
+  useGetEntitiesByShapeQuery,
+  useGetEntitiesQuery,
+} from "../services/lastmeal";
 import { TicketCard } from "../components/TicketCard";
 import { useParams } from "react-router";
 import { refetchTime } from "../constants";
+import OrderTicket from "../components/OrderTicket";
 
 const Kitchen = () => {
-  const { data: orders, refetch } = useGetEntitiesQuery({ name: "order", populate: 'populate=items.item&populate=items.toppings&populate=teacher.seat' });
+  const { data: orders, refetch } = useGetEntitiesByShapeQuery({
+    name: "order",
+    populate: true,
+    shape: [
+      ["teacher", "seat", "table"],
+      ["items", "item"],
+      ["items", "toppings"],
+    ],
+  });
   const type = useParams().type;
 
   /*const [orders, setOrders] = useState([
@@ -21,48 +32,86 @@ const Kitchen = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("refetch")
+      console.log("refetch");
       refetch();
     }, refetchTime);
 
     return () => clearInterval(interval);
-  }, [refetch])
+  }, [refetch]);
 
   useEffect(() => {
     if (orders) {
       console.log(orders);
     }
-  }, [orders])
+  }, [orders]);
 
   /*const handleStatus = (id, status) => {
-    setOrders(orders.map(order => {
-      if (order.id === id) {
-        return { ...order, attributes: { ...order.attributes, status: status } }
-      }
-      return order
-    }))
-
-    <Accordion>
-            {orders && orders.data.filter(o => o.attributes.status !== "SERVED" && o.attributes.status !== "PRE-EVENT" && o.attributes.type === "KITCHEN").reverse().map(order => <Ticket order={order} />)}
-          </Accordion>
-  }*/
-
-
+    setOrders(
+      orders.map((order) => {
+        if (order.id === id) {
+          return {
+            ...order,
+            attributes: { ...order.attributes, status: status },
+          };
+        }
+        return order;
+      })
+    );
+  };*/
 
   return (
     <div>
-      <Tabs defaultActiveKey={type ? type : "kitchen"} id="uncontrolled-tab-example" className="mb-3">
-        {(!type || type === "kitchen") && <Tab eventKey="kitchen" title="Kitchen" id="kitchen">
-          {orders && orders.data.filter(o => o.attributes.status !== "SERVED" && o.attributes.status !== "PRE-EVENT" && o.attributes.type === "KITCHEN").reverse().map(order => <TicketCard order={order}/>)}   
-        </Tab>}
-        {(!type || type === "bar") && <Tab eventKey="bar" title="Bar" id="bar">
-
-            {orders && orders.data.filter(o => o.attributes.status !== "SERVED" && o.attributes.type === "BAR").map(order => <TicketCard order={order} />)}
-
-        </Tab>}
+      <Tabs
+        defaultActiveKey={type ? type : "kitchen"}
+        id="uncontrolled-tab-example"
+        className="mb-3"
+      >
+        {(!type || type === "kitchen") && (
+          <Tab eventKey="kitchen" title="Kitchen" id="kitchen">
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "1rem",
+                padding: "2rem",
+              }}
+            >
+              {orders &&
+                orders.data
+                  .filter(
+                    (o) =>
+                      o.attributes.status !== "SERVED" &&
+                      o.attributes.status !== "PRE-EVENT" &&
+                      o.attributes.type === "KITCHEN"
+                  )
+                  .sort(
+                    (a, b) =>
+                      new Date(a.attributes.active_since) -
+                      new Date(b.attributes.active_since)
+                  ) // Sort based on active_since  .sort(o => o.attributes.active_since) // !!! sorting based on active_since
+                  .map((order) => (
+                    <OrderTicket order={order} refetch={refetch} />
+                  ))}
+            </div>
+          </Tab>
+        )}
+        {(!type || type === "bar") && (
+          <Tab eventKey="bar" title="Bar" id="bar">
+            {orders &&
+              orders.data
+                .filter(
+                  (o) =>
+                    o.attributes.status !== "SERVED" &&
+                    o.attributes.type === "BAR"
+                )
+                .map((order) => (
+                  <OrderTicket order={order} refetch={refetch} />
+                ))}
+          </Tab>
+        )}
       </Tabs>
     </div>
   );
-}
+};
 
-export default Kitchen
+export default Kitchen;

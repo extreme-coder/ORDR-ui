@@ -1,0 +1,128 @@
+/* define variable for card border radius */
+:root{ 
+    --ticket-border-radius: 20px;
+    --footer-header-height: 15%;
+}
+
+.ticket{
+    width: 300px;
+    aspect-ratio: 2.5/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #e2e2e2;
+    border-radius: var(--ticket-border-radius);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.331);
+}
+
+.ticketHeading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    color: snow;
+    padding: 0.5rem;
+    border-top-left-radius: var(--ticket-border-radius);
+    border-top-right-radius: var(--ticket-border-radius);
+    height:var(--footer-header-height);
+    padding: 0.5rem;
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    height: calc(100% - 2*var(--footer-header-height));
+}
+.item{
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding: 0.5rem;
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(177, 177, 177);
+    color: black;
+    padding: 0.5rem;
+    border-bottom-left-radius: var(--ticket-border-radius);
+    border-bottom-right-radius: var(--ticket-border-radius);
+    height:var(--footer-header-height);
+    padding: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: 1rem;
+}
+
+.btnReady{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-weight: 600;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+}
+.btnReady:hover{
+    background-color: #4CB61A;
+    color: white;
+}
+.btnGroup{
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.btnGroupBtn{
+    border-radius: 10px;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.1s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    word-break: unset;
+    white-space: nowrap;
+    max-height: 2.5rem;
+}
+
+.btnGroupBtn:nth-child(1){
+    background-color: rgb(36, 36, 36);
+    color: white;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    cursor: pointer;
+    
+}
+.btnGroupBtn:last-child{
+    background-color: white;
+    color: #4CB61A;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+.btnGroupBtn:nth-child(1):hover{
+    background-color: #FF564A;
+    color: rgb(36, 36, 36);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    cursor: pointer;
+}
+.btnGroupBtn:last-child:hover{
+ /* swap foreground and background colors */
+    background-color: #4CB61A;
+    color: white;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    cursor: pointer;
+}

@@ -28,20 +28,20 @@ const btnStyleFirst = {
   const router = createBrowserRouter([
     {
       path: "/", element:
-        <div>
-          <Button style={btnStyleFirst} variant="secondary" href="/floor-manager">Floor Manager</Button>
-          <br />
-          <Button style={btnStyle} variant="secondary" href="/waiters">Waiter Page</Button>
-          <br />
-          <Button style={btnStyle} variant="secondary" href="/server-assistant">Server Assistant</Button>
-          <br />
-          <Button style={btnStyle} variant="secondary" href="/preorder">Preorder Page</Button>
-          <br />
-          <Button style={btnStyle} variant="secondary" href="/Kitchen">Kitchen Page</Button>
-          <br />
-          <Button style={btnStyle} variant="secondary" href="/host">Host Page</Button>
-          <br />
-          <Button style={btnStyle} variant="secondary" href="/Shopping-Ref">Shopping Reference</Button>
+        <div className="btnList">
+          <a  className="option" href="/floor-manager">Floor Manager</a>
+          
+          <a  className="option" href="/waiters">Waiter</a>
+          
+          <a  className="option" href="/server-assistant">Server Assistant</a>
+          
+          <a  className="option" href="/preorder">Preorder</a>
+          
+          <a  className="option" href="/Kitchen">Kitchen</a>
+          
+          <a  className="option" href="/host">Host</a>
+          
+          <a  className="option" href="/Shopping-Ref">Shopping Reference</a>
         </div>
     },
     {

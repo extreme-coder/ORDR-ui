@@ -4,9 +4,8 @@ import { useUpdateEntityMutation } from "../services/lastmeal.js";
 import { refetchTime } from "../constants";
 
 const OrderTicket = ({ order }) => {
-  const [orderClone, setOrderClone] = useState(
-    JSON.parse(JSON.stringify(order))
-  );
+  console.log(order)
+  const [orderClone, setOrderClone] = useState(order);
   const [updateEntity] = useUpdateEntityMutation();
 
   const handleStatus = (status) => {
@@ -15,11 +14,13 @@ const OrderTicket = ({ order }) => {
       id: order.id,
       body: { data: { status: status } },
     });
-    setOrderClone({
-      ...orderClone,
+    setOrderClone((prevClone) => ({
+      ...prevClone,
       attributes: { ...orderClone.attributes, status: status },
-    });
+    }));
   };
+
+  useEffect(() => {setOrderClone(order)},[order])
 
   console.log("oc", orderClone);
 

@@ -4,7 +4,7 @@ import { useUpdateEntityMutation } from "../services/lastmeal.js";
 import { refetchTime } from "../constants";
 
 const OrderTicket = ({ order }) => {
-  console.log(order)
+  console.log(order);
   const [orderClone, setOrderClone] = useState(order);
   const [updateEntity] = useUpdateEntityMutation();
 
@@ -20,7 +20,9 @@ const OrderTicket = ({ order }) => {
     }));
   };
 
-  useEffect(() => {setOrderClone(order)},[order])
+  useEffect(() => {
+    setOrderClone(order);
+  }, [order]);
 
   console.log("oc", orderClone);
 
@@ -78,14 +80,22 @@ const OrderTicket = ({ order }) => {
           <span style={{ fontWeight: "700" }}>Table:</span>
 
           {orderClone &&
-            orderClone.attributes.teacher.data.attributes.seat.data.attributes
-              .table.data.attributes.number}
+          orderClone.attributes.teacher.data.attributes.seat &&
+          orderClone.attributes.teacher.data.attributes.seat.data &&
+          orderClone.attributes.teacher.data.attributes.seat.data.attributes
+            ? orderClone.attributes.teacher.data.attributes.seat.data.attributes
+                .table.data.attributes.number
+            : " -"}
         </span>
         <span>
           <span style={{ fontWeight: "700" }}>Seat:</span>
           {orderClone &&
-            orderClone.attributes.teacher.data.attributes.seat.data.attributes
-              .number}
+          orderClone.attributes.teacher.data.attributes.seat &&
+          orderClone.attributes.teacher.data.attributes.seat.data &&
+          orderClone.attributes.teacher.data.attributes.seat.data.attributes
+            ? orderClone.attributes.teacher.data.attributes.seat.data.attributes
+                .number
+            : " -"}
         </span>
         <span>
           <span style={{ fontWeight: "700" }}>Teacher:</span>

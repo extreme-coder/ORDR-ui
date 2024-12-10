@@ -11,6 +11,7 @@ import { TicketCard } from "../components/TicketCard";
 import { useParams } from "react-router";
 import { refetchTime } from "../constants";
 import OrderTicket from "../components/OrderTicket";
+import "./pageStyles/customBootstrapStyles.css";
 
 const Kitchen = () => {
   const { data: orders, refetch } = useGetEntitiesByShapeQuery({

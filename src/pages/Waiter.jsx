@@ -23,6 +23,7 @@ import { current } from "@reduxjs/toolkit";
 import { useParams } from "react-router";
 import AllOrders from "../components/AllOrders";
 import { refetchTime } from "../constants";
+import "./pageStyles/customBootstrapStyles.css";
 
 function Waiter() {
   const Regtangle = {

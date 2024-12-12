@@ -174,58 +174,46 @@ function Waiter() {
               >
                 <div className={styles.wb} id="wb">
                   <div className={styles.leftContainer} id="container">
-                    <div className={styles.tableContainer}>
-                      <div className={styles.seats}>
+                    <div className={styles.tableContainer} id="table container">
+                      <div className={styles.seatsRound}>
                         {seats &&
                           seats.data
                             .filter(
                               (seat) =>
                                 seat.attributes.table.data.id === table.id
                             )
-                            .slice(0, 6)
-                            .map((seat, index) => (
-                              <div
-                                type="button"
-                                className={styles.seat}
-                                style={getSeatStyle(seat)}
-                                onClick={() => {
-                                  handleShow();
-                                  setCurrentSeat(seat);
-                                }}
-                              >
-                                Seat {seat && seat.attributes.number}
-                              </div>
-                            ))}
+
+                            .map((seat, index) => {
+                              const angle =
+                                (360 /
+                                  seats.data.filter(
+                                    (seat) =>
+                                      seat.attributes.table.data.id === table.id
+                                  ).length) *
+                                  index +
+                                270; // Adjust 6 to match the total number of seats
+                              const transform = `rotate(${angle}deg) translate(21.5vw) rotate(${90}deg)`;
+                              return (
+                                <div
+                                  type="button"
+                                  className={styles.seatRound}
+                                  style={{
+                                    ...getSeatStyle(seat),
+                                    transform: transform,
+                                  }}
+                                  onClick={() => {
+                                    handleShow();
+                                    setCurrentSeat(seat);
+                                  }}
+                                >
+                                  {seat && seat.attributes.number}
+                                </div>
+                              );
+                            })}
                       </div>
-                      <div className={styles.table}>
+                      <div className={styles.tableRound}>
                         {" "}
                         Table: {table.attributes.number}
-                      </div>
-                      <div className={styles.seats}>
-                        {seats &&
-                          seats.data
-                            .filter(
-                              (seat) =>
-                                seat.attributes.table.data.id === table.id
-                            )
-                            .slice(6, 12)
-                            .sort(
-                              (a, b) =>
-                                b.attributes.number - a.attributes.number
-                            )
-                            .map((seat, index) => (
-                              <div
-                                type="button"
-                                className={styles.seatUpsideDown}
-                                style={getSeatStyle(seat)}
-                                onClick={() => {
-                                  handleShow();
-                                  setCurrentSeat(seat);
-                                }}
-                              >
-                                Seat {seat && seat.attributes.number}
-                              </div>
-                            ))}
                       </div>
                     </div>
                   </div>

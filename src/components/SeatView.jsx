@@ -73,13 +73,15 @@ export const SeatView = ({ seat, updateView }) => {
   }, [tRefetch, iRefetch, oRefetch]);
 
   const leaveTeacher = async () => {
-    console.log(teacher);
     teacher.data.attributes.orders.data.map((o) => {
-      updateEntity({
-        name: "order",
-        id: o.id,
-        body: { data: { status: "SERVED" } },
-      });
+      console.log(
+        "entity update",
+        updateEntity({
+          name: "order",
+          id: o.id,
+          body: { data: { status: "LEFT" } },
+        })
+      );
     });
     updateEntity({
       name: "teacher",

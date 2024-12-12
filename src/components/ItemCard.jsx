@@ -4,8 +4,6 @@ import ItemView from "./ItemView";
 import styles from "./styles/ItemCard.module.css";
 
 const ItemCard = ({ item, imageAdress, addItem, small }) => {
-  console.log(item);
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
@@ -13,14 +11,11 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
   };
 
   const customize = () => {
-    console.log(item);
     if (item.attributes.type === "DRINK") {
       addItem(item.id, [], item.attributes.name, "DRINK");
       return;
     }
     setShow(true);
-    console.log("TEST");
-    console.log(item);
   };
 
   const smallStyle = {

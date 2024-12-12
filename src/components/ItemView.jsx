@@ -58,7 +58,6 @@ const ItemView = ({ item, addItem, closeSelf }) => {
 
   return (
     <div className="item-view">
-      {console.log(item)}
       <h4 className="title">
         {item.attributes.multi_topping
           ? "Select All Desired Toppings"

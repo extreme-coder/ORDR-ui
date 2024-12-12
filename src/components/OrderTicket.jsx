@@ -4,7 +4,6 @@ import { useUpdateEntityMutation } from "../services/lastmeal.js";
 import { refetchTime } from "../constants";
 
 const OrderTicket = ({ order }) => {
-  console.log(order);
   const [orderClone, setOrderClone] = useState(order);
   const [updateEntity] = useUpdateEntityMutation();
 

@@ -83,6 +83,7 @@ const Kitchen = () => {
                     (o) =>
                       o.attributes.status !== "SERVED" &&
                       o.attributes.status !== "PRE-EVENT" &&
+                      o.attributes.status !== "LEFT" &&
                       o.attributes.type === "KITCHEN"
                   )
                   .sort(
@@ -103,6 +104,7 @@ const Kitchen = () => {
                 .filter(
                   (o) =>
                     o.attributes.status !== "SERVED" &&
+                    o.attributes.status !== "LEFT" &&
                     o.attributes.type === "BAR"
                 )
                 .map((order) => (

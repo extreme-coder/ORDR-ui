@@ -166,7 +166,6 @@ function Waiter() {
             .map((table) => (
               <Tab
                 style={{
-                  display: "flex",
                   height: "calc(100vh - 40px)",
                 }}
                 eventKey={table.id}

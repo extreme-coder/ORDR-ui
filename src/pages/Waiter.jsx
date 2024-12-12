@@ -175,44 +175,44 @@ function Waiter() {
                 <div className={styles.wb} id="wb">
                   <div className={styles.leftContainer} id="container">
                     <div className={styles.tableContainer} id="table container">
-                      <div className={styles.seatsRound}>
-                        {seats &&
-                          seats.data
-                            .filter(
-                              (seat) =>
-                                seat.attributes.table.data.id === table.id
-                            )
-
-                            .map((seat, index) => {
-                              const angle =
-                                (360 /
-                                  seats.data.filter(
-                                    (seat) =>
-                                      seat.attributes.table.data.id === table.id
-                                  ).length) *
-                                  index +
-                                270; // Adjust 6 to match the total number of seats
-                              const transform = `rotate(${angle}deg) translate(21.5vw) rotate(${90}deg)`;
-                              return (
-                                <div
-                                  type="button"
-                                  className={styles.seatRound}
-                                  style={{
-                                    ...getSeatStyle(seat),
-                                    transform: transform,
-                                  }}
-                                  onClick={() => {
-                                    handleShow();
-                                    setCurrentSeat(seat);
-                                  }}
-                                >
-                                  {seat && seat.attributes.number}
-                                </div>
-                              );
-                            })}
-                      </div>
                       <div className={styles.tableRound}>
-                        {" "}
+                        <div className={styles.seatsRound}>
+                          {seats &&
+                            seats.data
+                              .filter(
+                                (seat) =>
+                                  seat.attributes.table.data.id === table.id
+                              )
+
+                              .map((seat, index) => {
+                                const angle =
+                                  (360 /
+                                    seats.data.filter(
+                                      (seat) =>
+                                        seat.attributes.table.data.id ===
+                                        table.id
+                                    ).length) *
+                                    index +
+                                  270; // Adjust 6 to match the total number of seats
+                                const transform = `rotate(${angle}deg) translate(20vw) rotate(${90}deg)`;
+                                return (
+                                  <div
+                                    type="button"
+                                    className={styles.seatRound}
+                                    style={{
+                                      ...getSeatStyle(seat),
+                                      transform: transform,
+                                    }}
+                                    onClick={() => {
+                                      handleShow();
+                                      setCurrentSeat(seat);
+                                    }}
+                                  >
+                                    {seat && seat.attributes.number}
+                                  </div>
+                                );
+                              })}
+                        </div>{" "}
                         Table: {table.attributes.number}
                       </div>
                     </div>

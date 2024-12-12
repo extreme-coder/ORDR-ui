@@ -3826,7 +3826,6 @@ textarea.form-control-lg {
   justify-content: center;
   height: 55px;
   font-weight: 500;
-  background-image: url('./ordr_logo.svg');
   background-repeat: no-repeat;
   }
 .nav-tabs .nav-link {
@@ -3904,6 +3903,7 @@ textarea.form-control-lg {
 .nav-justified .nav-item .nav-link {
   width: 100%;
 }
+
 
 .tab-content > .tab-pane {
   display: none;
@@ -5435,26 +5435,26 @@ textarea.form-control-lg {
 
 .modal {
   --bs-modal-zindex: 1055;
-  --bs-modal-width: 500px;
+  --bs-modal-width: 75vw;
   --bs-modal-padding: 1rem;
   --bs-modal-margin: 0.5rem;
-  --bs-modal-color: ;
-  --bs-modal-bg: var(--bs-body-bg);
-  --bs-modal-border-color: var(--bs-border-color-translucent);
-  --bs-modal-border-width: var(--bs-border-width);
-  --bs-modal-border-radius: var(--bs-border-radius-lg);
+  --bs-modal-color: black;
+  --bs-modal-bg:#D9D9D9;
+  --bs-modal-border-color: transparent;
+  --bs-modal-border-width: 0;
+  --bs-modal-border-radius: 20px;
   --bs-modal-box-shadow: var(--bs-box-shadow-sm);
-  --bs-modal-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
+  --bs-modal-inner-border-radius: 20px;
   --bs-modal-header-padding-x: 1rem;
   --bs-modal-header-padding-y: 1rem;
   --bs-modal-header-padding: 1rem 1rem;
   --bs-modal-header-border-color: var(--bs-border-color);
-  --bs-modal-header-border-width: var(--bs-border-width);
+  --bs-modal-header-border-width: 0;
   --bs-modal-title-line-height: 1.5;
   --bs-modal-footer-gap: 0.5rem;
-  --bs-modal-footer-bg: ;
+  --bs-modal-footer-bg: white;
   --bs-modal-footer-border-color: var(--bs-border-color);
-  --bs-modal-footer-border-width: var(--bs-border-width);
+  --bs-modal-footer-border-width: 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -5465,6 +5465,7 @@ textarea.form-control-lg {
   overflow-x: hidden;
   overflow-y: auto;
   outline: 0;
+  
 }
 
 .modal-dialog {
@@ -5472,6 +5473,7 @@ textarea.form-control-lg {
   width: auto;
   margin: var(--bs-modal-margin);
   pointer-events: none;
+  
 }
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
@@ -5507,9 +5509,7 @@ textarea.form-control-lg {
 }
 
 .modal-content {
-  position: relative;
   display: flex;
-  flex-direction: column;
   width: 100%;
   color: var(--bs-modal-color);
   pointer-events: auto;
@@ -5523,7 +5523,7 @@ textarea.form-control-lg {
 .modal-backdrop {
   --bs-backdrop-zindex: 1050;
   --bs-backdrop-bg: #000;
-  --bs-backdrop-opacity: 0.5;
+  --bs-backdrop-opacity: 0.7;
   position: fixed;
   top: 0;
   left: 0;
@@ -5539,11 +5539,15 @@ textarea.form-control-lg {
   opacity: var(--bs-backdrop-opacity);
 }
 
+
 .modal-header {
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
+  font-family: oswald, sans-serif;
+  font-weight:100;
   padding: var(--bs-modal-header-padding);
   border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
   border-top-left-radius: var(--bs-modal-inner-border-radius);
@@ -5592,7 +5596,7 @@ textarea.form-control-lg {
     margin-left: auto;
   }
   .modal-sm {
-    --bs-modal-width: 300px;
+    --bs-modal-width: 600px;
   }
 }
 @media (min-width: 992px) {

@@ -40,6 +40,25 @@
     margin:0px;
 }
 
+.item{
+    display: flex;
+    width: 100px;
+    aspect-ratio: 1/1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.item:hover{
+    background-color: #818181;
+}
+
 @media (max-width: 767px) {
     .modal-header{
         margin-bottom:0px;

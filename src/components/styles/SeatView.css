@@ -1,0 +1,237 @@
+.seatView{
+    display: flex;
+    flex-direction: row;
+    padding: 0.2rem;
+    height: 50vh;
+    width: 100%;
+    font-family: "JetBrains Mono", monospace;
+    font-optical-sizing: auto;
+    font-style: normal;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.infoContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 30%;
+    height: 100%;
+    padding: 1rem;
+    border-radius: 22px;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.infoHeading{
+    display: flex;
+    width: 100%;
+    height: 10%;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.infoBody{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80%;
+    align-items: start;
+    justify-content: start;
+    gap: 0.5rem;
+}
+.orderingContainer{
+    width: 70%;
+    height: 100%;
+    border-radius: 22px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.orderingHeader{
+    width: 100%;
+    height: 4rem;
+    background-color: black;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    display: flex;
+    align-items: end;
+    justify-content: start;
+}
+.tabBtn{
+    height: 2.5rem;
+    width: 8rem;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+.tabBtn.active{
+    background-color: white;
+    color: black;
+    transition: all 0.1s ease-in-out;
+}
+.tabBtn.inactive{
+    background-color: black;
+    color: white;
+    font-weight: 300;
+    transition: all 0.1s ease-in-out;
+}
+.tabBtn.inactive:hover{
+    background-color: rgb(47, 47, 47);
+}
+
+.orderingBody{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.currentOrderContainer{
+    background-color: #D9D9D9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 43%;
+    height: 100%;
+    padding-top: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 15px;
+    gap: 0.7rem;
+}
+
+.orderList{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: start;
+    gap: 0.2rem;
+    overflow-y: scroll;
+}
+
+.orderItem{
+    width: 100%;
+    height: 2rem;
+    padding: 0.2rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    user-select: none;
+    cursor: pointer;
+}
+
+.item{
+    display: flex;
+    width: 100px;
+    aspect-ratio: 1/1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.item:hover{
+    background-color: #818181;
+}
+
+.itemList{
+    display: flex;
+    width: 57%;
+    height: 100%;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    gap: 0.5rem;
+    align-items: start;
+    justify-content: center;
+}
+
+.btnLeft{
+    background-color: #FF564A;
+    color: white;
+    height: 3rem;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnSubmit{
+    background-color: #4CB61A;
+    color: white;
+    height: 3rem;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btnSubmit:hover{
+    background-color: #388813;
+    color: white;
+}
+
+.switchView{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
+}
+
+.switchView.toDelivered{
+    background-color: #4CB61A;
+    color: white;
+}
+
+.switchView.toReady{
+    background-color: #FF564A;
+    color: white;
+}
+
+.label{
+    font-size: 0.9rem;
+    color: #868686;
+}

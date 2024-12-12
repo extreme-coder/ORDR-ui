@@ -1,0 +1,25 @@
+{
+    "name": "Example Item",
+    "type": "KITCHEN",
+    "is_available": true,
+    "image": "https://example.com/image.jpg",
+    "toppings":[
+        {"type": "protein",
+        "multi_select": false,
+        "options": [
+             "Chicken",
+             "Beef",
+             "Pork",
+             "Tofu"
+        ]},
+        {"type": "omlette_toppings",
+        "multi_select": true,
+        "options": [
+                "Onion",
+                "Tomato",
+                "Mushroom",
+                "Cheese"
+            ]}
+    ]
+
+}

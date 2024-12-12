@@ -255,17 +255,22 @@ function Waiter() {
 
       {/*Modal*/}
       {tables && seats && currentSeat.attributes && (
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header className={styles[`header`]} closeButton>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          size={!currentSeat.attributes.teacher.data && "sm"}
+        >
+          <Modal.Header closeButton>
             {console.log(currentSeat)}
             <Modal.Title>
-              Table{" "}
+              Seat {currentSeat.attributes.number} - Table{" "}
               {
                 tables.data.filter(
                   (t) => t.id === currentSeat.attributes.table.data.id
                 )[0].attributes.number
               }{" "}
-              - Seat {currentSeat.attributes.number}
             </Modal.Title>
           </Modal.Header>
           {currentSeat.attributes.teacher.data && (

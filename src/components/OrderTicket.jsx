@@ -24,8 +24,6 @@ const OrderTicket = ({ order }) => {
     setOrderClone(order);
   }, [order]);
 
-  console.log("oc", orderClone);
-
   const getHeadingColour = (activeSince) => {
     const now = new Date();
     const activeSinceDate = new Date(activeSince);

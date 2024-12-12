@@ -11,7 +11,7 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
   };
 
   const customize = () => {
-    if (item.attributes.type === "DRINK") {
+    if (item.attributes.toppings.data.length === 0) {
       addItem(item.id, [], item.attributes.name, "DRINK");
       return;
     }

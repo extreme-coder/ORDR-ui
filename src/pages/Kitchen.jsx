@@ -99,17 +99,26 @@ const Kitchen = () => {
         )}
         {(!type || type === "bar") && (
           <Tab eventKey="bar" title="Bar" id="bar">
-            {orders &&
-              orders.data
-                .filter(
-                  (o) =>
-                    o.attributes.status !== "SERVED" &&
-                    o.attributes.status !== "LEFT" &&
-                    o.attributes.type === "BAR"
-                )
-                .map((order) => (
-                  <OrderTicket order={order} refetch={refetch} />
-                ))}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "1rem",
+                padding: "2rem",
+              }}
+            >
+              {orders &&
+                orders.data
+                  .filter(
+                    (o) =>
+                      o.attributes.status !== "SERVED" &&
+                      o.attributes.status !== "LEFT" &&
+                      o.attributes.type === "BAR"
+                  )
+                  .map((order) => (
+                    <OrderTicket order={order} refetch={refetch} />
+                  ))}
+            </div>
           </Tab>
         )}
       </Tabs>

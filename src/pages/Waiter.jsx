@@ -169,7 +169,13 @@ function Waiter() {
                   height: "calc(100vh - 40px)",
                 }}
                 eventKey={table.id}
-                title={"Table " + table.attributes.number}
+                title={
+                  tables.data.filter(
+                    (t) => !id || parseInt(id) === t.attributes.number
+                  ).length > 8
+                    ? table.attributes.number
+                    : `Table ${table.attributes.number}`
+                }
               >
                 <div className={styles.wb} id="wb">
                   <div className={styles.leftContainer} id="container">

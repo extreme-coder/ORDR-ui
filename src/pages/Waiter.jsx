@@ -66,7 +66,12 @@ function Waiter() {
   console.log(seats);
   const [show, setShow] = useState(false);
   const [currentSeat, setCurrentSeat] = useState({});
-  const id = useParams().id;
+  const param = useParams().id;
+  const ids = param ? param.split("-").map((id) => parseInt(id, 10)) : [];
+
+  console.log("param", param);
+  console.log("ids", ids);
+
   const [seatsAreNew, setSeatsAreNew] = useState(true);
 
   const openSeatView = () => {
@@ -162,7 +167,9 @@ function Waiter() {
       <Tabs>
         {tables &&
           tables.data
-            .filter((t) => !id || parseInt(id) === t.attributes.number)
+            .filter(
+              (t) => ids.length === 0 || ids.includes(t.attributes.number)
+            )
             .map((table) => (
               <Tab
                 style={{
@@ -171,7 +178,7 @@ function Waiter() {
                 eventKey={table.id}
                 title={
                   tables.data.filter(
-                    (t) => !id || parseInt(id) === t.attributes.number
+                    (t) => !ids || ids.includes(t.attributes.number)
                   ).length > 8
                     ? table.attributes.number
                     : `Table ${table.attributes.number}`

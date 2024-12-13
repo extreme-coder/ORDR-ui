@@ -52,18 +52,21 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
         </Card>
       )}
       {/*modal*/}
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header className={styles[`modal-header`]} closeButton>
-          <Modal.Title className={styles[`modal-heading`]}>
-            {item.attributes.name}
-          </Modal.Title>
+      <Modal show={show} onHide={handleClose} size={"sm"}>
+        <Modal.Header
+          style={{ color: "white", backgroundColor: "grey" }}
+          closeButton
+        >
+          <Modal.Title>{item.attributes.name}</Modal.Title>
         </Modal.Header>
         <ItemView
           item={item}
           addItem={addItem}
           closeSelf={handleClose}
         ></ItemView>
-        <Modal.Footer> </Modal.Footer>
+        <Modal.Footer
+          style={{ color: "white", backgroundColor: "grey", height: "2rem" }}
+        ></Modal.Footer>
       </Modal>
     </div>
   );

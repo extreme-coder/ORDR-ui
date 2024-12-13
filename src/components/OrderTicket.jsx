@@ -27,15 +27,15 @@ const OrderTicket = ({ order }) => {
     const now = new Date();
     const activeSinceDate = new Date(activeSince);
     const diff = now - activeSinceDate;
-    /* if diff is greater than 15 minutes, return #D85040 */
-    /* if diff is greater than 10 minutes, return #EF9D1A */
-    /* if diff is greater than 5 minutes, return #DDC655 */
+    /* if diff is greater than 4.5 minutes, return #D85040 */
+    /* if diff is greater than 3.5 minutes, return #EF9D1A */
+    /* if diff is greater than 2.5 minutes, return #DDC655 */
     /* if diff is greater than 0 minutes, return #087A91 */
-    if (diff > 900000) {
+    if (diff > 450000) {
       return "#D85040";
-    } else if (diff > 600000) {
+    } else if (diff > 350000) {
       return "#EF9D1A";
-    } else if (diff > 300000) {
+    } else if (diff > 250000) {
       return "#DDC655";
     } else {
       return "#087A91";

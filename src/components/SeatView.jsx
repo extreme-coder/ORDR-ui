@@ -206,7 +206,9 @@ export const SeatView = ({ seat, updateView }) => {
                                 color: "white",
                               }}
                             >
-                              {item.attributes.item.data.attributes.name} w/{" "}
+                              {item.attributes.item.data.attributes.name}{" "}
+                              {item.attributes.toppings.data.length > 0 &&
+                                "w/ "}
                               {item.attributes.toppings.data
                                 .map((t) => t.attributes.name)
                                 .splice(0, 3)
@@ -237,7 +239,9 @@ export const SeatView = ({ seat, updateView }) => {
                                 color: "white",
                               }}
                             >
-                              {item.attributes.item.data.attributes.name} w/{" "}
+                              {item.attributes.item.data.attributes.name}{" "}
+                              {item.attributes.toppings.data.length > 0 &&
+                                "w/ "}
                               {item.attributes.toppings.data
                                 .map((t) => t.attributes.name)
                                 .splice(0, 3)
@@ -265,7 +269,9 @@ export const SeatView = ({ seat, updateView }) => {
                                 color: "black",
                               }}
                             >
-                              {item.attributes.item.data.attributes.name} w/{" "}
+                              {item.attributes.item.data.attributes.name}{" "}
+                              {item.attributes.toppings.data.length > 0 &&
+                                " w/ "}
                               {item.attributes.toppings.data
                                 .map((t) => t.attributes.name)
                                 .splice(0, 3)

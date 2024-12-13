@@ -117,7 +117,7 @@ const OrderTicket = ({ order }) => {
                 {item.attributes.item.data.attributes.name}
               </span>{" "}
               <span style={{ color: "#007DC1" }}>
-                w/{" "}
+                {item.attributes.toppings.data && "w/"}
                 {item.attributes.toppings.data
                   .map((t) => t.attributes.name)
                   .join(", ")}

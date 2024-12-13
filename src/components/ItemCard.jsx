@@ -12,7 +12,7 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
 
   const customize = () => {
     if (item.attributes.toppings.data.length === 0) {
-      addItem(item.id, [], item.attributes.name, "item.attributes.type");
+      addItem(item.id, [], item.attributes.name, item.attributes.type);
       return;
     }
     setShow(true);

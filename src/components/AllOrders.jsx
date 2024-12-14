@@ -41,7 +41,11 @@ const AllOrders = ({ type, tableId }) => {
     orders &&
     orders.data &&
     orders.data
-      .filter((o) => o.attributes.status === type)
+      .filter(
+        (o) =>
+          o.attributes.status === type &&
+          o.attributes.teacher.data.attributes.seat.data
+      )
       .filter((o) =>
         tableId && o.attributes.teacher.data.attributes.seat.data
           ? o.attributes.teacher.data.attributes.seat.data.attributes.table.data
@@ -103,10 +107,9 @@ const AllOrders = ({ type, tableId }) => {
               </div>
             )}
             <div className={tableId ? styles.cell : styles.cell2}>
-              {
+              {order.attributes.teacher.data.attributes.seat.data &&
                 order.attributes.teacher.data.attributes.seat.data.attributes
-                  .number
-              }
+                  .number}
             </div>
             <div className={tableId ? styles.cell : styles.cell2}>
               {order.attributes.teacher.data.attributes.name}

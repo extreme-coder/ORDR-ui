@@ -3824,7 +3824,7 @@ textarea.form-control-lg {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 55px;
+  min-height: 55px;
   font-weight: 500;
   background-repeat: no-repeat;
   }

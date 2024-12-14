@@ -178,7 +178,7 @@ function Waiter() {
                 eventKey={table.id}
                 title={
                   tables.data.filter(
-                    (t) => !ids || ids.includes(t.attributes.number)
+                    (t) => ids.length === 0 || ids.includes(t.attributes.number)
                   ).length > 8
                     ? table.attributes.number
                     : `Table ${table.attributes.number}`

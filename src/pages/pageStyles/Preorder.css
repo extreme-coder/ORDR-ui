@@ -24,6 +24,7 @@
 .item-name{
     color:antiquewhite;
 }
+
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color:rgba(169, 158, 144, 0.504);
     opacity: 1; /* Firefox */

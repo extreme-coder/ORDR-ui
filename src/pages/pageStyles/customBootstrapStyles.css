@@ -4411,7 +4411,9 @@ textarea.form-control-lg {
   margin-bottom: 0;
   color: var(--bs-card-subtitle-color);
 }
-
+.card-text{
+  font-size: 0.85rem;
+}
 .card-text:last-child {
   margin-bottom: 0;
 }

@@ -1,8 +1,10 @@
 .preorder{
     margin:0;
-    height: fit-content;
-    padding-bottom: 10vh;
-    background-color: #20242e;
+    min-height: 100vh;
+    background-color: rgb(27, 27, 27);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
 }
 .header{
     display: flex;
@@ -10,51 +12,43 @@
     align-items: center;
     justify-content: center;
     width:100%;
-    background-color:antiquewhite;
     padding:10px;
     padding-top:12px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Oswald", serif;
+    font-weight: 100;
+    color: antiquewhite;
 }
 .form-header{
-    margin-left:2rem;
     margin-top:1rem;
     color:antiquewhite
 }
+
 .form-input{
-    margin-left:2rem;
-    width: 50%;
-    height: 2rem;
+    width: 100%;
+    height: 2.5rem;
     border-radius: 5px;
     border: 1px solid snow;
-    background-color: #20242e;
     color:antiquewhite;
-    padding-left: 5px;
+    padding-left: 1rem;
     font-family: 'Courier New', Courier, monospace;
 }
 .form-input:hover{
-    margin-left:2rem;
-    width: 50%;
-    height: 2rem;
-    border-radius: 5px;
-    border: 1px solid snow;
-    background-color: #14171e;
-    color:antiquewhite;
-    padding-left: 5px;
-    font-family: 'Courier New', Courier, monospace;
+
 }
 .form-input:focus{
-    margin-left:2rem;
-    height: 2rem;
-    border-radius: 5px;
-    border: 1px solid snow;
-    background-color: #20242e;
-    color:antiquewhite;
-    padding-left: 5px;
-    font-family: 'Courier New', Courier, monospace;
+}
+.card-list{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 .h{
     margin-top:2rem;
-    margin-left:2rem;
+
     font-weight: bold;
     color: antiquewhite;
     font-family: 'Courier New', Courier, monospace
@@ -67,7 +61,7 @@
     padding:1rem;
     width: 13rem;
     margin-top:0;
-    margin-left:2rem;
+
     font-weight: bold;
     color: antiquewhite;
     font-family: 'Courier New', Courier, monospace;
@@ -77,9 +71,12 @@
 .cards-container{
     display: flex;
     flex-direction: row;
-    margin-left: 2rem;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
     margin-top:1.3rem;
-    margin-bottom: 1.3rem
+    margin-bottom: 1.3rem;
+    height: fit-content;
 }
 .sv-cards-container{
     display: flex;
@@ -90,12 +87,9 @@
     justify-content: center;
     background-color: rgb(234, 234, 234);
     border-radius: 10px;
-    margin-bottom:1rem;
 }
 
 .submit-btn{
-    margin:10px;
-    margin-left:30px;
     width:10rem;
 }
 

@@ -31,7 +31,7 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
           {item.attributes.name}
         </div>
       ) : (
-        <Card style={small ? smallStyle : { width: "13rem" }}>
+        <Card style={small ? smallStyle : { width: "250px" }}>
           {imageAdress && (
             <Card.Img
               className={styles[`image-sizing`]}
@@ -40,14 +40,15 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
             />
           )}
           <Card.Body className={small ? styles.c : styles.ccc}>
-            <Card.Title>{item.attributes.name}</Card.Title>
-            <Button
+            <Card.Title>{item.attributes.display_name}</Card.Title>
+            <Card.Text>{item.attributes.desc}</Card.Text>
+            <button
               className={styles[`card-button`]}
               variant="info"
               onClick={customize}
             >
               Add Item
-            </Button>
+            </button>
           </Card.Body>
         </Card>
       )}
@@ -60,6 +61,7 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
           <Modal.Title>{item.attributes.name}</Modal.Title>
         </Modal.Header>
         <ItemView
+          style={{ backGroundColor: "white" }}
           item={item}
           addItem={addItem}
           closeSelf={handleClose}

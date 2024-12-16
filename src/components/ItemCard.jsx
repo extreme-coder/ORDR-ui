@@ -31,7 +31,7 @@ const ItemCard = ({ item, imageAdress, addItem, small }) => {
           {item.attributes.name}
         </div>
       ) : (
-        <Card style={small ? smallStyle : { width: "250px" }}>
+        <Card style={small ? smallStyle : { width: "250px", height: "100%" }}>
           {imageAdress && (
             <Card.Img
               className={styles[`image-sizing`]}

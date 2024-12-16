@@ -180,7 +180,7 @@ export const Confirmation = () => (
     <h1 className="oc">Order Confirmed</h1>
     <h4 className="oc-sub">
       Thank you for preordering. The Student Government class can't wait to
-      serve you on Dec. 21st!
+      serve you on Dec. 20th!
     </h4>
     <p className="oc-credit">developed by Aryan Singh and Ali Hosseini</p>
   </div>

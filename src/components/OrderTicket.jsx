@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles/OrderTicket.module.css";
 import { useUpdateEntityMutation } from "../services/lastmeal.js";
 import { refetchTime } from "../constants";
+import Form from "react-bootstrap/Form";
 
 const OrderTicket = ({ order }) => {
   const [orderClone, setOrderClone] = useState(order);
@@ -95,13 +96,12 @@ const OrderTicket = ({ order }) => {
             : " -"}
         </span>
         <span>
-          <span style={{ fontWeight: "700" }}>Teacher:</span>
           {/* display the first five characters of the teacher's name followed by period IF shortened*/}
           {orderClone && orderClone.attributes.teacher.data.attributes.name
             ? orderClone.attributes.teacher.data.attributes.name.length > 5
               ? `${orderClone.attributes.teacher.data.attributes.name.slice(
                   0,
-                  5
+                  10
                 )}.`
               : orderClone.attributes.teacher.data.attributes.name
             : "N/A"}
@@ -113,15 +113,24 @@ const OrderTicket = ({ order }) => {
         <div className={styles.body} id="body">
           {orderClone.attributes.items.data.map((item) => (
             <div className={styles.item} id="item">
-              <span style={{ fontWeight: "700" }}>
-                {item.attributes.item.data.attributes.name}
-              </span>{" "}
-              <span style={{ color: "#007DC1" }}>
-                {item.attributes.toppings.data.length > 0 && "w/ "}
-                {item.attributes.toppings.data
-                  .map((t) => t.attributes.name)
-                  .join(", ")}
+              <span id="item-name-toppings">
+                <span style={{ fontWeight: "700" }} id="item-name">
+                  {item.attributes.item.data.attributes.name}
+                </span>{" "}
+                <span style={{ color: "#007DC1" }} id="item-toppings">
+                  {item.attributes.toppings.data.length > 0 && "w/ "}
+                  {item.attributes.toppings.data
+                    .map((t) => t.attributes.name)
+                    .join(", ")}
+                </span>
               </span>
+              <div key={`default-checkbox`} className="mb-3">
+                <Form.Check // prettier-ignore
+                  type={"checkbox"}
+                  id="PREPARED"
+                  value={true}
+                />
+              </div>
             </div>
           ))}
         </div>

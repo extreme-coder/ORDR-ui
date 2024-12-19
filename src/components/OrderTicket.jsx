@@ -20,6 +20,27 @@ const OrderTicket = ({ order }) => {
     }));
   };
 
+  const checksFromLocalStorage = JSON.parse(localStorage.getItem(orderClone.id));
+  console.log(checksFromLocalStorage);
+  let checks = orderClone.attributes.items.data.map((item) => {
+    return { id: item.id, checked: false };
+  })
+  //merge checks
+  if (checksFromLocalStorage) {
+    checks = checks.map((check) => {
+      const checkFromLocalStorage = checksFromLocalStorage.find(
+        (c) => c.id === check.id
+      );
+      if (checkFromLocalStorage) {
+        return checkFromLocalStorage;
+      }
+      return check;
+    });
+  }
+  //save to local storage under order id
+  localStorage.setItem(orderClone.id, JSON.stringify(checks));
+  console.log(checks);
+
   useEffect(() => {
     setOrderClone(order);
   }, [order]);
@@ -125,10 +146,20 @@ const OrderTicket = ({ order }) => {
                 </span>
               </span>
               <div key={`default-checkbox`} className="mb-3">
+                {console.log(checks.find(c => c.id === item.id))}
                 <Form.Check // prettier-ignore
                   type={"checkbox"}
                   id="PREPARED"
-                  value={true}
+                  checked={checks.find(c => c.id === item.id) ? checks.find(c => c.id === item.id).checked : false}
+                  onChange={() => {
+                    const newChecks = checks.map((check) => {
+                      if (check.id === item.id) {
+                        return { ...check, checked: !check.checked };
+                      }
+                      return check;
+                    });
+                    localStorage.setItem(orderClone.id, JSON.stringify(newChecks));
+                  }}
                 />
               </div>
             </div>
